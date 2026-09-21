@@ -1,0 +1,29 @@
+{
+  "system": "BeH2",
+  "coordinate": {
+    "unit": "Bohr",
+    "Be": [0.0, 0.0, 0.0],
+    "H1": ["lambda", "+(2.540-0.46*lambda)", 0.0],
+    "H2": ["lambda", "-(2.540-0.46*lambda)", 0.0]
+  },
+  "point_group": "C2v",
+  "symmetry_block": "A1",
+  "basis": "cc-pVTZ",
+  "active_space": {
+    "electrons": 6,
+    "orbitals": 6
+  },
+  "frozen_core": "Be 1s",
+  "freeze_core": true,
+  "protocols": {
+    "SA3": [0.3333333333333333, 0.3333333333333333, 0.3333333333333333],
+    "SA4": [0.25, 0.25, 0.25, 0.25]
+  },
+  "retained_manifold_dimension": 3,
+  "final_grid": {
+    "lambda_min_bohr": 2.5212,
+    "lambda_max_bohr": 2.5222,
+    "step_bohr": 0.00005,
+    "plaquette_strides": [1, 2, 4, 8]
+  }
+}

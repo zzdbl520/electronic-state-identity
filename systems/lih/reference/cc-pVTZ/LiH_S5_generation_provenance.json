@@ -1,0 +1,24 @@
+{
+  "source": "${LIH_ARCHIVE_ROOT}/LiH_S3_fixed_window_basis_robustness.py",
+  "source_sha256": "be0fd18bd69006074fe9a1a7a5ec0401acff53c1efd54ce6f655d105b85c09a8",
+  "generated_driver": "${LIH_ARCHIVE_ROOT}/LiH_S5_fixed_window_ccpvtz_work/LiH_S5_fixed_window_ccpvtz_generated.py",
+  "generated_sha256": "cd6a0c214bb03d8e8a528d75c9f7c44f18dcc10fcb52935a007dd8e0599c90ff",
+  "substitutions": {
+    "aug-cc-pVTZ -> cc-pVTZ": 8,
+    "aug-cc-pvtz -> cc-pvtz": 2,
+    "augccpvtz -> ccpvtz": 4,
+    "aug_cc_pvtz -> cc_pvtz": 2,
+    "basis enlargement from aug-cc-pVDZ to cc-pVTZ -> independent basis change from aug-cc-pVDZ to cc-pVTZ": 1,
+    "Basis ratios pVTZ/pVDZ -> Basis ratios cc-pVTZ/aug-cc-pVDZ": 1,
+    "C_qp_ratio_pvtz_over_pvdz -> C_qp_ratio_ccpvtz_over_augccpvdz": 1,
+    "dipole_ratio_pvtz_over_pvdz -> dipole_ratio_ccpvtz_over_augccpvdz": 1,
+    "\"pvtz_route_permutations\" -> \"ccpvtz_route_permutations\"": 1,
+    "pVTZ history independence \\(not tested in S3\\) -> cc-pVTZ history independence unless the appended opposed-history gate passes": 1,
+    "cross-basis permutation equality: gating -> diagnostic": 1
+  },
+  "created_utc": "2026-09-16T11:49:25.673509+00:00",
+  "wrapper_version": "LiH-cc-pVTZ-one-shot-v2.0",
+  "reference_root": "${LIH_ARCHIVE_ROOT}/LiH_S1_field_locator_work",
+  "work_root": "${LIH_ARCHIVE_ROOT}/LiH_S5_fixed_window_ccpvtz_work",
+  "threads": 46
+}

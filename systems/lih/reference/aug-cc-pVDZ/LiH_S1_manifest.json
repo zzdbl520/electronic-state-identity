@@ -1,0 +1,71 @@
+{
+  "script_version": "LiH-S1-physical-field-locator-v1.7",
+  "gate": "LiH S1 physical-field locator",
+  "scientific_semantics": "Locate a strict direct-edge R x Fz window in the S0-qualified LiH four-state manifold; field is a physical Hamiltonian perturbation, not a protocol weight.",
+  "protocol": {
+    "basis": "aug-cc-pvdz",
+    "r_grid_angstrom": [
+      5.8,
+      5.85,
+      5.9,
+      5.95,
+      6.0
+    ],
+    "field_grid_au": [
+      0.0105,
+      0.01075,
+      0.011,
+      0.01125,
+      0.0115
+    ]
+  },
+  "thresholds": {
+    "eta_edge_minimum": 0.98,
+    "maximum_edge_leakage": 0.01,
+    "minimum_normalized_assignment_margin": 0.1,
+    "active_orbital_subspace_sigma_minimum": 0.9,
+    "active_orbital_subspace_leakage_maximum": 0.1,
+    "maximum_final_orbital_gradient": 0.0001,
+    "maximum_spin_square": 1e-07,
+    "maximum_mo_orthonormality_error": 1e-09,
+    "excluded_root_minimum_gap_Eh": 0.01,
+    "probe_retained_energy_maximum_error_Eh": 1e-08,
+    "target_pair_maximum_gap_Eh": 0.01,
+    "minimum_C_qp": 0.0001,
+    "minimum_normalized_dipole_path_difference": 1e-05,
+    "maximum_numerical_check_error": 1e-09
+  },
+  "model_guards": {
+    "molecule": "LiH",
+    "point_group": "C2v",
+    "basis": "aug-cc-pvdz",
+    "state_symmetry": "A1",
+    "active_space": [
+      2,
+      5
+    ],
+    "active_irrep_counts": {
+      "A1": 3,
+      "B1": 1,
+      "B2": 1
+    },
+    "optimized_and_retained_roots": 4,
+    "target_pair": [
+      2,
+      3
+    ],
+    "state_average_weights": [
+      0.25,
+      0.25,
+      0.25,
+      0.25
+    ],
+    "probe_roots": 5,
+    "ncore": 1,
+    "frozen_orbitals": 0,
+    "edge_metric": "exact active-only CAS-wavefunction overlap",
+    "field_hamiltonian": "H(Fz)=H(0)-mu_z*Fz including electronic and nuclear terms",
+    "vertex_initialization": "independent field-specific RHF starts",
+    "adaptive_window_selection": false
+  }
+}

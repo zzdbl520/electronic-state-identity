@@ -1,0 +1,2372 @@
+{
+  "history_controls": [
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.8,
+      "field_z_au": 0.0105,
+      "average_energy_difference_Eh": 8.881784197001252e-16,
+      "state_subspace": {
+        "singular_values": [
+          0.999999999999997,
+          0.9999999999999962,
+          0.9999999999999943,
+          0.9999999999999925
+        ],
+        "sigma_min": 0.9999999999999925,
+        "leakage": 9.992007221626409e-15,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999999796,
+        "runner_up_score": 2.0000000000000333,
+        "margin": 1.9999999999999463,
+        "normalized_margin": 0.49999999999998657
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999988,
+          0.9999999999999987,
+          0.9999999999999983,
+          0.9999999999999977,
+          0.9999999999999966
+        ],
+        "sigma_min": 0.9999999999999966,
+        "leakage": 4.107825191113079e-15
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.8,
+      "field_z_au": 0.01075,
+      "average_energy_difference_Eh": 1.092459456231154e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999999278,
+          0.9999999999995356,
+          0.9999999999993112,
+          0.999999999999246
+        ],
+        "sigma_min": 0.999999999999246,
+        "leakage": 9.896528041508645e-13,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999997981,
+        "runner_up_score": 2.000000360088374,
+        "margin": 1.9999996399096074,
+        "normalized_margin": 0.49999990997740185
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999967,
+          0.9999999999999496,
+          0.9999999999994837,
+          0.9999999999828558,
+          0.9999999999828556
+        ],
+        "sigma_min": 0.9999999999828556,
+        "leakage": 1.3943513010872266e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.8,
+      "field_z_au": 0.011,
+      "average_energy_difference_Eh": 3.375077994860476e-14,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999998941,
+          0.9999999999997081,
+          0.9999999999991208,
+          0.9999999999980583
+        ],
+        "sigma_min": 0.9999999999980583,
+        "leakage": 1.609379296496627e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999967097,
+        "runner_up_score": 2.0000003123048913,
+        "margin": 1.9999996876918185,
+        "normalized_margin": 0.4999999219229546
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999846,
+          0.9999999999998932,
+          0.9999999999991754,
+          0.9999999999931195,
+          0.999999999993118
+        ],
+        "sigma_min": 0.999999999993118,
+        "leakage": 5.883626919001017e-12
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.8,
+      "field_z_au": 0.01125,
+      "average_energy_difference_Eh": 8.08242361927114e-14,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999999071,
+          0.9999999999996605,
+          0.999999999999374,
+          0.9999999999980351
+        ],
+        "sigma_min": 0.9999999999980351,
+        "leakage": 1.5116796703296131e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999969305,
+        "runner_up_score": 2.0000003459980555,
+        "margin": 1.999999653998875,
+        "normalized_margin": 0.49999991349971873
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999972,
+          0.9999999999999415,
+          0.99999999999955,
+          0.9999999999869605,
+          0.9999999999869602
+        ],
+        "sigma_min": 0.9999999999869602,
+        "leakage": 1.0636158620513925e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.8,
+      "field_z_au": 0.0115,
+      "average_energy_difference_Eh": 9.14823772291129e-14,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999997969,
+          0.9999999999995199,
+          0.9999999999981353,
+          0.9999999999973957
+        ],
+        "sigma_min": 0.9999999999973957,
+        "leakage": 2.5759394617352882e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999946003,
+        "runner_up_score": 2.000000671510103,
+        "margin": 1.9999993284844972,
+        "normalized_margin": 0.4999998321211243
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999813,
+          0.9999999999998161,
+          0.9999999999981662,
+          0.9999999999869531,
+          0.9999999999869527
+        ],
+        "sigma_min": 0.9999999999869527,
+        "leakage": 1.1252110354575962e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.85,
+      "field_z_au": 0.0105,
+      "average_energy_difference_Eh": 1.8673063095775433e-11,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999981586,
+          0.9999999999896035,
+          0.9999999999885527,
+          0.9999999999498876
+        ],
+        "sigma_min": 0.9999999999498876,
+        "leakage": 3.689870631262693e-11,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999248366,
+        "runner_up_score": 2.0000014862307904,
+        "margin": 1.9999985136940461,
+        "normalized_margin": 0.49999962842351153
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999998238,
+          0.9999999999984248,
+          0.9999999999892837,
+          0.9999999984827271,
+          0.9999999984827252
+        ],
+        "sigma_min": 0.9999999984827252,
+        "leakage": 1.2188061671025707e-09
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.85,
+      "field_z_au": 0.01075,
+      "average_energy_difference_Eh": 4.476419235288631e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999998848,
+          0.9999999999991538,
+          0.9999999999989954,
+          0.999999999998563
+        ],
+        "sigma_min": 0.999999999998563,
+        "leakage": 1.701527807540515e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999996496,
+        "runner_up_score": 2.0000005445748594,
+        "margin": 1.9999994554216367,
+        "normalized_margin": 0.4999998638554092
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999829,
+          0.9999999999999203,
+          0.9999999999992869,
+          0.9999999999574102,
+          0.9999999999574102
+        ],
+        "sigma_min": 0.9999999999574102,
+        "leakage": 3.439593054821444e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.85,
+      "field_z_au": 0.011,
+      "average_energy_difference_Eh": 1.9888091173925204e-11,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999997389,
+          0.9999999999992767,
+          0.9999999999991719,
+          0.9999999999504382
+        ],
+        "sigma_min": 0.9999999999504382,
+        "leakage": 2.5687230120752247e-11,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999485967,
+        "runner_up_score": 2.0000002572013287,
+        "margin": 1.999999742747268,
+        "normalized_margin": 0.499999935686817
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999539,
+          0.999999999999864,
+          0.9999999999993735,
+          0.9999999984801519,
+          0.9999999984801498
+        ],
+        "sigma_min": 0.9999999984801498,
+        "leakage": 1.2162029161544297e-09
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.85,
+      "field_z_au": 0.01125,
+      "average_energy_difference_Eh": 8.72191208145523e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.999999999999661,
+          0.9999999999987329,
+          0.9999999999965635,
+          0.9999999999963112
+        ],
+        "sigma_min": 0.9999999999963112,
+        "leakage": 4.365729999733503e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999911537,
+        "runner_up_score": 2.0000006598593507,
+        "margin": 1.999999340131803,
+        "normalized_margin": 0.49999983503295076
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999998795,
+          0.9999999999997805,
+          0.9999999999989498,
+          0.9999999998996063,
+          0.999999999899601
+        ],
+        "sigma_min": 0.999999999899601,
+        "leakage": 8.08730860057949e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.85,
+      "field_z_au": 0.0115,
+      "average_energy_difference_Eh": 2.611244553918368e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999998512,
+          0.9999999999996178,
+          0.9999999999991463,
+          0.9999999999990593
+        ],
+        "sigma_min": 0.9999999999990593,
+        "leakage": 1.162625551387464e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999989241712,
+        "runner_up_score": 2.0000655278098054,
+        "margin": 1.9999344711143658,
+        "normalized_margin": 0.49998361777859146
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.999999999999993,
+          0.999999999999874,
+          0.9999999999995995,
+          0.9999999999736213,
+          0.9999999999735847
+        ],
+        "sigma_min": 0.9999999999735847,
+        "leakage": 2.1330825994425595e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.9,
+      "field_z_au": 0.0105,
+      "average_energy_difference_Eh": 2.877698079828406e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999993839,
+          0.999999999998659,
+          0.999999999992113,
+          0.9999999999899174
+        ],
+        "sigma_min": 0.9999999999899174,
+        "leakage": 9.96336346759108e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999789795,
+        "runner_up_score": 2.000001486160557,
+        "margin": 1.9999985138184226,
+        "normalized_margin": 0.49999962845460566
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999598,
+          0.9999999999988786,
+          0.9999999999920808,
+          0.9999999999810392,
+          0.9999999999810388
+        ],
+        "sigma_min": 0.9999999999810388,
+        "leakage": 1.8801182832817176e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.9,
+      "field_z_au": 0.01075,
+      "average_energy_difference_Eh": 2.6911806116913795e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999994575,
+          0.9999999999983206,
+          0.9999999999961247,
+          0.999999999992443
+        ],
+        "sigma_min": 0.999999999992443,
+        "leakage": 6.827205467629938e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999985948,
+        "runner_up_score": 2.0000008009014465,
+        "margin": 1.9999991990845016,
+        "normalized_margin": 0.4999997997711254
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999796,
+          0.9999999999985343,
+          0.9999999999963822,
+          0.9999999999822755,
+          0.9999999999822752
+        ],
+        "sigma_min": 0.9999999999822752,
+        "leakage": 1.62213575904957e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.9,
+      "field_z_au": 0.011,
+      "average_energy_difference_Eh": 2.1316282072803006e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999994211,
+          0.99999999999815,
+          0.9999999999954352,
+          0.9999999999950917
+        ],
+        "sigma_min": 0.9999999999950917,
+        "leakage": 5.9509064342933016e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999875424,
+        "runner_up_score": 2.0000010300756683,
+        "margin": 1.999998969911874,
+        "normalized_margin": 0.4999997424779685
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.999999999999977,
+          0.999999999999432,
+          0.9999999999957143,
+          0.9999999999464055,
+          0.9999999999464041
+        ],
+        "sigma_min": 0.9999999999464041,
+        "leakage": 4.482669790917271e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.9,
+      "field_z_au": 0.01125,
+      "average_energy_difference_Eh": 1.9184653865522705e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999999288,
+          0.999999999999533,
+          0.9999999999992811,
+          0.9999999999978608
+        ],
+        "sigma_min": 0.9999999999978608,
+        "leakage": 1.698086116164177e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999996535,
+        "runner_up_score": 2.0000004190686695,
+        "margin": 1.9999995809278657,
+        "normalized_margin": 0.4999998952319664
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999905,
+          0.9999999999999357,
+          0.9999999999996144,
+          0.9999999999790411,
+          0.9999999999790364
+        ],
+        "sigma_min": 0.9999999999790364,
+        "leakage": 1.6952883541421215e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.9,
+      "field_z_au": 0.0115,
+      "average_energy_difference_Eh": 1.8207657603852567e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999994279,
+          0.999999999998211,
+          0.9999999999978487,
+          0.9999999999967047
+        ],
+        "sigma_min": 0.9999999999967047,
+        "leakage": 3.9037661991869754e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999918137,
+        "runner_up_score": 2.0000007592601325,
+        "margin": 1.9999992407316811,
+        "normalized_margin": 0.4999998101829203
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999865,
+          0.9999999999993143,
+          0.9999999999979862,
+          0.9999999999509164,
+          0.9999999999506309
+        ],
+        "sigma_min": 0.9999999999506309,
+        "leakage": 4.0466296979957406e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.95,
+      "field_z_au": 0.0105,
+      "average_energy_difference_Eh": 1.8474111129762605e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999993192,
+          0.9999999999987893,
+          0.9999999999926357,
+          0.9999999999911419
+        ],
+        "sigma_min": 0.9999999999911419,
+        "leakage": 9.056977390287102e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999810214,
+        "runner_up_score": 2.0000013577206657,
+        "margin": 1.9999986422603557,
+        "normalized_margin": 0.49999966056508893
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999803,
+          0.9999999999990765,
+          0.9999999999927659,
+          0.9999999999741627,
+          0.9999999999741603
+        ],
+        "sigma_min": 0.9999999999741603,
+        "leakage": 2.3941737481436576e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.95,
+      "field_z_au": 0.01075,
+      "average_energy_difference_Eh": 1.1191048088221578e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999998855,
+          0.9999999999995599,
+          0.999999999999233,
+          0.9999999999989306
+        ],
+        "sigma_min": 0.9999999999989306,
+        "leakage": 1.1954881529163686e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999997517,
+        "runner_up_score": 2.0000003853208987,
+        "margin": 1.9999996146766184,
+        "normalized_margin": 0.4999999036691546
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.999999999999991,
+          0.9999999999998712,
+          0.9999999999993245,
+          0.9999999999890017,
+          0.9999999999890015
+        ],
+        "sigma_min": 0.9999999999890015,
+        "leakage": 9.124034860974461e-12
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.95,
+      "field_z_au": 0.011,
+      "average_energy_difference_Eh": 5.861977570020827e-14,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999996556,
+          0.9999999999992135,
+          0.999999999997114,
+          0.9999999999969358
+        ],
+        "sigma_min": 0.9999999999969358,
+        "leakage": 3.5405012255296242e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999926077,
+        "runner_up_score": 2.0000007480398474,
+        "margin": 1.9999992519527603,
+        "normalized_margin": 0.4999998129881901
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999872,
+          0.9999999999996407,
+          0.9999999999972264,
+          0.9999999999793686,
+          0.9999999999793664
+        ],
+        "sigma_min": 0.9999999999793664,
+        "leakage": 1.776423452781728e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.95,
+      "field_z_au": 0.01125,
+      "average_energy_difference_Eh": 2.362554596402333e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999999171,
+          0.9999999999994775,
+          0.9999999999991422,
+          0.9999999999986212
+        ],
+        "sigma_min": 0.9999999999986212,
+        "leakage": 1.4210854715202004e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999970623,
+        "runner_up_score": 2.0000004158641054,
+        "margin": 1.999999584132957,
+        "normalized_margin": 0.49999989603323924
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999895,
+          0.9999999999999513,
+          0.9999999999995266,
+          0.9999999999759682,
+          0.9999999999759678
+        ],
+        "sigma_min": 0.9999999999759678,
+        "leakage": 1.943867289355694e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 5.95,
+      "field_z_au": 0.0115,
+      "average_energy_difference_Eh": 4.600764214046649e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999996954,
+          0.9999999999984367,
+          0.9999999999981097,
+          0.9999999999972258
+        ],
+        "sigma_min": 0.9999999999972258,
+        "leakage": 3.2662761384472105e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999993159,
+        "runner_up_score": 2.000000689488517,
+        "margin": 1.9999993105046419,
+        "normalized_margin": 0.49999982762616046
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999826,
+          0.9999999999997888,
+          0.9999999999978426,
+          0.9999999999420737,
+          0.9999999999420326
+        ],
+        "sigma_min": 0.9999999999420326,
+        "leakage": 4.731182112749366e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 6.0,
+      "field_z_au": 0.0105,
+      "average_energy_difference_Eh": 1.758593271006248e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999991678,
+          0.9999999999979013,
+          0.9999999999928855,
+          0.9999999999920035
+        ],
+        "sigma_min": 0.9999999999920035,
+        "leakage": 9.020895141986784e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999810747,
+        "runner_up_score": 2.000001339562737,
+        "margin": 1.9999986604183375,
+        "normalized_margin": 0.4999996651045844
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.999999999999964,
+          0.9999999999990301,
+          0.9999999999931615,
+          0.9999999999471285,
+          0.9999999999471284
+        ],
+        "sigma_min": 0.9999999999471284,
+        "leakage": 4.543498910436483e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 6.0,
+      "field_z_au": 0.01075,
+      "average_energy_difference_Eh": 3.1086244689504383e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999998481,
+          0.9999999999992161,
+          0.9999999999989865,
+          0.9999999999984732
+        ],
+        "sigma_min": 0.9999999999984732,
+        "leakage": 1.7380541450506826e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999964704,
+        "runner_up_score": 2.000000312795647,
+        "margin": 1.9999996872008232,
+        "normalized_margin": 0.4999999218002058
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999862,
+          0.9999999999998673,
+          0.9999999999992978,
+          0.9999999999683432,
+          0.9999999999683427
+        ],
+        "sigma_min": 0.9999999999683427,
+        "leakage": 2.5665136682562206e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 6.0,
+      "field_z_au": 0.011,
+      "average_energy_difference_Eh": 2.042810365310288e-14,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999995345,
+          0.9999999999992208,
+          0.9999999999961624,
+          0.9999999999958941
+        ],
+        "sigma_min": 0.9999999999958941,
+        "leakage": 4.594102875898898e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999990389,
+        "runner_up_score": 2.000000880575411,
+        "margin": 1.9999991194149782,
+        "normalized_margin": 0.49999977985374455
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999779,
+          0.9999999999995178,
+          0.9999999999963569,
+          0.9999999999805501,
+          0.9999999999805496
+        ],
+        "sigma_min": 0.9999999999805496,
+        "leakage": 1.7218892978121403e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 6.0,
+      "field_z_au": 0.01125,
+      "average_energy_difference_Eh": 2.824407374646398e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.999999999999769,
+          0.999999999999021,
+          0.9999999999985361,
+          0.9999999999979391
+        ],
+        "sigma_min": 0.9999999999979391,
+        "leakage": 2.367439577710684e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999940883,
+        "runner_up_score": 2.0000021103014145,
+        "margin": 1.9999978896926738,
+        "normalized_margin": 0.49999947242316845
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999687,
+          0.9999999999997933,
+          0.9999999999985985,
+          0.9999999999730016,
+          0.9999999999727724
+        ],
+        "sigma_min": 0.9999999999727724,
+        "leakage": 2.2346235972747763e-11
+      }
+    },
+    {
+      "history": "forward_snake",
+      "R_angstrom": 6.0,
+      "field_z_au": 0.0115,
+      "average_energy_difference_Eh": 2.398081733190338e-14,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999997056,
+          0.9999999999993335,
+          0.999999999997299,
+          0.9999999999966792
+        ],
+        "sigma_min": 0.9999999999966792,
+        "leakage": 3.4914293678411923e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999992699,
+        "runner_up_score": 2.000000762335705,
+        "margin": 1.9999992376569944,
+        "normalized_margin": 0.4999998094142486
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.999999999999987,
+          0.9999999999997091,
+          0.999999999997527,
+          0.9999999999827164,
+          0.9999999999827144
+        ],
+        "sigma_min": 0.9999999999827144,
+        "leakage": 1.493849488554133e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.8,
+      "field_z_au": 0.0105,
+      "average_energy_difference_Eh": 4.085620730620576e-14,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999997587,
+          0.9999999999997198,
+          0.9999999999971421,
+          0.9999999999964497
+        ],
+        "sigma_min": 0.9999999999964497,
+        "leakage": 3.464895037552651e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999992769,
+        "runner_up_score": 2.0000009574400393,
+        "margin": 1.9999990425527296,
+        "normalized_margin": 0.4999997606381824
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999889,
+          0.9999999999998606,
+          0.9999999999968076,
+          0.9999999999915834,
+          0.9999999999915818
+        ],
+        "sigma_min": 0.9999999999915818,
+        "leakage": 8.071099344419963e-12
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.8,
+      "field_z_au": 0.01075,
+      "average_energy_difference_Eh": 7.993605777301127e-14,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999999497,
+          0.9999999999996877,
+          0.9999999999995637,
+          0.9999999999986954
+        ],
+        "sigma_min": 0.9999999999986954,
+        "leakage": 1.0518252935298733e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999978537,
+        "runner_up_score": 2.000000315829628,
+        "margin": 1.999999684168226,
+        "normalized_margin": 0.4999999210420565
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999886,
+          0.9999999999999669,
+          0.9999999999997357,
+          0.9999999999881696,
+          0.9999999999881696
+        ],
+        "sigma_min": 0.9999999999881696,
+        "leakage": 9.587886040662852e-12
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.8,
+      "field_z_au": 0.011,
+      "average_energy_difference_Eh": 7.904787935331115e-14,
+      "state_subspace": {
+        "singular_values": [
+          0.999999999999661,
+          0.9999999999993542,
+          0.9999999999964904,
+          0.999999999994172
+        ],
+        "sigma_min": 0.999999999994172,
+        "leakage": 5.161204796877428e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999887885,
+        "runner_up_score": 2.0000012475426177,
+        "margin": 1.9999987524461709,
+        "normalized_margin": 0.4999996881115427
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999726,
+          0.999999999999686,
+          0.999999999994478,
+          0.9999999999873778,
+          0.9999999999873775
+        ],
+        "sigma_min": 0.9999999999873775,
+        "leakage": 1.244315761539383e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.8,
+      "field_z_au": 0.01125,
+      "average_energy_difference_Eh": 6.128431095930864e-14,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999998633,
+          0.9999999999997452,
+          0.9999999999982729,
+          0.999999999998001
+        ],
+        "sigma_min": 0.999999999998001,
+        "leakage": 2.0587975768648903e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999957083,
+        "runner_up_score": 2.0000006406942843,
+        "margin": 1.999999359301424,
+        "normalized_margin": 0.499999839825356
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.999999999999986,
+          0.999999999999892,
+          0.9999999999980859,
+          0.9999999999933874,
+          0.9999999999933864
+        ],
+        "sigma_min": 0.9999999999933864,
+        "leakage": 6.105005390111273e-12
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.8,
+      "field_z_au": 0.0115,
+      "average_energy_difference_Eh": 1.6076029396572267e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999999133,
+          0.9999999999994946,
+          0.9999999999992482,
+          0.9999999999985913
+        ],
+        "sigma_min": 0.9999999999985913,
+        "leakage": 1.376232461325344e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999970743,
+        "runner_up_score": 2.0000005113171575,
+        "margin": 1.9999994886799168,
+        "normalized_margin": 0.4999998721699792
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999893,
+          0.9999999999999643,
+          0.9999999999994579,
+          0.9999999999847604,
+          0.9999999999847599
+        ],
+        "sigma_min": 0.9999999999847599,
+        "leakage": 1.2427170403839227e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.85,
+      "field_z_au": 0.0105,
+      "average_energy_difference_Eh": 1.8697932091527036e-11,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999983529,
+          0.9999999999905658,
+          0.9999999999883766,
+          0.9999999999507356
+        ],
+        "sigma_min": 0.9999999999507356,
+        "leakage": 3.5984548674150574e-11,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999264677,
+        "runner_up_score": 2.0000016157806995,
+        "margin": 1.9999983841457682,
+        "normalized_margin": 0.49999959603644206
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999997894,
+          0.999999999998769,
+          0.9999999999890088,
+          0.9999999985114162,
+          0.9999999985113867
+        ],
+        "sigma_min": 0.9999999985113867,
+        "leakage": 1.1958519730015382e-09
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.85,
+      "field_z_au": 0.01075,
+      "average_energy_difference_Eh": 1.2168044349891716e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999991571,
+          0.9999999999982193,
+          0.999999999992315,
+          0.999999999992246
+        ],
+        "sigma_min": 0.999999999992246,
+        "leakage": 9.031331238418261e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999809424,
+        "runner_up_score": 2.0000014124180465,
+        "margin": 1.9999985875628958,
+        "normalized_margin": 0.49999964689072396
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999708,
+          0.9999999999991783,
+          0.9999999999926042,
+          0.9999999999501374,
+          0.9999999999501367
+        ],
+        "sigma_min": 0.9999999999501367,
+        "leakage": 4.31891189478506e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.85,
+      "field_z_au": 0.011,
+      "average_energy_difference_Eh": 1.9697132813689677e-11,
+      "state_subspace": {
+        "singular_values": [
+          0.999999999998945,
+          0.9999999999981657,
+          0.9999999999968019,
+          0.999999999948861
+        ],
+        "sigma_min": 0.999999999948861,
+        "leakage": 2.861333392445431e-11,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999942385,
+        "runner_up_score": 2.0000007319928033,
+        "margin": 1.999999267949582,
+        "normalized_margin": 0.4999998169873955
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999304,
+          0.9999999999993712,
+          0.9999999999975459,
+          0.9999999984536654,
+          0.9999999984536645
+        ],
+        "sigma_min": 0.9999999984536645,
+        "leakage": 1.2383291059236967e-09
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.85,
+      "field_z_au": 0.01125,
+      "average_energy_difference_Eh": 8.535394613318203e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999993544,
+          0.9999999999970477,
+          0.9999999999953975,
+          0.9999999999947091
+        ],
+        "sigma_min": 0.9999999999947091,
+        "leakage": 6.745715097622451e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999985865,
+        "runner_up_score": 2.000001046375941,
+        "margin": 1.999998953609924,
+        "normalized_margin": 0.499999738402481
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999519,
+          0.9999999999994065,
+          0.9999999999958401,
+          0.9999999999106233,
+          0.9999999999106115
+        ],
+        "sigma_min": 0.9999999999106115,
+        "leakage": 7.342682017963398e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.85,
+      "field_z_au": 0.0115,
+      "average_energy_difference_Eh": 1.7053025658242404e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999996718,
+          0.9999999999989269,
+          0.9999999999975321,
+          0.9999999999964647
+        ],
+        "sigma_min": 0.9999999999964647,
+        "leakage": 3.702371742519972e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999997107148,
+        "runner_up_score": 2.000107424119601,
+        "margin": 1.9998925729875467,
+        "normalized_margin": 0.4999731432468867
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.999999999999985,
+          0.9999999999997607,
+          0.999999999996829,
+          0.9999999999657267,
+          0.9999999999656832
+        ],
+        "sigma_min": 0.9999999999656832,
+        "leakage": 2.8806068641529237e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.9,
+      "field_z_au": 0.0105,
+      "average_energy_difference_Eh": 2.7000623958883807e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999994489,
+          0.9999999999989617,
+          0.9999999999917809,
+          0.9999999999903093
+        ],
+        "sigma_min": 0.9999999999903093,
+        "leakage": 9.749645535350737e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999792424,
+        "runner_up_score": 2.000001607227796,
+        "margin": 1.9999983927514462,
+        "normalized_margin": 0.49999959818786155
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999695,
+          0.9999999999990931,
+          0.9999999999916143,
+          0.9999999999838056,
+          0.9999999999838055
+        ],
+        "sigma_min": 0.9999999999838055,
+        "leakage": 1.668476468097424e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.9,
+      "field_z_au": 0.01075,
+      "average_energy_difference_Eh": 1.8207657603852567e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999994355,
+          0.9999999999991348,
+          0.9999999999950255,
+          0.9999999999941787
+        ],
+        "sigma_min": 0.9999999999941787,
+        "leakage": 6.112776951283649e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999872453,
+        "runner_up_score": 2.0000010789191087,
+        "margin": 1.9999989210681366,
+        "normalized_margin": 0.49999973026703415
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999761,
+          0.9999999999992614,
+          0.9999999999951249,
+          0.9999999999824027,
+          0.9999999999824026
+        ],
+        "sigma_min": 0.9999999999824026,
+        "leakage": 1.6332935004470528e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.9,
+      "field_z_au": 0.011,
+      "average_energy_difference_Eh": 2.815525590449397e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999995223,
+          0.9999999999983579,
+          0.9999999999959029,
+          0.9999999999958751
+        ],
+        "sigma_min": 0.9999999999958751,
+        "leakage": 5.1708637371916666e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.99999999998911,
+        "runner_up_score": 2.0000010048171717,
+        "margin": 1.9999989951719384,
+        "normalized_margin": 0.4999997487929846
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999791,
+          0.9999999999995416,
+          0.9999999999961843,
+          0.9999999999527562,
+          0.9999999999527547
+        ],
+        "sigma_min": 0.9999999999527547,
+        "leakage": 3.951361460252656e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.9,
+      "field_z_au": 0.01125,
+      "average_energy_difference_Eh": 1.9539925233402755e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999999081,
+          0.9999999999994761,
+          0.9999999999991812,
+          0.9999999999982033
+        ],
+        "sigma_min": 0.9999999999982033,
+        "leakage": 1.6155965454345278e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.99999999999667,
+        "runner_up_score": 2.0000004233689626,
+        "margin": 1.9999995766277077,
+        "normalized_margin": 0.4999998941569269
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999892,
+          0.9999999999999473,
+          0.9999999999995698,
+          0.9999999999796765,
+          0.9999999999796758
+        ],
+        "sigma_min": 0.9999999999796758,
+        "leakage": 1.6456502827111308e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.9,
+      "field_z_au": 0.0115,
+      "average_energy_difference_Eh": 2.851052727237402e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999997208,
+          0.9999999999986822,
+          0.999999999998344,
+          0.9999999999976353
+        ],
+        "sigma_min": 0.9999999999976353,
+        "leakage": 2.808864252301646e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999937836,
+        "runner_up_score": 2.0000011471759316,
+        "margin": 1.999998852817852,
+        "normalized_margin": 0.499999713204463
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.999999999999991,
+          0.9999999999997828,
+          0.9999999999981243,
+          0.9999999999536752,
+          0.9999999999533988
+        ],
+        "sigma_min": 0.9999999999533988,
+        "leakage": 3.8011149783301335e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.95,
+      "field_z_au": 0.0105,
+      "average_energy_difference_Eh": 8.526512829121202e-14,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999993436,
+          0.9999999999990584,
+          0.999999999993244,
+          0.9999999999925363
+        ],
+        "sigma_min": 0.9999999999925363,
+        "leakage": 7.908784738219765e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999983388,
+        "runner_up_score": 2.0000013053204366,
+        "margin": 1.9999986946629513,
+        "normalized_margin": 0.49999967366573783
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999861,
+          0.9999999999992991,
+          0.999999999993387,
+          0.9999999999755347,
+          0.999999999975531
+        ],
+        "sigma_min": 0.999999999975531,
+        "leakage": 2.2504886842966698e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.95,
+      "field_z_au": 0.01075,
+      "average_energy_difference_Eh": 1.2256862191861728e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999999192,
+          0.9999999999994695,
+          0.999999999999206,
+          0.9999999999990794
+        ],
+        "sigma_min": 0.9999999999990794,
+        "leakage": 1.1629586182948515e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999997551,
+        "runner_up_score": 2.000000510711617,
+        "margin": 1.9999994892859339,
+        "normalized_margin": 0.49999987232148346
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999809,
+          0.9999999999999443,
+          0.9999999999992982,
+          0.9999999999847379,
+          0.9999999999847365
+        ],
+        "sigma_min": 0.9999999999847365,
+        "leakage": 1.252087322711759e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.95,
+      "field_z_au": 0.011,
+      "average_energy_difference_Eh": 3.108624468950438e-14,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999997038,
+          0.9999999999992923,
+          0.9999999999975443,
+          0.9999999999974617
+        ],
+        "sigma_min": 0.9999999999974617,
+        "leakage": 2.998934434117473e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999937224,
+        "runner_up_score": 2.000000701880503,
+        "margin": 1.9999992981132193,
+        "normalized_margin": 0.4999998245283048
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999937,
+          0.9999999999997085,
+          0.9999999999976281,
+          0.999999999979497,
+          0.9999999999794961
+        ],
+        "sigma_min": 0.9999999999794961,
+        "leakage": 1.747080258240885e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.95,
+      "field_z_au": 0.01125,
+      "average_energy_difference_Eh": 1.0746958878371515e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.999999999999602,
+          0.9999999999987634,
+          0.9999999999968571,
+          0.9999999999967137
+        ],
+        "sigma_min": 0.9999999999967137,
+        "leakage": 4.0318859362287185e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999989168,
+        "runner_up_score": 2.0000030295119813,
+        "margin": 1.999996970477187,
+        "normalized_margin": 0.49999924261929674
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999835,
+          0.9999999999995843,
+          0.9999999999968785,
+          0.999999999965738,
+          0.9999999999657367
+        ],
+        "sigma_min": 0.9999999999657367,
+        "leakage": 2.8831492748793153e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 5.95,
+      "field_z_au": 0.0115,
+      "average_energy_difference_Eh": 4.53859172466764e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999997469,
+          0.9999999999985433,
+          0.9999999999983009,
+          0.999999999997475
+        ],
+        "sigma_min": 0.999999999997475,
+        "leakage": 2.9669600110082683e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999937734,
+        "runner_up_score": 2.0000006539871302,
+        "margin": 1.9999993460066432,
+        "normalized_margin": 0.4999998365016608
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999889,
+          0.99999999999982,
+          0.9999999999981435,
+          0.9999999999384954,
+          0.9999999999384834
+        ],
+        "sigma_min": 0.9999999999384834,
+        "leakage": 5.0027537668029254e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 6.0,
+      "field_z_au": 0.0105,
+      "average_energy_difference_Eh": 4.805045250577678e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999999081,
+          0.9999999999992707,
+          0.999999999998681,
+          0.9999999999974216
+        ],
+        "sigma_min": 0.9999999999974216,
+        "leakage": 2.3592239273284576e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.999999999995183,
+        "runner_up_score": 2.0000004229687853,
+        "margin": 1.9999995770263976,
+        "normalized_margin": 0.4999998942565994
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999784,
+          0.9999999999999315,
+          0.9999999999994251,
+          0.9999999999608387,
+          0.9999999999608372
+        ],
+        "sigma_min": 0.9999999999608372,
+        "leakage": 3.159572603550487e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 6.0,
+      "field_z_au": 0.01075,
+      "average_energy_difference_Eh": 3.765876499528531e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.999999999999889,
+          0.9999999999993741,
+          0.9999999999990903,
+          0.999999999998759
+        ],
+        "sigma_min": 0.999999999998759,
+        "leakage": 1.443845043525016e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999970335,
+        "runner_up_score": 2.0000003862671156,
+        "margin": 1.9999996137299179,
+        "normalized_margin": 0.49999990343247946
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999748,
+          0.9999999999999092,
+          0.9999999999994998,
+          0.9999999999638016,
+          0.9999999999638014
+        ],
+        "sigma_min": 0.9999999999638014,
+        "leakage": 2.920530484118444e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 6.0,
+      "field_z_au": 0.011,
+      "average_energy_difference_Eh": 6.661338147750939e-14,
+      "state_subspace": {
+        "singular_values": [
+          0.999999999999781,
+          0.9999999999996093,
+          0.9999999999980698,
+          0.9999999999976351
+        ],
+        "sigma_min": 0.9999999999976351,
+        "leakage": 2.4524826613969708e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999949862,
+        "runner_up_score": 2.000000573761666,
+        "margin": 1.99999942623332,
+        "normalized_margin": 0.49999985655833
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999729,
+          0.9999999999998225,
+          0.9999999999981356,
+          0.9999999999893787,
+          0.9999999999893777
+        ],
+        "sigma_min": 0.9999999999893777,
+        "leakage": 9.324985228431615e-12
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 6.0,
+      "field_z_au": 0.01125,
+      "average_energy_difference_Eh": 2.1316282072803006e-13,
+      "state_subspace": {
+        "singular_values": [
+          0.9999999999996395,
+          0.9999999999990411,
+          0.9999999999983271,
+          0.9999999999977814
+        ],
+        "sigma_min": 0.9999999999977814,
+        "leakage": 2.6054713941903174e-12,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 3.9999999999938507,
+        "runner_up_score": 2.000001896188064,
+        "margin": 1.9999981038057868,
+        "normalized_margin": 0.4999995259514467
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          0.9999999999999609,
+          0.9999999999997891,
+          0.9999999999991769,
+          0.9999999999511806,
+          0.9999999999508722
+        ],
+        "sigma_min": 0.9999999999508722,
+        "leakage": 3.960809458192216e-11
+      }
+    },
+    {
+      "history": "reverse_snake",
+      "R_angstrom": 6.0,
+      "field_z_au": 0.0115,
+      "average_energy_difference_Eh": 1.3322676295501878e-14,
+      "state_subspace": {
+        "singular_values": [
+          1.0000000000000013,
+          1.0000000000000004,
+          1.0,
+          0.9999999999999993
+        ],
+        "sigma_min": 0.9999999999999993,
+        "leakage": -4.440892098500626e-16,
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 4.000000000000002,
+        "runner_up_score": 2.000000000044049,
+        "margin": 1.9999999999559526,
+        "normalized_margin": 0.49999999998898814
+      },
+      "active_orbital_subspace": {
+        "singular_values": [
+          1.0000000000000007,
+          1.0000000000000007,
+          0.9999999999999994,
+          0.9999999999999989,
+          0.9999999999999986
+        ],
+        "sigma_min": 0.9999999999999986,
+        "leakage": 6.661338147750939e-16
+      }
+    }
+  ],
+  "selected_window_results": {
+    "direct": {
+      "C_qp": 0.0003684704839730426,
+      "path_difference_F": 0.0014738819358921704,
+      "holonomy_phases_rad": [
+        -0.0009208837157812452,
+        -0.00048799306054275374,
+        0.0004879930605423715,
+        0.0009208837157812628
+      ],
+      "holonomy_max_abs_phase_rad": 0.0009208837157812628,
+      "route_R_then_F_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "route_F_then_R_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "same_composed_assignment": true,
+      "dipole_path_difference_au": 0.017418105449856648,
+      "dipole_path_difference_by_axis_au": [
+        0.0,
+        0.0,
+        0.017418105449856648
+      ],
+      "dipole_path_difference_normalized": 0.0007586174630409905,
+      "minimum_target_pair_gap_inside_window_Eh": 0.00023880413897359176,
+      "all_four_direct_edges_strict": true,
+      "candidate_window": true,
+      "edges": {
+        "AB": {
+          "edge": "AB:nuclear",
+          "state_subspace": {
+            "singular_values": [
+              0.9980445492103466,
+              0.9973822793123027,
+              0.9958557258548738,
+              0.9951452443050866
+            ],
+            "sigma_min": 0.9951452443050866,
+            "leakage": 0.006773245681085949,
+            "permutation": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 3.986355802839145,
+            "runner_up_score": 2.0066619904861045,
+            "margin": 1.9796938123530405,
+            "normalized_margin": 0.49492345308826013
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9998072930125853,
+              0.9982746284762346,
+              0.9975729458328944,
+              0.9972829316973452,
+              0.9972829316972616
+            ],
+            "sigma_min": 0.9972829316972616,
+            "leakage": 0.003906973802445535
+          }
+        },
+        "BD": {
+          "edge": "BD:physical_field",
+          "state_subspace": {
+            "singular_values": [
+              0.9999759793679815,
+              0.9998199890668281,
+              0.9982219294615423,
+              0.9974151105401
+            ],
+            "sigma_min": 0.9974151105401,
+            "leakage": 0.0022810267394524075,
+            "permutation": [
+              0,
+              1,
+              3,
+              2
+            ],
+            "score": 3.9946146113342333,
+            "runner_up_score": 2.0363814329517296,
+            "margin": 1.9582331783825038,
+            "normalized_margin": 0.48955829459562594
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9999988938968891,
+              0.9999988938966572,
+              0.9999899812940461,
+              0.9998595898842169,
+              0.9983319856564999
+            ],
+            "sigma_min": 0.9983319856564999,
+            "leakage": 0.0007277017307417699
+          }
+        },
+        "AC": {
+          "edge": "AC:physical_field",
+          "state_subspace": {
+            "singular_values": [
+              0.9999762836335891,
+              0.9998138458820108,
+              0.998123024753407,
+              0.9972560233481663
+            ],
+            "sigma_min": 0.9972560233481663,
+            "leakage": 0.0024126392764723947,
+            "permutation": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 3.9938974963117264,
+            "runner_up_score": 2.0541625638754604,
+            "margin": 1.939734932436266,
+            "normalized_margin": 0.4849337331090665
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9999986865963615,
+              0.9999986865963596,
+              0.999990101710123,
+              0.9998529274015543,
+              0.9982340494728486
+            ],
+            "sigma_min": 0.9982340494728486,
+            "leakage": 0.000769591226493227
+          }
+        },
+        "CD": {
+          "edge": "CD:nuclear",
+          "state_subspace": {
+            "singular_values": [
+              0.9981368265306648,
+              0.9973861709683527,
+              0.995906338048312,
+              0.9951491865099332
+            ],
+            "sigma_min": 0.9951491865099332,
+            "leakage": 0.006698090977050208,
+            "permutation": [
+              0,
+              1,
+              3,
+              2
+            ],
+            "score": 3.984351286041775,
+            "runner_up_score": 2.085949864867895,
+            "margin": 1.89840142117388,
+            "normalized_margin": 0.47460035529347
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9998100347342387,
+              0.9983256556666891,
+              0.9975749543769217,
+              0.9972810436462234,
+              0.9972810436411708
+            ],
+            "sigma_min": 0.9972810436411708,
+            "leakage": 0.003886206012031046
+          }
+        }
+      }
+    },
+    "forward_snake": {
+      "C_qp": 0.00036847518997768023,
+      "path_difference_F": 0.001473900759910721,
+      "holonomy_phases_rad": [
+        -0.0009208998441350326,
+        -0.00048799105192970013,
+        0.00048799105192953696,
+        0.000920899844135425
+      ],
+      "holonomy_max_abs_phase_rad": 0.000920899844135425,
+      "route_R_then_F_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "route_F_then_R_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "same_composed_assignment": true,
+      "dipole_path_difference_au": 0.01741818243022648,
+      "dipole_path_difference_by_axis_au": [
+        2.4599417421802013e-18,
+        2.7224389463725536e-18,
+        0.01741818243022648
+      ],
+      "dipole_path_difference_normalized": 0.0007586210872019046,
+      "minimum_target_pair_gap_inside_window_Eh": 0.00023879188035902388,
+      "all_four_direct_edges_strict": true,
+      "candidate_window": true,
+      "edges": {
+        "AB": {
+          "edge": "AB:nuclear",
+          "state_subspace": {
+            "singular_values": [
+              0.9980446951784203,
+              0.9973823042735348,
+              0.9958558245024872,
+              0.995145235455727
+            ],
+            "sigma_min": 0.995145235455727,
+            "leakage": 0.006773115675616226,
+            "permutation": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 3.9863560599760746,
+            "runner_up_score": 2.0066635375409674,
+            "margin": 1.9796925224351072,
+            "normalized_margin": 0.4949231306087768
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9998073233227384,
+              0.9982747327381815,
+              0.9975729411802216,
+              0.9972829520734777,
+              0.997282952072561
+            ],
+            "sigma_min": 0.997282952072561,
+            "leakage": 0.00390690564816476
+          }
+        },
+        "BD": {
+          "edge": "BD:physical_field",
+          "state_subspace": {
+            "singular_values": [
+              0.9999759795145314,
+              0.999819976317009,
+              0.9982218422264695,
+              0.9974149524299897
+            ],
+            "sigma_min": 0.9974149524299897,
+            "leakage": 0.002281155430621018,
+            "permutation": [
+              0,
+              1,
+              3,
+              2
+            ],
+            "score": 3.9946143686739064,
+            "runner_up_score": 2.0363806932076174,
+            "margin": 1.958233675466289,
+            "normalized_margin": 0.48955841886657225
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9999988940708677,
+              0.9999988940704646,
+              0.9999899810972085,
+              0.9998595760422181,
+              0.9983318945405423
+            ],
+            "sigma_min": 0.9983318945405423,
+            "leakage": 0.0007277435919721409
+          }
+        },
+        "AC": {
+          "edge": "AC:physical_field",
+          "state_subspace": {
+            "singular_values": [
+              0.9999762844828561,
+              0.9998138571985259,
+              0.9981231336099815,
+              0.9972561833574558
+            ],
+            "sigma_min": 0.9972561833574558,
+            "leakage": 0.0024124990833946924,
+            "permutation": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 3.993897784398219,
+            "runner_up_score": 2.0541620485430747,
+            "margin": 1.9397357358551441,
+            "normalized_margin": 0.48493393396378603
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9999986869563547,
+              0.9999986869563385,
+              0.9999901021239594,
+              0.999852938529136,
+              0.9982341567974229
+            ],
+            "sigma_min": 0.9982341567974229,
+            "leakage": 0.000769543468573608
+          }
+        },
+        "CD": {
+          "edge": "CD:nuclear",
+          "state_subspace": {
+            "singular_values": [
+              0.9981368094114702,
+              0.9973861732867512,
+              0.9959063425164848,
+              0.9951491881749948
+            ],
+            "sigma_min": 0.9951491881749948,
+            "leakage": 0.0066980953110969965,
+            "permutation": [
+              0,
+              1,
+              3,
+              2
+            ],
+            "score": 3.9843513246554925,
+            "runner_up_score": 2.085948889328701,
+            "margin": 1.8984024353267914,
+            "normalized_margin": 0.47460060883169786
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9998100360829599,
+              0.9983256583233543,
+              0.9975749547864285,
+              0.9972810885658334,
+              0.9972810885574966
+            ],
+            "sigma_min": 0.9972810885574966,
+            "leakage": 0.0038861684116815454
+          }
+        }
+      }
+    },
+    "reverse_snake": {
+      "C_qp": 0.0003684737357353875,
+      "path_difference_F": 0.00147389494294155,
+      "holonomy_phases_rad": [
+        -0.0009208956737026253,
+        -0.0004879901374292569,
+        0.00048799013742928214,
+        0.0009208956737018796
+      ],
+      "holonomy_max_abs_phase_rad": 0.0009208956737026253,
+      "route_R_then_F_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "route_F_then_R_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "same_composed_assignment": true,
+      "dipole_path_difference_au": 0.017418162661477724,
+      "dipole_path_difference_by_axis_au": [
+        2.6496596718291265e-18,
+        1.9585399070044825e-18,
+        0.017418162661477724
+      ],
+      "dipole_path_difference_normalized": 0.0007586202060751418,
+      "minimum_target_pair_gap_inside_window_Eh": 0.00023878227805429475,
+      "all_four_direct_edges_strict": true,
+      "candidate_window": true,
+      "edges": {
+        "AB": {
+          "edge": "AB:nuclear",
+          "state_subspace": {
+            "singular_values": [
+              0.9980445993555676,
+              0.9973822928611147,
+              0.9958557630319146,
+              0.9951452516864129
+            ],
+            "sigma_min": 0.9951452516864129,
+            "leakage": 0.006773191716599847,
+            "permutation": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 3.9863559114932143,
+            "runner_up_score": 2.0066624839229243,
+            "margin": 1.97969342757029,
+            "normalized_margin": 0.4949233568925725
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9998073036938123,
+              0.9982746631538936,
+              0.9975729492996198,
+              0.9972829605911868,
+              0.9972829605881085
+            ],
+            "sigma_min": 0.9972829605881085,
+            "leakage": 0.0039069312492483466
+          }
+        },
+        "BD": {
+          "edge": "BD:physical_field",
+          "state_subspace": {
+            "singular_values": [
+              0.9999759797945245,
+              0.9998199786068076,
+              0.9982218396025235,
+              0.9974149635869305
+            ],
+            "sigma_min": 0.9974149635869305,
+            "leakage": 0.0022811498915248363,
+            "permutation": [
+              0,
+              1,
+              3,
+              2
+            ],
+            "score": 3.9946143803721923,
+            "runner_up_score": 2.0363807148586575,
+            "margin": 1.9582336655135348,
+            "normalized_margin": 0.4895584163783837
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9999988939598442,
+              0.9999988939598262,
+              0.9999899812652648,
+              0.999859578737711,
+              0.9983318932995922
+            ],
+            "sigma_min": 0.9983318932995922,
+            "leakage": 0.0007277430309212685
+          }
+        },
+        "AC": {
+          "edge": "AC:physical_field",
+          "state_subspace": {
+            "singular_values": [
+              0.9999762831163528,
+              0.9998138337445753,
+              0.9981229437209608,
+              0.9972559584830349
+            ],
+            "sigma_min": 0.9972559584830349,
+            "leakage": 0.0024127183864164348,
+            "permutation": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 3.9938973535154547,
+            "runner_up_score": 2.0541621526417044,
+            "margin": 1.9397352008737503,
+            "normalized_margin": 0.48493380021843757
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.999998686609279,
+              0.9999986866092737,
+              0.9999901013184508,
+              0.9998529172955383,
+              0.9982339693002553
+            ],
+            "sigma_min": 0.9982339693002553,
+            "leakage": 0.0007696274270434511
+          }
+        },
+        "CD": {
+          "edge": "CD:nuclear",
+          "state_subspace": {
+            "singular_values": [
+              0.9981368371724566,
+              0.9973861790372476,
+              0.9959063657455709,
+              0.9951491854498843
+            ],
+            "sigma_min": 0.9951491854498843,
+            "leakage": 0.006698068377681277,
+            "permutation": [
+              0,
+              1,
+              3,
+              2
+            ],
+            "score": 3.984351365416841,
+            "runner_up_score": 2.0859491763162556,
+            "margin": 1.8984021891005853,
+            "normalized_margin": 0.47460054727514633
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9998100436769973,
+              0.9983256842243287,
+              0.9975749534143474,
+              0.9972810887558174,
+              0.9972810887554672
+            ],
+            "sigma_min": 0.9972810887554672,
+            "leakage": 0.0038861554243421192
+          }
+        }
+      }
+    }
+  }
+}

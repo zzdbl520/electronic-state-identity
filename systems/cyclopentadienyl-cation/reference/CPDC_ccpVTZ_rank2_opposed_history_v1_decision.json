@@ -1,0 +1,587 @@
+{
+  "script_version": "CPDC-CCPVTZ-RANK2-OPPOSED-HISTORY-v1.0",
+  "protocol_id": "CPDC-CCPVTZ-RANK2-OPPOSED-HISTORY-20260920",
+  "authorization_sha256": "c599b391cb22c3c34085ca32b4f7e4cf36ddcb5fbe11801f67fdc3fed3f47fbc",
+  "manifest_sha256": "7af65062afb9e4777fd6938e26089dc18e0e2f8637623b1909b40fa53354ef68",
+  "history_decision_sha256": "b5d883e574047d8c6f554cfa2fadebf1d006a5408c001dc0b744b4aa3a9438e9",
+  "manuscript_claim_authorized": false,
+  "CI_count_from_rank2_Wilson_claimed": false,
+  "status": "PASS_RANK2_OPPOSED_HISTORY_REPLICATION",
+  "reason": "Both SA2 histories generate the same independently referenced, externally isolated SA3 lower-two-state manifold.",
+  "thresholds": {
+    "maximum_final_orbital_gradient": 0.0001,
+    "maximum_spin_square_error": 1e-06,
+    "maximum_mo_orthonormality_error": 1e-08,
+    "maximum_casci_reproduction_error_Eh": 1e-07,
+    "minimum_active_reference_sigma": 0.9,
+    "minimum_third_singlet_gap_Eh": 0.002,
+    "history_pair_sigma_minimum": 0.98,
+    "history_pair_leakage_maximum": 0.01,
+    "history_active_sigma_minimum": 0.98,
+    "history_active_leakage_maximum": 0.01,
+    "maximum_history_average_energy_difference_Eh": 1e-07,
+    "maximum_history_gauge_error": 1e-10,
+    "maximum_history_cyclic_start_error": 1e-10,
+    "maximum_history_Wilson_eigenphase_difference_rad": 0.001,
+    "maximum_history_Wilson_trace_difference": 0.001,
+    "maximum_history_Wilson_determinant_difference": 0.001,
+    "SA2_SA3_projector_sigma_minimum": 0.95,
+    "SA2_SA3_projector_leakage_maximum": 0.03,
+    "SA3_projector_sigma_minimum": 0.95,
+    "SA3_projector_leakage_maximum": 0.03,
+    "SA3_cross_third_weight_maximum": 0.05,
+    "maximum_SA3_average_energy_difference_Eh": 1e-06
+  },
+  "history_SA3_records": [
+    {
+      "direction": "clockwise",
+      "index": 0,
+      "angle_degrees": 0.0,
+      "geometry_hash": "f494f79cefb3fdd542d3a82dcb88b6e8d62a1e626dcd1ac534713eabf67c7be8",
+      "seed_SA2_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/histories/clockwise/closure_p000/solution.npz",
+      "seed_SA2_sha256": "9c7e1f042a1f846454574ab2f90feb19604a60e77debbb483cabeb418ecf754d",
+      "reference_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_000.0_deg/solution.npz",
+      "reference_SA3_sha256": "7f9bb9863cfb50dbad51681553da6ddb3385f6a916f09b70b278d605322b5727",
+      "history_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/sa3_histories/clockwise/theta_000.0_deg/solution.npz",
+      "history_SA3_sha256": "9b96831438b7678d2724f6094314597e28424846a4d59bf0dc507ae331758503",
+      "quality_checks": {
+        "converged_and_stationary": true,
+        "singlet_spin_pure": true,
+        "MO_frame_orthonormal": true,
+        "CASCI_reproduces_states": true,
+        "active_reference_retained": true,
+        "third_singlet_isolated": true
+      },
+      "quality_pass": true,
+      "seed_SA2_to_SA3": {
+        "pair_singular_values": [
+          0.9999563480880156,
+          0.9999006279549512
+        ],
+        "pair_sigma_min": 0.9999006279549512,
+        "pair_leakage": 0.00014301806688687968,
+        "third_root_SA2_weight": 0.00011102143874042036,
+        "pass": true
+      },
+      "reference_SA3_to_history_SA3": {
+        "pair_singular_values": [
+          0.9999999999997115,
+          0.9999999999994675
+        ],
+        "pair_sigma_min": 0.9999999999994675,
+        "pair_leakage": 8.210099267103033e-13,
+        "left_pair_to_right_third_weight": 1.4333994842511566e-13,
+        "left_third_to_right_pair_weight": 1.4334009508674164e-13,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_from_reference_Eh": 3.410605131648481e-13,
+      "energy_pass": true
+    },
+    {
+      "direction": "clockwise",
+      "index": 2,
+      "angle_degrees": 9.0,
+      "geometry_hash": "560afb283fb0b41976a88a7bb4107e1424785158e0684ed6d015fb1a3f1e65b0",
+      "seed_SA2_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/histories/clockwise/points/p002_560afb283fb0b41976a88a7bb4107e1424785158e0684ed6d015fb1a3f1e65b0/solution.npz",
+      "seed_SA2_sha256": "746762132a41cdc92cb8dc5d8c00b0a3dd20d24854579c6b6f993a424aaa04d7",
+      "reference_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_009.0_deg/solution.npz",
+      "reference_SA3_sha256": "4ba2d58947c32ced877f3592605835336409502a1d5ea8f4affa22e0f85e87ae",
+      "history_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/sa3_histories/clockwise/theta_009.0_deg/solution.npz",
+      "history_SA3_sha256": "9488e178a963858587c323ee4fe0db69ffde204ae4132fafee1de4e5ce89aec2",
+      "quality_checks": {
+        "converged_and_stationary": true,
+        "singlet_spin_pure": true,
+        "MO_frame_orthonormal": true,
+        "CASCI_reproduces_states": true,
+        "active_reference_retained": true,
+        "third_singlet_isolated": true
+      },
+      "quality_pass": true,
+      "seed_SA2_to_SA3": {
+        "pair_singular_values": [
+          0.9999563273254007,
+          0.9998991606513548
+        ],
+        "pair_sigma_min": 0.9998991606513548,
+        "pair_leakage": 0.00014450598530613146,
+        "third_root_SA2_weight": 0.00011386540008292657,
+        "pass": true
+      },
+      "reference_SA3_to_history_SA3": {
+        "pair_singular_values": [
+          0.9999999999990045,
+          0.9999999999979059
+        ],
+        "pair_sigma_min": 0.9999999999979059,
+        "pair_leakage": 3.089639655229348e-12,
+        "left_pair_to_right_third_weight": 1.9388717158501715e-12,
+        "left_third_to_right_pair_weight": 1.9388701711371654e-12,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_from_reference_Eh": 3.694822225952521e-13,
+      "energy_pass": true
+    },
+    {
+      "direction": "clockwise",
+      "index": 4,
+      "angle_degrees": 18.0,
+      "geometry_hash": "c630f6e061b82f923eed0eff3ad70c72ae40e7351e3b02a8cdd291140b4008be",
+      "seed_SA2_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/histories/clockwise/points/p004_c630f6e061b82f923eed0eff3ad70c72ae40e7351e3b02a8cdd291140b4008be/solution.npz",
+      "seed_SA2_sha256": "afa33e2adbb1c667f9a0aaf93b1b3c99c7b1be297ca5f42db62ae38c34741eb8",
+      "reference_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_018.0_deg/solution.npz",
+      "reference_SA3_sha256": "4f462a76fe4522e50c7e59981ff4d1226179d543a5eecff40f1ae3d0db924278",
+      "history_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/sa3_histories/clockwise/theta_018.0_deg/solution.npz",
+      "history_SA3_sha256": "55ade03433ad3a9db1f9d1ebd5f3cb2dd822307948c190d6939b0f61b43fef30",
+      "quality_checks": {
+        "converged_and_stationary": true,
+        "singlet_spin_pure": true,
+        "MO_frame_orthonormal": true,
+        "CASCI_reproduces_states": true,
+        "active_reference_retained": true,
+        "third_singlet_isolated": true
+      },
+      "quality_pass": true,
+      "seed_SA2_to_SA3": {
+        "pair_singular_values": [
+          0.9999562827208573,
+          0.9998959528768145
+        ],
+        "pair_sigma_min": 0.9998959528768145,
+        "pair_leakage": 0.00014775803382593988,
+        "third_root_SA2_weight": 0.00012007728423177468,
+        "pass": true
+      },
+      "reference_SA3_to_history_SA3": {
+        "pair_singular_values": [
+          0.9999999999986118,
+          0.9999999999972541
+        ],
+        "pair_sigma_min": 0.9999999999972541,
+        "pair_leakage": 4.1341374767966954e-12,
+        "left_pair_to_right_third_weight": 2.950905562485866e-12,
+        "left_third_to_right_pair_weight": 2.9509052027521947e-12,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_from_reference_Eh": 2.8421709430404007e-13,
+      "energy_pass": true
+    },
+    {
+      "direction": "clockwise",
+      "index": 6,
+      "angle_degrees": 27.0,
+      "geometry_hash": "ea8e2e6cd622d769f2efe90690c949916caf4d33e80e1098323528b229392745",
+      "seed_SA2_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/histories/clockwise/points/p006_ea8e2e6cd622d769f2efe90690c949916caf4d33e80e1098323528b229392745/solution.npz",
+      "seed_SA2_sha256": "1c4324b73e143e6d280175281ccd5dbad8b9077aaaaf93a164873fc659717767",
+      "reference_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_027.0_deg/solution.npz",
+      "reference_SA3_sha256": "80a7616f8dcc22a2ed472b37e8dc88817574a15241b945eded7da594870d6cb2",
+      "history_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/sa3_histories/clockwise/theta_027.0_deg/solution.npz",
+      "history_SA3_sha256": "2aa49365343f5af78b7ac1bcb50ec69c0a75a6ec467701dcc959d5b177a200cd",
+      "quality_checks": {
+        "converged_and_stationary": true,
+        "singlet_spin_pure": true,
+        "MO_frame_orthonormal": true,
+        "CASCI_reproduces_states": true,
+        "active_reference_retained": true,
+        "third_singlet_isolated": true
+      },
+      "quality_pass": true,
+      "seed_SA2_to_SA3": {
+        "pair_singular_values": [
+          0.9999562301438748,
+          0.9998924564511469
+        ],
+        "pair_sigma_min": 0.9998924564511469,
+        "pair_leakage": 0.0001513066642706562,
+        "third_root_SA2_weight": 0.00012685535223231291,
+        "pass": true
+      },
+      "reference_SA3_to_history_SA3": {
+        "pair_singular_values": [
+          0.9999999999993553,
+          0.9999999999967164
+        ],
+        "pair_sigma_min": 0.9999999999967164,
+        "pair_leakage": 3.928302128031191e-12,
+        "left_pair_to_right_third_weight": 4.740756623167149e-12,
+        "left_third_to_right_pair_weight": 4.740757635929294e-12,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_from_reference_Eh": 2.2737367544323206e-13,
+      "energy_pass": true
+    },
+    {
+      "direction": "clockwise",
+      "index": 8,
+      "angle_degrees": 36.0,
+      "geometry_hash": "629d74d1b9a4b88d89d3d2103aa7fe779bc52a4d68476c22c390e8cb98c5b30e",
+      "seed_SA2_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/histories/clockwise/points/p008_629d74d1b9a4b88d89d3d2103aa7fe779bc52a4d68476c22c390e8cb98c5b30e/solution.npz",
+      "seed_SA2_sha256": "39720c426ed8281ff9f77bbe1b7db471bd7a88561773e1305be70e04b867e5aa",
+      "reference_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_036.0_deg/solution.npz",
+      "reference_SA3_sha256": "2870e6a094828624d6a21cb42b1410bd9e8647818a3d32328754e80b9614cd95",
+      "history_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/sa3_histories/clockwise/theta_036.0_deg/solution.npz",
+      "history_SA3_sha256": "c3ea139633884c4b4e936797f55ab2d35541fd3da64d9663837248d33d6c8cf2",
+      "quality_checks": {
+        "converged_and_stationary": true,
+        "singlet_spin_pure": true,
+        "MO_frame_orthonormal": true,
+        "CASCI_reproduces_states": true,
+        "active_reference_retained": true,
+        "third_singlet_isolated": true
+      },
+      "quality_pass": true,
+      "seed_SA2_to_SA3": {
+        "pair_singular_values": [
+          0.9999562055974891,
+          0.9998909110222653
+        ],
+        "pair_sigma_min": 0.9998909110222653,
+        "pair_leakage": 0.00015287647106809743,
+        "third_root_SA2_weight": 0.00012985811869445295,
+        "pass": true
+      },
+      "reference_SA3_to_history_SA3": {
+        "pair_singular_values": [
+          0.9999999999982684,
+          0.9999999999963938
+        ],
+        "pair_sigma_min": 0.9999999999963938,
+        "pair_leakage": 5.33784128009529e-12,
+        "left_pair_to_right_third_weight": 3.770886154268303e-12,
+        "left_third_to_right_pair_weight": 3.770882224582947e-12,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_from_reference_Eh": 1.1368683772161603e-13,
+      "energy_pass": true
+    },
+    {
+      "direction": "counterclockwise",
+      "index": 0,
+      "angle_degrees": 0.0,
+      "geometry_hash": "f494f79cefb3fdd542d3a82dcb88b6e8d62a1e626dcd1ac534713eabf67c7be8",
+      "seed_SA2_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/histories/counterclockwise/closure_p000/solution.npz",
+      "seed_SA2_sha256": "9557c36501fefbb0014e82569170cd4e7941b80d3f19598a5ad27fb1e48d0cf2",
+      "reference_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_000.0_deg/solution.npz",
+      "reference_SA3_sha256": "7f9bb9863cfb50dbad51681553da6ddb3385f6a916f09b70b278d605322b5727",
+      "history_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/sa3_histories/counterclockwise/theta_000.0_deg/solution.npz",
+      "history_SA3_sha256": "ad648f9272dcaab93128e1912f32993525c73eb63eb88276912a14fa56a4ed3f",
+      "quality_checks": {
+        "converged_and_stationary": true,
+        "singlet_spin_pure": true,
+        "MO_frame_orthonormal": true,
+        "CASCI_reproduces_states": true,
+        "active_reference_retained": true,
+        "third_singlet_isolated": true
+      },
+      "quality_pass": true,
+      "seed_SA2_to_SA3": {
+        "pair_singular_values": [
+          0.9999563470880679,
+          0.9999005896409119
+        ],
+        "pair_sigma_min": 0.9999005896409119,
+        "pair_leakage": 0.0001430573770220267,
+        "third_root_SA2_weight": 0.00011109585889283704,
+        "pass": true
+      },
+      "reference_SA3_to_history_SA3": {
+        "pair_singular_values": [
+          0.9999999999997168,
+          0.9999999999994466
+        ],
+        "pair_sigma_min": 0.9999999999994466,
+        "pair_leakage": 8.36664071357518e-13,
+        "left_pair_to_right_third_weight": 1.260540773448166e-13,
+        "left_third_to_right_pair_weight": 1.2605423828706965e-13,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_from_reference_Eh": 8.526512829121202e-13,
+      "energy_pass": true
+    },
+    {
+      "direction": "counterclockwise",
+      "index": 2,
+      "angle_degrees": 9.0,
+      "geometry_hash": "560afb283fb0b41976a88a7bb4107e1424785158e0684ed6d015fb1a3f1e65b0",
+      "seed_SA2_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/histories/counterclockwise/points/p002_560afb283fb0b41976a88a7bb4107e1424785158e0684ed6d015fb1a3f1e65b0/solution.npz",
+      "seed_SA2_sha256": "b959b9b4a0c4db84ae4d17889a30af37c399d890f6eef055906c0027b37de090",
+      "reference_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_009.0_deg/solution.npz",
+      "reference_SA3_sha256": "4ba2d58947c32ced877f3592605835336409502a1d5ea8f4affa22e0f85e87ae",
+      "history_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/sa3_histories/counterclockwise/theta_009.0_deg/solution.npz",
+      "history_SA3_sha256": "c3e9df5ba13bfa12c70e961cf3d2e63cfa69c38bb76a82a32daf9994ad033c78",
+      "quality_checks": {
+        "converged_and_stationary": true,
+        "singlet_spin_pure": true,
+        "MO_frame_orthonormal": true,
+        "CASCI_reproduces_states": true,
+        "active_reference_retained": true,
+        "third_singlet_isolated": true
+      },
+      "quality_pass": true,
+      "seed_SA2_to_SA3": {
+        "pair_singular_values": [
+          0.9999563339516572,
+          0.9998992883263292
+        ],
+        "pair_sigma_min": 0.9998992883263292,
+        "pair_leakage": 0.00014437169723113819,
+        "third_root_SA2_weight": 0.00011360703366342147,
+        "pass": true
+      },
+      "reference_SA3_to_history_SA3": {
+        "pair_singular_values": [
+          0.9999999999990458,
+          0.999999999997836
+        ],
+        "pair_sigma_min": 0.999999999997836,
+        "pair_leakage": 3.118283409264677e-12,
+        "left_pair_to_right_third_weight": 2.05642095940284e-12,
+        "left_third_to_right_pair_weight": 2.0564194922669412e-12,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_from_reference_Eh": 5.968558980384842e-13,
+      "energy_pass": true
+    },
+    {
+      "direction": "counterclockwise",
+      "index": 4,
+      "angle_degrees": 18.0,
+      "geometry_hash": "c630f6e061b82f923eed0eff3ad70c72ae40e7351e3b02a8cdd291140b4008be",
+      "seed_SA2_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/histories/counterclockwise/points/p004_c630f6e061b82f923eed0eff3ad70c72ae40e7351e3b02a8cdd291140b4008be/solution.npz",
+      "seed_SA2_sha256": "9648900a2729b3a161f5b24d35aba57df23fa01dbe0c791fa8df54ef7f757cd9",
+      "reference_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_018.0_deg/solution.npz",
+      "reference_SA3_sha256": "4f462a76fe4522e50c7e59981ff4d1226179d543a5eecff40f1ae3d0db924278",
+      "history_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/sa3_histories/counterclockwise/theta_018.0_deg/solution.npz",
+      "history_SA3_sha256": "5248e3a383615688863c14d7a671681657a2c5b868d6da7685cef97cf19855ee",
+      "quality_checks": {
+        "converged_and_stationary": true,
+        "singlet_spin_pure": true,
+        "MO_frame_orthonormal": true,
+        "CASCI_reproduces_states": true,
+        "active_reference_retained": true,
+        "third_singlet_isolated": true
+      },
+      "quality_pass": true,
+      "seed_SA2_to_SA3": {
+        "pair_singular_values": [
+          0.9999562842950477,
+          0.9998957667595554
+        ],
+        "pair_sigma_min": 0.9998957667595554,
+        "pair_leakage": 0.00014794255758121544,
+        "third_root_SA2_weight": 0.00012043004520198115,
+        "pass": true
+      },
+      "reference_SA3_to_history_SA3": {
+        "pair_singular_values": [
+          0.9999999999986298,
+          0.9999999999972248
+        ],
+        "pair_sigma_min": 0.9999999999972248,
+        "pair_leakage": 4.145461751647872e-12,
+        "left_pair_to_right_third_weight": 3.0299095505646373e-12,
+        "left_third_to_right_pair_weight": 3.029908934716004e-12,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_from_reference_Eh": 8.526512829121202e-14,
+      "energy_pass": true
+    },
+    {
+      "direction": "counterclockwise",
+      "index": 6,
+      "angle_degrees": 27.0,
+      "geometry_hash": "ea8e2e6cd622d769f2efe90690c949916caf4d33e80e1098323528b229392745",
+      "seed_SA2_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/histories/counterclockwise/points/p006_ea8e2e6cd622d769f2efe90690c949916caf4d33e80e1098323528b229392745/solution.npz",
+      "seed_SA2_sha256": "e26fa7ff6af6fca3cda00e0fa581df3eb931c768cf7e96a1643f5f68313b6dd3",
+      "reference_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_027.0_deg/solution.npz",
+      "reference_SA3_sha256": "80a7616f8dcc22a2ed472b37e8dc88817574a15241b945eded7da594870d6cb2",
+      "history_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/sa3_histories/counterclockwise/theta_027.0_deg/solution.npz",
+      "history_SA3_sha256": "8b579ce9c616ab2a23df53cedc9da394f34a9cf546ab0ed1ce15ba5ea6f4e67b",
+      "quality_checks": {
+        "converged_and_stationary": true,
+        "singlet_spin_pure": true,
+        "MO_frame_orthonormal": true,
+        "CASCI_reproduces_states": true,
+        "active_reference_retained": true,
+        "third_singlet_isolated": true
+      },
+      "quality_pass": true,
+      "seed_SA2_to_SA3": {
+        "pair_singular_values": [
+          0.9999562281804566,
+          0.9998922342671167
+        ],
+        "pair_sigma_min": 0.9998922342671167,
+        "pair_leakage": 0.00015153078771401596,
+        "third_root_SA2_weight": 0.00012728517708005964,
+        "pass": true
+      },
+      "reference_SA3_to_history_SA3": {
+        "pair_singular_values": [
+          0.9999999999993505,
+          0.9999999999969128
+        ],
+        "pair_sigma_min": 0.9999999999969128,
+        "pair_leakage": 3.736677633980889e-12,
+        "left_pair_to_right_third_weight": 4.415531578867238e-12,
+        "left_third_to_right_pair_weight": 4.4155326505033965e-12,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_from_reference_Eh": 0.0,
+      "energy_pass": true
+    },
+    {
+      "direction": "counterclockwise",
+      "index": 8,
+      "angle_degrees": 36.0,
+      "geometry_hash": "629d74d1b9a4b88d89d3d2103aa7fe779bc52a4d68476c22c390e8cb98c5b30e",
+      "seed_SA2_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/histories/counterclockwise/points/p008_629d74d1b9a4b88d89d3d2103aa7fe779bc52a4d68476c22c390e8cb98c5b30e/solution.npz",
+      "seed_SA2_sha256": "568ec5edf3d88c59815e46ad665f61c1476cfaef7c830843fd9fdc39486fae96",
+      "reference_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_036.0_deg/solution.npz",
+      "reference_SA3_sha256": "2870e6a094828624d6a21cb42b1410bd9e8647818a3d32328754e80b9614cd95",
+      "history_SA3_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/sa3_histories/counterclockwise/theta_036.0_deg/solution.npz",
+      "history_SA3_sha256": "2aec7dd4cca1dc6e2404715ba7f257fb9d715581fd1abfb10c780b3106e88473",
+      "quality_checks": {
+        "converged_and_stationary": true,
+        "singlet_spin_pure": true,
+        "MO_frame_orthonormal": true,
+        "CASCI_reproduces_states": true,
+        "active_reference_retained": true,
+        "third_singlet_isolated": true
+      },
+      "quality_pass": true,
+      "seed_SA2_to_SA3": {
+        "pair_singular_values": [
+          0.9999562071163356,
+          0.9998909674798107
+        ],
+        "pair_sigma_min": 0.9998909674798107,
+        "pair_leakage": 0.00015281850090009819,
+        "third_root_SA2_weight": 0.00012974804800677833,
+        "pass": true
+      },
+      "reference_SA3_to_history_SA3": {
+        "pair_singular_values": [
+          0.9999999999982456,
+          0.9999999999964598
+        ],
+        "pair_sigma_min": 0.9999999999964598,
+        "pair_leakage": 5.294542582134909e-12,
+        "left_pair_to_right_third_weight": 3.728636910011877e-12,
+        "left_third_to_right_pair_weight": 3.72863313717686e-12,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_from_reference_Eh": 0.0,
+      "energy_pass": true
+    }
+  ],
+  "cross_history_records": [
+    {
+      "index": 0,
+      "angle_degrees": 0.0,
+      "projector_metrics": {
+        "pair_singular_values": [
+          1.000000000000007,
+          1.0000000000000058
+        ],
+        "pair_sigma_min": 1.0000000000000058,
+        "pair_leakage": -1.2878587085651816e-14,
+        "left_pair_to_right_third_weight": 3.0776837800392124e-15,
+        "left_third_to_right_pair_weight": 3.077683975383118e-15,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_Eh": 5.115907697472721e-13,
+      "energy_pass": true
+    },
+    {
+      "index": 2,
+      "angle_degrees": 9.0,
+      "projector_metrics": {
+        "pair_singular_values": [
+          0.999999999999998,
+          0.9999999999999858
+        ],
+        "pair_sigma_min": 0.9999999999999858,
+        "pair_leakage": 1.6209256159527285e-14,
+        "left_pair_to_right_third_weight": 9.616060782182382e-15,
+        "left_third_to_right_pair_weight": 9.616061372762013e-15,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_Eh": 2.2737367544323206e-13,
+      "energy_pass": true
+    },
+    {
+      "index": 4,
+      "angle_degrees": 18.0,
+      "projector_metrics": {
+        "pair_singular_values": [
+          0.9999999999999758,
+          0.9999999999999744
+        ],
+        "pair_sigma_min": 0.9999999999999744,
+        "pair_leakage": 4.984901380566953e-14,
+        "left_pair_to_right_third_weight": 5.613343231299851e-16,
+        "left_third_to_right_pair_weight": 5.613338861607629e-16,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_Eh": 3.694822225952521e-13,
+      "energy_pass": true
+    },
+    {
+      "index": 6,
+      "angle_degrees": 27.0,
+      "projector_metrics": {
+        "pair_singular_values": [
+          1.0000000000000167,
+          1.000000000000013
+        ],
+        "pair_sigma_min": 1.000000000000013,
+        "pair_leakage": -2.9753977059954195e-14,
+        "left_pair_to_right_third_weight": 5.977587206510735e-15,
+        "left_third_to_right_pair_weight": 5.977587313389465e-15,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_Eh": 2.2737367544323206e-13,
+      "energy_pass": true
+    },
+    {
+      "index": 8,
+      "angle_degrees": 36.0,
+      "projector_metrics": {
+        "pair_singular_values": [
+          1.0000000000000036,
+          1.0000000000000024
+        ],
+        "pair_sigma_min": 1.0000000000000024,
+        "pair_leakage": -5.995204332975845e-15,
+        "left_pair_to_right_third_weight": 2.896086784917107e-15,
+        "left_third_to_right_pair_weight": 2.896087173485541e-15,
+        "pass": true,
+        "individual_root_assignment_used": false
+      },
+      "average_energy_difference_Eh": 1.1368683772161603e-13,
+      "energy_pass": true
+    }
+  ],
+  "quality_pass": true,
+  "seed_rank_pass": true,
+  "reference_reproduction_pass": true,
+  "cross_history_reproduction_pass": true,
+  "scalar_phase_evaluated": false,
+  "individual_root_assignment_used": false,
+  "result_authorizes_inclusion_as_rank2_manifold_evidence": true,
+  "scientific_scope": "A pass establishes history-independent identity of the isolated rank-2 lowest-singlet manifold on the frozen central loop. It does not assign a scalar Berry phase or count internal conical intersections."
+}

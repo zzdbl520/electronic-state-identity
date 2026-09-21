@@ -1,0 +1,106 @@
+{
+  "protocol_version": "CPDC-CCPVTZ-RANK2-OPPOSED-HISTORY-v1.0",
+  "protocol_id": "CPDC-CCPVTZ-RANK2-OPPOSED-HISTORY-20260920",
+  "molecule": "cyclopentadienyl cation",
+  "formula": "C5H5+",
+  "scientific_object": "isolated lowest-singlet rank-2 projector P12",
+  "antecedent_required_status": "PASS_RANK2_PROJECTOR_QUALIFICATION",
+  "locked_model": {
+    "basis": "cc-pvtz",
+    "pyscf_version_exact": "2.13.1",
+    "active_space": "CASSCF(4e,5o) full-valence-pi singlet",
+    "SA2_weights": [
+      0.5,
+      0.5
+    ],
+    "SA3_weights": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "geometry_surface": "frozen qualified cc-pVTZ central_inner level-2 loop",
+    "loop_radius_dimensionless": 0.45
+  },
+  "history_stage": {
+    "mesh_npoints": 80,
+    "common_start": "immutable qualified p000 SA2 solution",
+    "directions": [
+      "clockwise",
+      "counterclockwise"
+    ],
+    "clockwise_order": "p000 -> p001 -> ... -> p079 -> fresh p000 closure",
+    "counterclockwise_order": "p000 -> p079 -> ... -> p001 -> fresh p000 closure",
+    "initialization": "each new SA2 orbital frame is projected from the immediately preceding history solution",
+    "comparison": "every history projector is compared with the independent reference and the opposite history",
+    "wilson_closure": "the fresh returned p000 solution and a duplicate-geometry endpoint edge are included in each gauge-covariant Wilson product",
+    "parallel_chains": 2,
+    "default_threads_per_chain": 12,
+    "default_memory_mb_per_chain": 200000
+  },
+  "SA3_stage": {
+    "code_blocked_until_history_status": "PASS_RANK2_OPPOSED_HISTORY",
+    "point_indices": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "angles_degrees": [
+      0.0,
+      9.0,
+      18.0,
+      27.0,
+      36.0
+    ],
+    "reference_index_mapping_40_to_80": {
+      "0": 0,
+      "1": 2,
+      "2": 4,
+      "3": 6,
+      "4": 8
+    },
+    "new_calculations": 10,
+    "initialization": "one equal-weight SA3 calculation from each opposed-history SA2 orbital frame at every prequalified reference angle",
+    "default_threads_per_job": 6,
+    "default_memory_mb_per_job": 100000,
+    "default_max_parallel_jobs": 4
+  },
+  "thresholds": {
+    "maximum_final_orbital_gradient": 0.0001,
+    "maximum_spin_square_error": 0.000001,
+    "maximum_mo_orthonormality_error": 1e-08,
+    "maximum_casci_reproduction_error_Eh": 1e-07,
+    "minimum_active_reference_sigma": 0.9,
+    "minimum_third_singlet_gap_Eh": 0.002,
+    "history_pair_sigma_minimum": 0.98,
+    "history_pair_leakage_maximum": 0.01,
+    "history_active_sigma_minimum": 0.98,
+    "history_active_leakage_maximum": 0.01,
+    "maximum_history_average_energy_difference_Eh": 1e-07,
+    "maximum_history_gauge_error": 1e-10,
+    "maximum_history_cyclic_start_error": 1e-10,
+    "maximum_history_Wilson_eigenphase_difference_rad": 0.001,
+    "maximum_history_Wilson_trace_difference": 0.001,
+    "maximum_history_Wilson_determinant_difference": 0.001,
+    "SA2_SA3_projector_sigma_minimum": 0.95,
+    "SA2_SA3_projector_leakage_maximum": 0.03,
+    "SA3_projector_sigma_minimum": 0.95,
+    "SA3_projector_leakage_maximum": 0.03,
+    "SA3_cross_third_weight_maximum": 0.05,
+    "maximum_SA3_average_energy_difference_Eh": 0.000001
+  },
+  "random_U2_gauge_seeds": [
+    20260920,
+    20260921,
+    20260922,
+    20260923,
+    20260924
+  ],
+  "scalar_phase_allowed": false,
+  "signed_single_state_overlap_allowed": false,
+  "individual_root_assignment_allowed": false,
+  "CI_count_from_rank2_Wilson_allowed": false,
+  "final_pass_status": "PASS_RANK2_OPPOSED_HISTORY_REPLICATION",
+  "scope_of_pass": "history-independent identity and external isolation of P12 on the frozen loop; no scalar Berry phase and no internal-CI count"
+}

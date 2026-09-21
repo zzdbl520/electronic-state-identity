@@ -1,0 +1,89 @@
+{
+  "script_version": "LiH-S3-fixed-window-basis-robustness-v1.1",
+  "engine_script_version": "LiH-S1-physical-field-locator-v1.7",
+  "gate": "LiH S3 locked-window cc-pVTZ robustness",
+  "scientific_semantics": "Repeat the already selected aug-cc-pVDZ LiH R x Fz window at cc-pVTZ without coordinate relocation, threshold relaxation, or alternative-window selection.",
+  "reference": {
+    "S1_path": "${LIH_ARCHIVE_ROOT}/LiH_S1_field_locator_work/LiH_S1_decision.json",
+    "S2_path": "${LIH_ARCHIVE_ROOT}/LiH_S1_field_locator_work/LiH_S2_decision.json",
+    "S1_sha256": "a4af9e3146388a39b4b7ef6b15190885f4de2ea523709f3c2379c090d89d18d4",
+    "S2_sha256": "b459c8ed262c5010d0aa08a85cbf06cf5c3282ee1989e06c6db8adc07f5a372c",
+    "S1_status": "CANDIDATE_WINDOW_FOUND",
+    "S2_status": "PUBLICATION_DEMONSTRATION_READY",
+    "basis": "aug-cc-pvdz",
+    "fixed_window": {
+      "R0_angstrom": 5.8,
+      "R1_angstrom": 5.95,
+      "F0_au": 0.0105,
+      "F1_au": 0.0115,
+      "selection_source": "unchanged LiH_S1_decision.json"
+    }
+  },
+  "protocol": {
+    "basis": "cc-pvtz",
+    "r_grid_angstrom": [
+      5.8,
+      5.85,
+      5.9,
+      5.95
+    ],
+    "field_grid_au": [
+      0.0105,
+      0.01075,
+      0.011,
+      0.01125,
+      0.0115
+    ]
+  },
+  "thresholds": {
+    "eta_edge_minimum": 0.98,
+    "maximum_edge_leakage": 0.01,
+    "minimum_normalized_assignment_margin": 0.1,
+    "active_orbital_subspace_sigma_minimum": 0.9,
+    "active_orbital_subspace_leakage_maximum": 0.1,
+    "maximum_final_orbital_gradient": 0.0001,
+    "maximum_spin_square": 1e-07,
+    "maximum_mo_orthonormality_error": 1e-09,
+    "excluded_root_minimum_gap_Eh": 0.01,
+    "probe_retained_energy_maximum_error_Eh": 1e-08,
+    "target_pair_maximum_gap_Eh": 0.01,
+    "minimum_C_qp": 0.0001,
+    "minimum_normalized_dipole_path_difference": 1e-05,
+    "maximum_numerical_check_error": 1e-09
+  },
+  "model_guards": {
+    "molecule": "LiH",
+    "point_group": "C2v",
+    "basis": "cc-pvtz",
+    "state_symmetry": "A1",
+    "active_space": [
+      2,
+      5
+    ],
+    "active_irrep_counts": {
+      "A1": 3,
+      "B1": 1,
+      "B2": 1
+    },
+    "optimized_and_retained_roots": 4,
+    "target_pair": [
+      2,
+      3
+    ],
+    "state_average_weights": [
+      0.25,
+      0.25,
+      0.25,
+      0.25
+    ],
+    "probe_roots": 5,
+    "ncore": 1,
+    "frozen_orbitals": 0,
+    "edge_metric": "exact active-only CAS-wavefunction overlap",
+    "field_hamiltonian": "H(Fz)=H(0)-mu_z*Fz including electronic and nuclear terms",
+    "vertex_initialization": "independent field-specific RHF starts",
+    "seed_selector": "occupied-valence-locked-projector-v1",
+    "seed_selector_guard": "the unique non-core occupied RHF orbital is retained; the remaining four active orbitals obey the original fixed-irrep projector ranking",
+    "window_selection": "forbidden; coordinates locked to reference S2"
+  }
+}

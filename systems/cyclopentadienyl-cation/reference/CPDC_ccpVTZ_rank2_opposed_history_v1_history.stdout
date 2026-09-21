@@ -1,0 +1,19 @@
+
+===== launch 2026-09-20T12:13:44Z mode=history =====
+root=${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work
+source_root=${CPDC_ARCHIVE_ROOT}/CPDC_secondary_CI_ccpVTZ_lift_v1_work
+loop_root=${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work
+screen_root=${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_central_gap_landscape_v1_work
+rank2_root=${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work
+parallel_histories=2 threads_per_history=12 memory_mb_per_history=200000
+DONE history chain: clockwise
+DONE history chain: counterclockwise
+
+CPDC RANK-2 OPPOSED-HISTORY SA2
+Status: PASS_RANK2_OPPOSED_HISTORY
+Reason: Clockwise and counterclockwise SA2 histories reproduce the same closed rank-2 manifold and Wilson spectrum.
+clockwise_vs_reference: dphase=6.409e-05 dtrace=1.091e-07 ddet=8.549e-15
+counterclockwise_vs_reference: dphase=6.415e-05 dtrace=1.092e-07 ddet=6.106e-15
+clockwise_vs_counterclockwise: dphase=5.965e-08 dtrace=1.054e-10 ddet=2.442e-15
+Decision file: ${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/CPDC_ccpVTZ_rank2_history_v1_decision.json
+CPDC_RANK2_HISTORY=PASS_RANK2_OPPOSED_HISTORY

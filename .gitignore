@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+build/
+dist/
+
+# Production calculations can generate large restart trees.
+*_work/
+work/
+scratch/
+*.npz
+*.npy
+*.chk
+*.h5
+*.hdf5
+*.out
+*.err
+nohup.out
+
+# Keep the small archived stdout records committed under reference/.
+!systems/**/reference/*.stdout

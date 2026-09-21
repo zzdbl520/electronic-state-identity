@@ -1,0 +1,24 @@
+
+===== launch 2026-09-20T14:21:59Z mode=sa3 =====
+root=${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work
+source_root=${CPDC_ARCHIVE_ROOT}/CPDC_secondary_CI_ccpVTZ_lift_v1_work
+loop_root=${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work
+screen_root=${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_central_gap_landscape_v1_work
+rank2_root=${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work
+threads_per_job=6 memory_mb_per_job=100000 max_jobs=4
+DONE SA3 history clockwise theta=0.0
+DONE SA3 history clockwise theta=27.0
+DONE SA3 history clockwise theta=18.0
+DONE SA3 history clockwise theta=9.0
+DONE SA3 history clockwise theta=36.0
+DONE SA3 history counterclockwise theta=0.0
+DONE SA3 history counterclockwise theta=9.0
+DONE SA3 history counterclockwise theta=18.0
+DONE SA3 history counterclockwise theta=36.0
+DONE SA3 history counterclockwise theta=27.0
+
+CPDC RANK-2 OPPOSED-HISTORY FINAL
+Status: PASS_RANK2_OPPOSED_HISTORY_REPLICATION
+Reason: Both SA2 histories generate the same independently referenced, externally isolated SA3 lower-two-state manifold.
+Decision file: ${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/CPDC_ccpVTZ_rank2_opposed_history_v1_decision.json
+CPDC_RANK2_OPPOSED_HISTORY=PASS_RANK2_OPPOSED_HISTORY_REPLICATION
