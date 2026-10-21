@@ -1,3 +1,9 @@
+> **Revision deposit status — 21 October 2026:** The October revision data
+> package has been prepared but is not yet published in this repository.
+> The numerical files below remain the September release at commit
+> `6e18f33d40d1e00166278bbb233f12ef8b56f239`. Do not cite the current
+> public tree as containing the additional October revision data.
+
 # Data availability
 
 The repository contains all currently assembled calculation programs, protocols,
