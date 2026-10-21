@@ -1,0 +1,452 @@
+{
+  "gate": "LiH S3 fixed-window cc-pVTZ basis robustness",
+  "status": "BASIS_ROBUSTNESS_CONFIRMED",
+  "manuscript_claim_authorized": true,
+  "script_version": "LiH-S3-fixed-window-basis-robustness-v1.1",
+  "engine_script_version": "LiH-S1-physical-field-locator-v1.7",
+  "reference": {
+    "S1_path": "${LIH_ARCHIVE_ROOT}/LiH_S1_field_locator_work/LiH_S1_decision.json",
+    "S2_path": "${LIH_ARCHIVE_ROOT}/LiH_S1_field_locator_work/LiH_S2_decision.json",
+    "S1_sha256": "a4af9e3146388a39b4b7ef6b15190885f4de2ea523709f3c2379c090d89d18d4",
+    "S2_sha256": "b459c8ed262c5010d0aa08a85cbf06cf5c3282ee1989e06c6db8adc07f5a372c",
+    "S1_status": "CANDIDATE_WINDOW_FOUND",
+    "S2_status": "PUBLICATION_DEMONSTRATION_READY",
+    "basis": "aug-cc-pvdz",
+    "fixed_window": {
+      "R0_angstrom": 5.8,
+      "R1_angstrom": 5.95,
+      "F0_au": 0.0105,
+      "F1_au": 0.0115,
+      "selection_source": "unchanged LiH_S1_decision.json"
+    }
+  },
+  "model": {
+    "molecule": "LiH",
+    "basis": "cc-pvtz",
+    "point_group": "C2v",
+    "state_symmetry": "A1",
+    "active_space": [
+      2,
+      5
+    ],
+    "active_irrep_counts": {
+      "A1": 3,
+      "B1": 1,
+      "B2": 1
+    },
+    "ncore": 1,
+    "frozen_orbitals": 0,
+    "optimized_and_retained_roots": 4,
+    "target_pair": [
+      2,
+      3
+    ],
+    "state_average_weights": [
+      0.25,
+      0.25,
+      0.25,
+      0.25
+    ],
+    "excluded_root_probe": "five-root A1 CASCI on each optimized SA4 orbital set",
+    "edge_metric": "exact active-only CAS-wavefunction overlap",
+    "physical_axis": "uniform static Fz with H(Fz)=H(0)-mu_z*Fz",
+    "vertex_initialization": "independent field-specific RHF starts",
+    "seed_selector": "occupied-valence-locked-projector-v1"
+  },
+  "fixed_grid": {
+    "R_angstrom": [
+      5.8,
+      5.85,
+      5.9,
+      5.95
+    ],
+    "field_z_au": [
+      0.0105,
+      0.01075,
+      0.011,
+      0.01125,
+      0.0115
+    ],
+    "selection_allowed": false
+  },
+  "thresholds": {
+    "eta_edge_minimum": 0.98,
+    "maximum_edge_leakage": 0.01,
+    "minimum_normalized_assignment_margin": 0.1,
+    "active_orbital_subspace_sigma_minimum": 0.9,
+    "active_orbital_subspace_leakage_maximum": 0.1,
+    "maximum_final_orbital_gradient": 0.0001,
+    "maximum_spin_square": 1e-07,
+    "maximum_mo_orthonormality_error": 1e-09,
+    "excluded_root_minimum_gap_Eh": 0.01,
+    "probe_retained_energy_maximum_error_Eh": 1e-08,
+    "target_pair_maximum_gap_Eh": 0.01,
+    "minimum_C_qp": 0.0001,
+    "minimum_normalized_dipole_path_difference": 1e-05,
+    "maximum_numerical_check_error": 1e-09
+  },
+  "decision_checks": {
+    "reference_decisions_locked_and_valid": true,
+    "model_semantics_exact": true,
+    "all_wavefunctions_stationary": true,
+    "first_excluded_A1_root_isolated": true,
+    "numerical_gauge_invariance": true,
+    "all_elementary_grid_edges_strict": true,
+    "all_four_fixed_boundary_edges_strict": true,
+    "fixed_window_near_degeneracy_reproduced": true,
+    "conventional_composed_assignment_reproduced": true,
+    "cross_basis_permutation_arrays_same_non_gating": false,
+    "nonzero_continuous_holonomy_reproduced": true,
+    "observable_dipole_consequence_reproduced": true
+  },
+  "counts": {
+    "wavefunctions": 20,
+    "elementary_nuclear_edges": 15,
+    "elementary_physical_field_edges": 16,
+    "direct_fixed_boundary_edges": 4,
+    "deterministic_fallback_uses": 3
+  },
+  "maximum_final_orbital_gradient": 2.502002135473802e-07,
+  "maximum_state_S2": 8.194939150491542e-14,
+  "maximum_mo_orthonormality_error": 5.3734794391857577e-14,
+  "maximum_probe_retained_energy_error_Eh": 7.638334409421077e-14,
+  "minimum_target_pair_gap": {
+    "R_angstrom": 5.95,
+    "field_z_au": 0.0115,
+    "gap_Eh": 0.006719833094681604
+  },
+  "minimum_excluded_root_gap": {
+    "R_angstrom": 5.95,
+    "field_z_au": 0.0115,
+    "gap_Eh": 0.10995295825715257
+  },
+  "worst_elementary_state_edge": {
+    "edge": "nuclear:R2F0->R3F0",
+    "kind": "nuclear",
+    "R_stride_points": 1,
+    "F_stride_points": 0,
+    "elementary": true,
+    "from": {
+      "R_angstrom": 5.9,
+      "field_z_au": 0.0105
+    },
+    "to": {
+      "R_angstrom": 5.95,
+      "field_z_au": 0.0105
+    },
+    "state_subspace": {
+      "singular_values": [
+        0.9997162184946945,
+        0.9996461891001738,
+        0.999537189493178,
+        0.9994438123937984
+      ],
+      "sigma_min": 0.9994438123937984,
+      "leakage": 0.0008281129459990488,
+      "permutation": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "score": 3.998306167819416,
+      "runner_up_score": 2.0107820333362074,
+      "margin": 1.9875241344832086,
+      "normalized_margin": 0.49688103362080216
+    },
+    "active_orbital_subspace": {
+      "singular_values": [
+        0.9999237867762627,
+        0.9998145685439914,
+        0.9997232149705355,
+        0.9995243998896595,
+        0.9995243998893535
+      ],
+      "sigma_min": 0.9995243998893535,
+      "leakage": 0.0005957381332463152
+    }
+  },
+  "fixed_window_result": {
+    "R0_angstrom": 5.8,
+    "R1_angstrom": 5.95,
+    "F0_au": 0.0105,
+    "F1_au": 0.0115,
+    "target_pair": [
+      2,
+      3
+    ],
+    "minimum_target_pair_gap_inside_window_Eh": 0.006719833094681604,
+    "minimum_excluded_root_gap_inside_window_Eh": 0.10995295825715257,
+    "all_four_direct_edges_strict": true,
+    "C_qp": 0.00018470670651134146,
+    "path_difference_F": 0.0007388268260453658,
+    "holonomy_phases_rad": [
+      -0.00048704432131797907,
+      -0.00018899834208094745,
+      0.00018899834208092252,
+      0.00048704432131828346
+    ],
+    "holonomy_max_abs_phase_rad": 0.00048704432131828346,
+    "route_R_then_F_permutation": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "route_F_then_R_permutation": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "same_composed_assignment": true,
+    "dipole_path_difference_au": 0.00814957930842476,
+    "dipole_path_difference_by_axis_au": [
+      0.0,
+      0.0,
+      0.00814957930842476
+    ],
+    "dipole_path_difference_normalized": 0.00046733228124162834,
+    "gauge_test_C_qp_abs_error": 5.381979584218044e-16,
+    "gauge_test_dipole_abs_error": 1.3241144292130969e-14,
+    "edges": {
+      "AB": {
+        "edge": "nuclear:R0F0->R3F0",
+        "kind": "nuclear",
+        "R_stride_points": 3,
+        "F_stride_points": 0,
+        "elementary": false,
+        "from": {
+          "R_angstrom": 5.8,
+          "field_z_au": 0.0105
+        },
+        "to": {
+          "R_angstrom": 5.95,
+          "field_z_au": 0.0105
+        },
+        "state_subspace": {
+          "singular_values": [
+            0.9974719161906769,
+            0.9968367208761311,
+            0.9958578944574854,
+            0.9950185092373588
+          ],
+          "sigma_min": 0.9950185092373588,
+          "leakage": 0.007392887161397521,
+          "permutation": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "score": 3.984845755085662,
+          "runner_up_score": 2.0272988858675602,
+          "margin": 1.9575468692181017,
+          "normalized_margin": 0.48938671730452543
+        },
+        "active_orbital_subspace": {
+          "singular_values": [
+            0.9993241997194019,
+            0.9983416307471611,
+            0.9975182714820489,
+            0.995728448208549,
+            0.9957284482082877
+          ],
+          "sigma_min": 0.9957284482082877,
+          "leakage": 0.005334429017730402
+        }
+      },
+      "BD": {
+        "edge": "physical_field:R3F0->R3F4",
+        "kind": "physical_field",
+        "R_stride_points": 0,
+        "F_stride_points": 4,
+        "elementary": false,
+        "from": {
+          "R_angstrom": 5.95,
+          "field_z_au": 0.0105
+        },
+        "to": {
+          "R_angstrom": 5.95,
+          "field_z_au": 0.0115
+        },
+        "state_subspace": {
+          "singular_values": [
+            0.999996694937428,
+            0.9998808094082204,
+            0.9994374604206779,
+            0.9988995318700303
+          ],
+          "sigma_min": 0.9988995318700303,
+          "leakage": 0.000892366257270627,
+          "permutation": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "score": 3.99763301798502,
+          "runner_up_score": 2.0427426300551375,
+          "margin": 1.9548903879298827,
+          "normalized_margin": 0.48872259698247067
+        },
+        "active_orbital_subspace": {
+          "singular_values": [
+            0.9999993563742394,
+            0.9999993563741686,
+            0.9999991279568123,
+            0.9998992983321298,
+            0.9994537876375038
+          ],
+          "sigma_min": 0.9994537876375038,
+          "leakage": 0.00025956763198653476
+        }
+      },
+      "AC": {
+        "edge": "physical_field:R0F0->R0F4",
+        "kind": "physical_field",
+        "R_stride_points": 0,
+        "F_stride_points": 4,
+        "elementary": false,
+        "from": {
+          "R_angstrom": 5.8,
+          "field_z_au": 0.0105
+        },
+        "to": {
+          "R_angstrom": 5.8,
+          "field_z_au": 0.0115
+        },
+        "state_subspace": {
+          "singular_values": [
+            0.9999969771295553,
+            0.9998838156247105,
+            0.9994323712192815,
+            0.9989071505229822
+          ],
+          "sigma_min": 0.9989071505229822,
+          "leakage": 0.0008894602441454902,
+          "permutation": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "score": 3.9976735460180564,
+          "runner_up_score": 2.0429622318031235,
+          "margin": 1.9547113142149328,
+          "normalized_margin": 0.4886778285537332
+        },
+        "active_orbital_subspace": {
+          "singular_values": [
+            0.9999993048198798,
+            0.9999993048198599,
+            0.9999991808125119,
+            0.999900762996553,
+            0.999448213256879
+          ],
+          "sigma_min": 0.999448213256879,
+          "leakage": 0.0002612304540804411
+        }
+      },
+      "CD": {
+        "edge": "nuclear:R0F4->R3F4",
+        "kind": "nuclear",
+        "R_stride_points": 3,
+        "F_stride_points": 0,
+        "elementary": false,
+        "from": {
+          "R_angstrom": 5.8,
+          "field_z_au": 0.0115
+        },
+        "to": {
+          "R_angstrom": 5.95,
+          "field_z_au": 0.0115
+        },
+        "state_subspace": {
+          "singular_values": [
+            0.997487406947442,
+            0.9968662063300774,
+            0.9958344343570802,
+            0.9950238116747749
+          ],
+          "sigma_min": 0.9950238116747749,
+          "leakage": 0.007379508301815996,
+          "permutation": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "score": 3.9848595989726703,
+          "runner_up_score": 2.0272441424016048,
+          "margin": 1.9576154565710655,
+          "normalized_margin": 0.4894038641427664
+        },
+        "active_orbital_subspace": {
+          "singular_values": [
+            0.9993522188502629,
+            0.9983145820211166,
+            0.9975209177003086,
+            0.9957272112483844,
+            0.995727211248316
+          ],
+          "sigma_min": 0.995727211248316,
+          "leakage": 0.0053339596625120445
+        }
+      }
+    }
+  },
+  "basis_comparison": {
+    "aug_cc_pvdz_C_qp": 0.0003684704839730426,
+    "cc_pvtz_C_qp": 0.00018470670651134146,
+    "C_qp_ratio_ccpvtz_over_augccpvdz": 0.5012795177506122,
+    "aug_cc_pvdz_normalized_dipole_path_difference": 0.0007586174630409905,
+    "cc_pvtz_normalized_dipole_path_difference": 0.00046733228124162834,
+    "dipole_ratio_ccpvtz_over_augccpvdz": 0.6160315363269945,
+    "reference_route_permutations": [
+      [
+        0,
+        1,
+        3,
+        2
+      ],
+      [
+        0,
+        1,
+        3,
+        2
+      ]
+    ],
+    "ccpvtz_route_permutations": [
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        0,
+        1,
+        2,
+        3
+      ]
+    ]
+  },
+  "failed_elementary_edges": [],
+  "failed_boundary_edges": [],
+  "nonstationary_wavefunctions": [],
+  "authorized_interpretation": "The fixed LiH R x static-field false-negative demonstration is reproduced under independent basis change from aug-cc-pVDZ to cc-pVTZ without moving the window or changing thresholds.",
+  "authorized_next_step": "Stop molecular searching and production quantum chemistry; prepare the main-text LiH figure, revised manuscript, Supporting Information, and point-by-point response.",
+  "prohibited_interpretations": [
+    "complete-basis-set convergence",
+    "experimental accessibility of the applied field",
+    "a conical intersection proved solely by the avoided crossing",
+    "cc-pVTZ history independence unless the appended opposed-history gate passes",
+    "coordinate relocation or favorable-window reselection",
+    "replacement of active-only overlap by scalar inactive-core division"
+  ],
+  "runtime": {
+    "python_version": "3.11.15",
+    "timestamp_unix": 1789559368.384331
+  }
+}

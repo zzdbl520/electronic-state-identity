@@ -1,0 +1,15 @@
+RETAINED: C5H5+ rank-2 singlet-manifold evidence
+
+The projector, opposed-SA2-history, and history-seeded-SA3 decisions pass.
+Current use: main Section 3.3, Figure 6, abstract, conclusions, and SI S8.
+The near-degenerate pair is treated as a subspace; no scalar Berry phase,
+CI count, absolute-ground-state claim, or individual-root identity is inferred.
+Reference/history phase differences exceed mesh differences and are disclosed.
+
+Included: numerical point/edge diagnostics, singular values, Wilson invariants,
+mesh/history/SA3 comparisons, source scripts, protocols, and calculation logs.
+Missing: original Cartesian geometries, relaxed-surface coefficients, and
+orbital/CI checkpoint arrays. Hashes do not substitute for missing files.
+Tables/figure and record arithmetic are reproducible; fresh overlap/Wilson
+reconstruction is not possible from this package alone.
+See analysis/cpdc_summary.json and SI S11.

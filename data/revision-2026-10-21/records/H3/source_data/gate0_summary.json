@@ -1,0 +1,262 @@
+{
+  "gate": "H3 production many-electron overlap and four-corner plaquette",
+  "status": "PASS",
+  "versions": {
+    "python": "3.10.18 (main, Jun  5 2025, 13:14:17) [GCC 11.2.0]",
+    "numpy": "2.2.6",
+    "pyscf": "2.10.0"
+  },
+  "parameters": {
+    "basis": "cc-pvtz",
+    "active_space": "CAS(3,3)",
+    "active_electrons": [
+      2,
+      1
+    ],
+    "selected_m": 2,
+    "protocols": [
+      "equal-weight SA2",
+      "equal-weight SA3"
+    ],
+    "rho_angstrom": 0.01,
+    "phi0_deg": 0.0,
+    "phi1_deg": 10.0,
+    "threads": 16,
+    "memory_mb": 50000
+  },
+  "geometries": {
+    "phi_0.00000000": {
+      "phi_deg": 0.0,
+      "rho_angstrom": 0.01,
+      "Qx_angstrom": 0.01,
+      "Qy_angstrom": 0.0,
+      "r0_angstrom": 1.5588457268119895,
+      "r12_angstrom": 1.5688457268119895,
+      "r23_angstrom": 1.5538457268119896,
+      "r31_angstrom": 1.5538457268119896,
+      "reconstructed_distances_angstrom": [
+        1.5688457268119895,
+        1.5538457268119898,
+        1.5538457268119896
+      ]
+    },
+    "phi_10.00000000": {
+      "phi_deg": 10.0,
+      "rho_angstrom": 0.01,
+      "Qx_angstrom": 0.00984807753012208,
+      "Qy_angstrom": 0.0017364817766693033,
+      "r0_angstrom": 1.5588457268119895,
+      "r12_angstrom": 1.5686938043421117,
+      "r23_angstrom": 1.5554255253787328,
+      "r31_angstrom": 1.552417850715124,
+      "reconstructed_distances_angstrom": [
+        1.5686938043421117,
+        1.555425525378733,
+        1.5524178507151238
+      ]
+    }
+  },
+  "corners": {
+    "A_q0_SA2": {
+      "protocol": "SA2",
+      "phi_deg": 0.0,
+      "energies_hartree": [
+        -1.5161397198219904,
+        -1.51325203091015
+      ],
+      "spin_squares": [
+        0.7500000000000023,
+        0.7499999999999999
+      ],
+      "selected_frame_orthogonality_error": 3.1401849173675503e-16,
+      "checkpoint": "H3_gate0/corners/A_q0_SA2.npz",
+      "log": "H3_gate0/logs/A_q0_SA2.log"
+    },
+    "B_q1_SA2": {
+      "protocol": "SA2",
+      "phi_deg": 10.0,
+      "energies_hartree": [
+        -1.5161405033855853,
+        -1.5132512380421104
+      ],
+      "spin_squares": [
+        0.7500000000000019,
+        0.7500000000000027
+      ],
+      "selected_frame_orthogonality_error": 2.486198278204031e-16,
+      "checkpoint": "H3_gate0/corners/B_q1_SA2.npz",
+      "log": "H3_gate0/logs/B_q1_SA2.log"
+    },
+    "C_q0_SA3": {
+      "protocol": "SA3",
+      "phi_deg": 0.0,
+      "energies_hartree": [
+        -1.5094223141088507,
+        -1.5065082897771696,
+        -1.1924241784289875
+      ],
+      "spin_squares": [
+        0.7500000000000059,
+        0.7499999999999994,
+        0.7500000000001052
+      ],
+      "selected_frame_orthogonality_error": 5.551115123125783e-16,
+      "checkpoint": "H3_gate0/corners/C_q0_SA3.npz",
+      "log": "H3_gate0/logs/C_q0_SA3.log"
+    },
+    "D_q1_SA3": {
+      "protocol": "SA3",
+      "phi_deg": 10.0,
+      "energies_hartree": [
+        -1.508973582552346,
+        -1.5067847917416395,
+        -1.1950609869415918
+      ],
+      "spin_squares": [
+        0.7500000000000001,
+        0.7499999999999999,
+        0.7500000000000089
+      ],
+      "selected_frame_orthogonality_error": 1.1370050462376727e-16,
+      "checkpoint": "H3_gate0/corners/D_q1_SA3.npz",
+      "log": "H3_gate0/logs/D_q1_SA3.log"
+    }
+  },
+  "edges": {
+    "AB": {
+      "state_singular_values": [
+        0.9999951381893888,
+        0.9999938064649793
+      ],
+      "active_orbital_singular_values": [
+        0.9999999843580232,
+        0.9999999666644283,
+        0.9999943926677731
+      ],
+      "sigma_min_state": 0.9999938064649793,
+      "sigma_min_active": 0.9999943926677731,
+      "lambda_state": 1.1055314633412472e-05,
+      "production_vs_direct_fock_error": 1.722188176232883e-15,
+      "reverse_overlap_error": 6.158048441266492e-16,
+      "reverse_transport_error": 6.018865528812212e-16,
+      "polar_unitarity_error": 1.0935810164575449e-15,
+      "ambient_gram_reconstruction_error": 3.805204326619481e-15,
+      "direct_state_norm_error": 2.6645352591003757e-15
+    },
+    "BD": {
+      "state_singular_values": [
+        0.9962911200329648,
+        0.991690578713484
+      ],
+      "active_orbital_singular_values": [
+        0.9999142124110747,
+        0.9991282323024291,
+        0.992729002424229
+      ],
+      "sigma_min_state": 0.991690578713484,
+      "sigma_min_active": 0.992729002424229,
+      "lambda_state": 0.011976900117187883,
+      "production_vs_direct_fock_error": 2.7352975428562675e-15,
+      "reverse_overlap_error": 5.20740757162067e-16,
+      "reverse_transport_error": 1.9229626863835638e-16,
+      "polar_unitarity_error": 4.718907075839666e-16,
+      "ambient_gram_reconstruction_error": 3.024235405872547e-15,
+      "direct_state_norm_error": 2.3314683517128287e-15
+    },
+    "AC": {
+      "state_singular_values": [
+        0.9941730253262872,
+        0.9940125566303469
+      ],
+      "active_orbital_singular_values": [
+        0.9999643069050397,
+        0.9960374153463134,
+        0.9958283496242989
+      ],
+      "sigma_min_state": 0.9940125566303469,
+      "sigma_min_active": 0.9958283496242989,
+      "lambda_state": 0.011779516487389508,
+      "production_vs_direct_fock_error": 1.557678416965018e-15,
+      "reverse_overlap_error": 4.860892229806776e-16,
+      "reverse_transport_error": 2.173427088617694e-16,
+      "polar_unitarity_error": 6.280369834735141e-16,
+      "ambient_gram_reconstruction_error": 3.574473461484703e-15,
+      "direct_state_norm_error": 2.6645352591003757e-15
+    },
+    "CD": {
+      "state_singular_values": [
+        0.9986761845953684,
+        0.9966293204546124
+      ],
+      "active_orbital_singular_values": [
+        0.9999101723167212,
+        0.999603761843365,
+        0.997100871735581
+      ],
+      "sigma_min_state": 0.9966293204546124,
+      "sigma_min_active": 0.997100871735581,
+      "lambda_state": 0.004687937966107558,
+      "production_vs_direct_fock_error": 3.2406343207394936e-15,
+      "reverse_overlap_error": 9.867878089448544e-16,
+      "reverse_transport_error": 2.3551386880256624e-16,
+      "polar_unitarity_error": 2.2748483586279943e-16,
+      "ambient_gram_reconstruction_error": 3.193515608073242e-15,
+      "direct_state_norm_error": 2.9976021664879227e-15
+    }
+  },
+  "plaquette": {
+    "curvature": 0.00042499571524157073,
+    "curvature_from_paths": 0.0004249957152415753,
+    "formula_error": 4.553649124439119e-18,
+    "eta_edge": 0.991690578713484,
+    "lambda_edges_order_AB_BD_AC_CD": [
+      1.1055314633412472e-05,
+      0.011976900117187883,
+      0.011779516487389508,
+      0.004687937966107558
+    ],
+    "lambda_edge_max": 0.011976900117187883,
+    "holonomy_phases_radian": [
+      -0.0008499914560709301,
+      0.0008499914560709578
+    ],
+    "random_corner_gauge_error": 1.2088854223213374e-17
+  },
+  "acceptance_checks": {
+    "maximum_frame_orthogonality_error": {
+      "value": 5.551115123125783e-16,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "maximum_production_vs_direct_fock_error": {
+      "value": 3.2406343207394936e-15,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "maximum_polar_unitarity_error": {
+      "value": 1.0935810164575449e-15,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "maximum_reverse_overlap_error": {
+      "value": 9.867878089448544e-16,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "maximum_reverse_transport_error": {
+      "value": 6.018865528812212e-16,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "curvature_formula_error": {
+      "value": 4.553649124439119e-18,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "random_corner_gauge_error": {
+      "value": 1.2088854223213374e-17,
+      "tolerance": 1e-12,
+      "passed": true
+    }
+  }
+}

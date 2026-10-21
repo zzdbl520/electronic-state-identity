@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "embedded_fci_error": 8.326672684688674e-17,
+  "gauge_covariance_error": 2.906477286780083e-15,
+  "route_norm_error": 0.0
+}

@@ -1,0 +1,461 @@
+{
+  "status": "REVIEW_REQUIRED",
+  "purpose": "Read-only verification. Original qualification thresholds and decisions are unchanged.",
+  "input_archive": "LiH_augccpVTZ_results_20261013_022058",
+  "audit_runtime": {
+    "pyscf": "2.13.1",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  },
+  "integrity": {
+    "wavefunction_count": 736,
+    "hash_mismatches": [],
+    "missing_or_unlisted_npz": [],
+    "source_sha256": "15f834a365312b4271efa3643595f7ec0baa62d2704fca25148ed7fe47545df4",
+    "source_matches_plan": true,
+    "plan_fingerprint_matches": true
+  },
+  "wavefunction_quality": {
+    "independent_selected": 202,
+    "candidate_count": 404,
+    "history_count": 130,
+    "invalid_selected_or_history": [],
+    "invalid_candidates": [],
+    "selected_routes": {
+      "candidate_newton": 129,
+      "candidate_one_step": 73
+    },
+    "selection_errors": [],
+    "max_gradient_used": 4.072833053453406e-09,
+    "min_fifth_A1_gap_used_Eh": 0.0713180606819872,
+    "max_spin_square_used": 1.2748600537717805e-14,
+    "max_probe_energy_error_Eh": 1.1546319456101628e-13,
+    "max_mo_orth_error": 1.0742238867061989e-13
+  },
+  "loop_recomputation_errors": [
+    {
+      "scale": 1.0,
+      "n": 1,
+      "C_error": 0.0,
+      "D_mu_error": 0.0,
+      "max_M_error": 0.0,
+      "checks_match": true
+    },
+    {
+      "scale": 1.0,
+      "n": 2,
+      "C_error": 0.0,
+      "D_mu_error": 0.0,
+      "max_M_error": 0.0,
+      "checks_match": true
+    },
+    {
+      "scale": 1.0,
+      "n": 4,
+      "C_error": 0.0,
+      "D_mu_error": 0.0,
+      "max_M_error": 0.0,
+      "checks_match": true
+    },
+    {
+      "scale": 1.0,
+      "n": 8,
+      "C_error": 0.0,
+      "D_mu_error": 0.0,
+      "max_M_error": 0.0,
+      "checks_match": true
+    },
+    {
+      "scale": 1.0,
+      "n": 16,
+      "C_error": 0.0,
+      "D_mu_error": 0.0,
+      "max_M_error": 0.0,
+      "checks_match": true
+    },
+    {
+      "scale": 0.5,
+      "n": 4,
+      "C_error": 0.0,
+      "D_mu_error": 0.0,
+      "max_M_error": 0.0,
+      "checks_match": true
+    },
+    {
+      "scale": 0.5,
+      "n": 8,
+      "C_error": 0.0,
+      "D_mu_error": 0.0,
+      "max_M_error": 0.0,
+      "checks_match": true
+    },
+    {
+      "scale": 0.25,
+      "n": 4,
+      "C_error": 0.0,
+      "D_mu_error": 0.0,
+      "max_M_error": 0.0,
+      "checks_match": true
+    },
+    {
+      "scale": 0.25,
+      "n": 8,
+      "C_error": 0.0,
+      "D_mu_error": 0.0,
+      "max_M_error": 0.0,
+      "checks_match": true
+    },
+    {
+      "scale": 0.125,
+      "n": 4,
+      "C_error": 0.0,
+      "D_mu_error": 0.0,
+      "max_M_error": 0.0,
+      "checks_match": true
+    },
+    {
+      "scale": 0.125,
+      "n": 8,
+      "C_error": 0.0,
+      "D_mu_error": 0.0,
+      "max_M_error": 0.0,
+      "checks_match": true
+    },
+    {
+      "scale": 0.0625,
+      "n": 4,
+      "C_error": 0.0,
+      "D_mu_error": 0.0,
+      "max_M_error": 0.0,
+      "checks_match": true
+    },
+    {
+      "scale": 0.0625,
+      "n": 8,
+      "C_error": 0.0,
+      "D_mu_error": 0.0,
+      "max_M_error": 0.0,
+      "checks_match": true
+    }
+  ],
+  "max_full_determinant_overlap_error_all_64_edges": 3.3306690738754696e-16,
+  "ambiguous_edges": [
+    {
+      "edge_index_zero_based": 46,
+      "a": [
+        5.81875,
+        0.0115
+      ],
+      "b": [
+        5.809375,
+        0.0115
+      ],
+      "M": [
+        [
+          0.9997961104235719,
+          -0.00035385437067159825,
+          0.00015652200189963938,
+          0.00014421641657147433
+        ],
+        [
+          -0.00034939342966058134,
+          -0.9997993734681802,
+          -0.000130380099492039,
+          -7.561561367155911e-05
+        ],
+        [
+          4.821481877165246e-06,
+          -2.9258024988459974e-05,
+          0.6614470335164965,
+          -0.7497296942353423
+        ],
+        [
+          0.00021240416118689653,
+          0.0001473239640962798,
+          -0.7497186613453626,
+          -0.6614426614339304
+        ]
+      ],
+      "T": [
+        [
+          0.9999999155369119,
+          -0.00035171063095449447,
+          0.00015631410741776396,
+          0.0001441932780856634
+        ],
+        [
+          -0.00035167938636000457,
+          -0.9999999268314225,
+          -0.0001301598312395207,
+          -7.561202820652255e-05
+        ],
+        [
+          4.70263480333733e-06,
+          -2.941298689827971e-05,
+          0.6615786210382286,
+          -0.7498758079161627
+        ],
+        [
+          0.00021266326430424538,
+          0.0001475522264953981,
+          -0.7498757809193962,
+          -0.6615786016742097
+        ]
+      ],
+      "sigma_min": 0.9997918629845213,
+      "leakage": 0.00040432732305228924,
+      "squared_overlap_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "squared_overlap_margin": 0.06228852826878195,
+      "absolute_overlap_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "absolute_overlap_margin": 0.04413966515756951,
+      "active_orbital_sigma_min": 0.9999888263505791,
+      "active_orbital_leakage": 1.5649673016482346e-05,
+      "best_and_runnerup_scores": [
+        [
+          3.123363735193171,
+          [
+            0,
+            1,
+            3,
+            2
+          ]
+        ],
+        [
+          2.8742096221180433,
+          [
+            0,
+            1,
+            2,
+            3
+          ]
+        ]
+      ],
+      "endpoint_energies_Eh": [
+        [
+          -7.925468739698126,
+          -7.876636428827263,
+          -7.680246143292091,
+          -7.679753753645463
+        ],
+        [
+          -7.925452820404951,
+          -7.876641509435304,
+          -7.680190457520329,
+          -7.680001538797029
+        ]
+      ],
+      "endpoint_internal_gaps_Eh": [
+        [
+          0.04883231087086326,
+          0.19639028553517157,
+          0.0004923896466282329
+        ],
+        [
+          0.04881131096964708,
+          0.19645105191497514,
+          0.0001889187232997358
+        ]
+      ]
+    }
+  ],
+  "histories": [
+    {
+      "history": "forward",
+      "C": 0.00031916038251227145,
+      "D_mu": 0.0006300460540431538,
+      "C_error_vs_archived_report": 0.0,
+      "D_mu_error_vs_archived_report": 0.0,
+      "loop_checks": {
+        "wavefunctions": true,
+        "edge_fidelity": true,
+        "assignment_margin": false,
+        "algebra": true
+      },
+      "original_history_pass": false,
+      "numerical_reproducibility_checks_only": {
+        "same_point": true,
+        "closure": true,
+        "C": true,
+        "D_mu": true
+      },
+      "numerical_reproducibility_pass_only": true,
+      "parent_hash_errors": [],
+      "C_difference_from_direct": 1.101884389070537e-09,
+      "D_mu_difference_from_direct": 2.7222401150764006e-09,
+      "max_average_energy_difference_Eh": 7.638334409421077e-14,
+      "max_same_point_leakage": 1.2616574451840279e-12,
+      "min_same_point_eta": 0.9999999999978061,
+      "closure": {
+        "eta": 0.9999999999994243,
+        "leakage": 3.5349501104064984e-13,
+        "average_energy_difference_Eh": 3.375077994860476e-14,
+        "matched_root_energy_max_difference_Eh": 6.973687405320561e-09,
+        "active_orbital_sigma_min": 0.9999999999999063,
+        "active_orbital_leakage": 1.1035616864774056e-13,
+        "T": [
+          [
+            0.9999999999999947,
+            -9.818337767504283e-08,
+            -3.011278708022544e-08,
+            1.2488453627380747e-08
+          ],
+          [
+            -9.818338034952913e-08,
+            -0.9999999999999929,
+            -6.456873116697847e-08,
+            2.4528889345965927e-08
+          ],
+          [
+            3.0112780733254845e-08,
+            -6.456873408226452e-08,
+            0.9999999999999976,
+            2.20562329605554e-09
+          ],
+          [
+            -1.2488451332871104e-08,
+            2.452889048090539e-08,
+            -2.205621391087075e-09,
+            0.9999999999999998
+          ]
+        ]
+      }
+    },
+    {
+      "history": "reverse",
+      "C": 0.00031916173281751846,
+      "D_mu": 0.000630049397130131,
+      "C_error_vs_archived_report": 0.0,
+      "D_mu_error_vs_archived_report": 0.0,
+      "loop_checks": {
+        "wavefunctions": true,
+        "edge_fidelity": true,
+        "assignment_margin": false,
+        "algebra": true
+      },
+      "original_history_pass": false,
+      "numerical_reproducibility_checks_only": {
+        "same_point": true,
+        "closure": true,
+        "C": true,
+        "D_mu": true
+      },
+      "numerical_reproducibility_pass_only": true,
+      "parent_hash_errors": [],
+      "C_difference_from_direct": 2.4842085794051297e-10,
+      "D_mu_difference_from_direct": 6.208468620932592e-10,
+      "max_average_energy_difference_Eh": 5.950795411990839e-14,
+      "max_same_point_leakage": 7.931433287922118e-13,
+      "min_same_point_eta": 0.9999999999986614,
+      "closure": {
+        "eta": 0.9999999999998037,
+        "leakage": 1.2068124277675452e-13,
+        "average_energy_difference_Eh": 1.7763568394002505e-15,
+        "matched_root_energy_max_difference_Eh": 3.816820637325691e-09,
+        "active_orbital_sigma_min": 0.9999999999999211,
+        "active_orbital_leakage": 7.227551890309769e-14,
+        "T": [
+          [
+            0.9999999999999993,
+            4.014323209526209e-08,
+            -2.0742000102097372e-08,
+            2.3820767965304645e-09
+          ],
+          [
+            -4.014323195973543e-08,
+            0.9999999999999993,
+            -1.7756016846440202e-08,
+            -1.2725411423171551e-08
+          ],
+          [
+            2.0741999268792546e-08,
+            1.7756017505320043e-08,
+            0.9999999999999997,
+            1.1238828406183408e-09
+          ],
+          [
+            -2.3820773343622883e-09,
+            1.272541150263207e-08,
+            -1.123883039277496e-09,
+            0.9999999999999999
+          ]
+        ]
+      }
+    }
+  ],
+  "original_decision": {
+    "status": "REVIEW_REQUIRED",
+    "basis": "aug-cc-pvtz",
+    "checks": {
+      "finest_loop_qualified": false,
+      "main_mesh_converged": true,
+      "opposed_histories_qualified": false,
+      "nested_loops_qualified": true,
+      "nested_mesh_converged": true
+    },
+    "C": 0.0003191614843966605,
+    "D_mu": 0.0006300487762832689,
+    "delta_mu_au": 0.015094282655319704,
+    "same_composed_assignment": true,
+    "mesh_C_difference_8_to_16": 7.386563856935386e-09,
+    "mesh_D_mu_difference_8_to_16": 6.381591890125202e-09,
+    "log_C_vs_log_area_slope": 1.0002437766170549,
+    "nested_mesh_diagnostics": [
+      {
+        "scale": 0.5,
+        "C_difference": 1.740223070395455e-09,
+        "qualified": true
+      },
+      {
+        "scale": 0.25,
+        "C_difference": 2.0582337603610975e-10,
+        "qualified": true
+      },
+      {
+        "scale": 0.125,
+        "C_difference": 5.621222736755722e-11,
+        "qualified": true
+      },
+      {
+        "scale": 0.0625,
+        "C_difference": 9.511414907744647e-12,
+        "qualified": true
+      }
+    ],
+    "smallest_loop_curvature_norm_estimate_per_Angstrom_au": 8.474492140741996,
+    "minimum_nested_C": 1.2413806846790031e-06,
+    "interpretation": "Dipole difference compares matrix representations in a common starting frame; it is not a difference in the endpoint physical dipole. Isolation probe is for the fifth singlet A1 CASCI root only.",
+    "thresholds": {
+      "eta_min": 0.98,
+      "leakage_max": 0.01,
+      "assignment_margin_min": 0.1,
+      "max_orbital_gradient": 1e-06,
+      "min_excluded_A1_gap_Eh": 0.01,
+      "max_spin_square": 1e-07,
+      "max_mo_orth_error": 1e-09,
+      "max_probe_energy_error_Eh": 1e-08,
+      "max_algebra_error": 1e-09,
+      "history_max_average_energy_error_Eh": 1e-08,
+      "history_min_eta": 0.9999,
+      "history_max_leakage": 1e-06,
+      "history_max_C_difference": 1e-08,
+      "history_max_D_mu_difference": 1e-08,
+      "mesh_C_relative_tolerance": 0.001,
+      "mesh_C_absolute_tolerance": 1e-08,
+      "mesh_D_mu_relative_tolerance": 0.001,
+      "mesh_D_mu_absolute_tolerance": 1e-08
+    },
+    "plan_fingerprint": "a9c63b81faf21ad3e8e6b85318a4b783ac3b89177850d713d3b293e8fa547f62"
+  },
+  "remaining_issue": "One third/fourth-state assignment margin is below the original 0.10 threshold; this also makes both original history_pass values false. The subspace and numerical history checks pass separately.",
+  "scope": "Retained singlet A1 SA4-CASSCF(2e,5o) model only. Dipole metric is a transport-dependent representation comparison, not different physical endpoint dipoles."
+}

@@ -1,79 +1,47 @@
-> **Revision deposit status — 21 October 2026:** The October revision data
-> package has been prepared but is not yet published in this repository.
-> The numerical files below remain the September release at commit
-> `6e18f33d40d1e00166278bbb233f12ef8b56f239`. Do not cite the current
-> public tree as containing the additional October revision data.
+# Gauge-Covariant Closed-Loop Transport of Multireference State Manifolds
 
-# Electronic-State Identity beyond Root Tracking
+Code and numerical data for the JCTC manuscript by Hui Li and Dongbo Zhao.
 
-Numerical code and verification records for **“Electronic-State Identity beyond
-Root Tracking: Gauge-Covariant Closed-Loop Transport of Multireference State
-Manifolds.”**
+**Current data revision: 21 October 2026.** Start with the
+[data README](data/revision-2026-10-21/README.md).
 
-The repository separates three tasks that are easy to conflate:
+| System | Current evidence | Data |
+|---|---|---|
+| LiH | Same endpoint assignments with resolved transport and transported-dipole differences. Three bases are interpreted separately. | [Summary](data/revision-2026-10-21/analysis/augccpvtz_summary.json), [production](data/revision-2026-10-21/records/lih_augccpvtz_production/), [refinement](data/revision-2026-10-21/records/lih_augccpvtz_local_refinement/) |
+| BeH2 | Energy separation depends on the orbital-rotation constraint. Failed SA3/SA4 fidelity prevents a physical branch-transition interpretation. | [Tables](data/revision-2026-10-21/records/BeH2/), [model comparison](data/revision-2026-10-21/records/beh2_model_comparison/) |
+| C5H5+ | Externally isolated rank-2 pair; initialization sensitivity limits the precision of the small Wilson eigenphase. | [Records](data/revision-2026-10-21/records/CPDC/), [summary](data/revision-2026-10-21/analysis/cpdc_summary.json) |
+| H3 | Historical ring/refinement tables and workflows; local pointwise-refinement failure retained. | [Data](data/revision-2026-10-21/records/H3/) |
+| O3 | Historical directional-refinement data; weighted-SA2 pilot fails the stated gates. | [Data](data/revision-2026-10-21/records/O3/) |
 
-1. generate stationary multireference wave functions;
-2. form exact many-electron cross-overlaps and their unitary polar transports;
-3. decide whether a reported route effect survives fidelity, gauge, mesh, and
-   opposed-history checks.
-
-The reusable NumPy implementation is in `src/electronic_state_identity/`. The
-original, system-specific PySCF workflows and the machine-readable decision
-records are kept under `systems/`.
-
-## Evidence map
-
-| System | Question tested | Archived outcome | Location |
-|---|---|---|---|
-| LiH | Can endpoint root matching miss a difference between two continuous transports? | Yes. Both routes give the same composed assignment, while transport and back-transported dipole diagnostics differ; the result survives basis and opposed-history checks. | `systems/lih/` |
-| BeH2 | Is the apparent branch termination intrinsic to unconstrained CASSCF? | No. It disappears when the active-orbital rotation restriction is lifted. The separate G0C plaquette summary remains `REVIEW_REQUIRED` because not every stride-1 upper edge passes the local-fidelity gate. | `systems/beh2/` |
-| Cyclopentadienyl cation | Can a near-degenerate pair be validated as a rank-2 manifold without assigning its members? | Yes. Independent SA3, edge-fidelity, U(2)-gauge, mesh, and opposed-history tests pass for the externally isolated lower pair. | `systems/cyclopentadienyl-cation/` |
-
-The BeH2 qualification above is intentional: the constraint comparison supports
-the branch-termination interpretation, but the archived G0C plaquette package is
-not promoted to an unconditional transport “pass.”
+All 1,936 LiH NPZ files from the revision package are included in checked archive parts, including
+optimizer candidates and repeated baselines. This is a file count, not a count
+of independent geometries. See [Data availability](docs/DATA_AVAILABILITY.md)
+for historical raw-file limitations in the other systems.
 
 ## Quick verification
 
-Python 3.10 or newer is recommended.
+Python 3.10 or newer:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
 python -m pip install -e .
+python scripts/unpack_wavefunctions.py
 python -m unittest discover -v
 python scripts/verify_reference_results.py
 python scripts/run_workflow_selftests.py
-sha256sum -c SHA256SUMS
+sha256sum -c SHA256SUMS --quiet
 ```
 
-These commands test the transport algebra and audit the published decision
-records. They do not rerun the expensive CASSCF calculations.
+These commands check transport algebra, current records and integrity without
+new CASSCF optimizations. The data README gives overlap-reconstruction and
+figure-regeneration commands.
 
-## Full calculations
+- [Claim-to-evidence map](docs/CLAIM_EVIDENCE_MATRIX.md)
+- [Reproducibility](docs/REPRODUCIBILITY.md)
+- [Scientific scope](docs/SCIENTIFIC_SCOPE.md)
+- [SI/repository roles](docs/SI_REPOSITORY_BOUNDARY.md)
+- [Revision notes](docs/REVISION_2026-10-21.md)
 
-The production workflows were run with PySCF 2.13.1. Install the optional
-dependency with:
-
-```bash
-python -m pip install -e '.[qc]'
-```
-
-Each system README gives its command sequence, inputs, stopping rules, and exact
-claim boundary. Restart wave functions are deliberately not tracked by ordinary
-Git; see `docs/DATA_AVAILABILITY.md` before attempting a full rerun.
-
-## Repository conventions
-
-- `workflow/`: calculation and analysis programs;
-- `reference/`: immutable, machine-readable records from the reported runs;
-- `src/`: small shared numerical kernels used by tests and examples;
-- `scripts/verify_reference_results.py`: cross-system claim-to-record audit;
-- `docs/CLAIM_EVIDENCE_MATRIX.md`: manuscript claim to numerical evidence;
-- `docs/REPRODUCIBILITY.md`: verification levels and environment guidance;
-- `docs/SCIENTIFIC_SCOPE.md`: what the numerical evidence does and does not show.
-
-Release-facing reference records use sanitized path placeholders. One immutable
-CP+ frozen-source snapshot retains historical path strings because its canonical
-JSON fingerprint is an executable validation gate. These strings are provenance,
-not secrets, and are not required for record-level verification.
+September files under `systems/` are retained for provenance. The old LiH
+active-only overlaps and absolute-overlap assignments are superseded by the
+October complete-overlap and squared-overlap analysis. Legacy status labels
+are not current manuscript conclusions.

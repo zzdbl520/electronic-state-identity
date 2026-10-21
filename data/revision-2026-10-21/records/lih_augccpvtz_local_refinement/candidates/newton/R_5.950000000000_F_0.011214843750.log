@@ -1,0 +1,763 @@
+#INFO: **** input file is /scr/zdb/LiH_augccpVTZ_one_shot/LiH_augccpVTZ_one_shot/LiH_augccpVTZ_local_refine/refine_lih.py ****
+#!/usr/bin/env python3
+"""Supplemental local refinement of the audited LiH aug-cc-pVTZ run.
+
+Read-only source results; separate, fingerprinted supplemental checkpoints.
+Original quantum-chemistry solver and all numerical thresholds are unchanged.
+"""
+from __future__ import annotations
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import shutil
+import sys
+import time
+import traceback
+
+# The unmodified engine configures BLAS/OpenMP before importing NumPy.
+import lih_engine as e
+import numpy as np
+
+VERSION = 'LiH-local-refinement-v1.0-20261013'
+EXPECTED_ENGINE = '15f834a365312b4271efa3643595f7ec0baa62d2704fca25148ed7fe47545df4'
+EXPECTED_PARENT = 'a9c63b81faf21ad3e8e6b85318a4b783ac3b89177850d713d3b293e8fa547f62'
+FACTORS = (2, 4, 8, 16, 32, 64)
+# Source n=16 edge numbers, zero-based. Exchange edges plus immediate neighbours.
+LOCAL_EDGES = (26, 27, 28, 45, 46, 47)
+ENDPOINT = (5.95, .0115)
+REPORTS = ('plan.json', 'wavefunction_sha256.json', 'loop_results.json',
+           'history_results.json', 'LiH_augccpVTZ_decision.json', 'run_status.json',
+           'selftest.json', 'calculation_source.py')
+
+
+def read_json(path):
+    return json.loads(Path(path).read_text())
+
+
+def runtime():
+    return {'pyscf': __import__('pyscf').__version__, 'numpy': np.__version__,
+            'scipy': __import__('scipy').__version__}
+
+
+def refined_path(factor):
+    if factor not in (1, *FACTORS):
+        raise ValueError('Unsupported refinement factor')
+    base = e.coords(1., 16)
+    ps = []
+    for i, (a, b) in enumerate(zip(base[:-1], base[1:])):
+        n = factor if i in LOCAL_EDGES else 1
+        for k in range(n):
+            ps.append(tuple(round(a[j] + (b[j]-a[j])*k/n, 12) for j in range(2)))
+    ps.append(ps[0])
+    # This balanced refinement preserves the original opposite corner exactly.
+    # Never silently use half the edges as the physical endpoint on another mesh.
+    mid = ps.index(ENDPOINT)
+    if mid * 2 != len(ps)-1 or len(set(ps[:-1])) != len(ps)-1:
+        raise RuntimeError('Invalid mesh: duplicate vertex or incorrect route split')
+    if len(ps)-1 != 64 + 6*(factor-1):
+        raise RuntimeError('Unexpected edge count')
+    return ps
+
+
+def inspect_source(source):
+    """Verify the complete original archive before reusing any wavefunction."""
+    if not source.is_dir():
+        raise FileNotFoundError(f'Input must be an unpacked result directory: {source}')
+    plan = read_json(source/'plan.json')
+    if plan.get('fingerprint') != EXPECTED_PARENT:
+        raise RuntimeError('This supplement targets LiH_augccpVTZ_results_20261013_022058 only.')
+    calculated = hashlib.sha256(json.dumps(plan['plan'], sort_keys=True).encode()).hexdigest()
+    if calculated != plan['fingerprint']:
+        raise RuntimeError('Original plan fingerprint is invalid')
+    if e.sha256(source/'calculation_source.py') != EXPECTED_ENGINE:
+        raise RuntimeError('Original calculation source does not match the audited version')
+    if e.sha256(Path(e.__file__)) != EXPECTED_ENGINE:
+        raise RuntimeError('Bundled quantum-chemistry engine has been modified')
+    manifest = read_json(source/'wavefunction_sha256.json')
+    if len(manifest) != 736:
+        raise RuntimeError('Expected the complete 736-wavefunction archive')
+    for name, checksum in manifest.items():
+        rel = Path(name)
+        if rel.is_absolute() or '..' in rel.parts:
+            raise RuntimeError('Unsafe manifest path')
+        p = source/rel
+        if not p.is_file() or e.sha256(p) != checksum:
+            raise RuntimeError(f'Missing or changed original wavefunction: {p}')
+    if {str(p.relative_to(source)) for p in source.rglob('*.npz')} != set(manifest):
+        raise RuntimeError('Original directory contains unregistered wavefunctions')
+    reports = {name: e.sha256(source/name) for name in REPORTS}
+    decision = read_json(source/'LiH_augccpVTZ_decision.json')
+    old_status = read_json(source/'run_status.json')
+    if old_status.get('status') != 'COMPLETED' or decision.get('thresholds') != e.THRESHOLDS:
+        raise RuntimeError('Original run is incomplete or its thresholds differ')
+    sols = {}
+    for key in e.coords(1., 16)[:-1]:
+        s = e.load(e.outpath(source/'solutions', key))
+        if s['metadata'].get('run_fingerprint') != EXPECTED_PARENT or not all(e.state_checks(s).values()):
+            raise RuntimeError(f'Original boundary wavefunction is not qualified: {key}')
+        sols[key] = s
+    return {'plan': plan, 'manifest': manifest, 'report_hashes': reports,
+            'solutions': sols, 'decision': decision,
+            'runtime_matches_original': runtime() == plan['plan']['runtime_versions']}
+
+
+def make_plan(info):
+    return {
+        'version': VERSION, 'parent_fingerprint': EXPECTED_PARENT,
+        'parent_report_hashes': info['report_hashes'],
+        'engine_sha256': e.sha256(Path(e.__file__)),
+        'driver_sha256': e.sha256(Path(__file__)),
+        'runtime_versions': runtime(), 'base_segments_per_side': 16,
+        'refined_base_edges_zero_based': LOCAL_EDGES, 'refinement_factors': FACTORS,
+        'endpoint_R_Angstrom_F_au': ENDPOINT,
+        'thresholds': e.THRESHOLDS,
+        'independent_rule': 'Two fixed RHF-seeded optimizer routes; lowest solver-valid SA4 energy, retaining both candidates.',
+        'candidate_mesh_rule': 'Both adjacent refinement levels qualified, both metrics mesh-converged, every coarse-edge permutation equals its composed child-edge permutation, same composed endpoint assignment on both routes.',
+        'history_rule': 'Full fresh forward/reverse traversals on each candidate fine mesh; no reuse of old history orbitals except the common independent starting seed.',
+        'history_failure_rule': 'Further refine only for an assignment-only failure; stop for numerical history, wavefunction, fidelity or algebra failure.',
+        'inherited_checks': 'Original global 8-to-16 mesh comparison and all four nested-loop tests are inherited after integrity verification; compare supplemental final metrics to original n=16 as well.',
+        'maximum_independent_new_points': 6*(FACTORS[-1]-1),
+        'no_signal_selection': 'Mesh selection uses qualification and numerical stability, never the size or sign of nonclosure.',
+    }
+
+
+def register_plan(root, plan):
+    normalized = json.loads(json.dumps(plan))
+    fingerprint = hashlib.sha256(json.dumps(normalized, sort_keys=True).encode()).hexdigest()
+    target = root/'plan.json'
+    if target.exists():
+        previous = read_json(target)
+        if previous.get('fingerprint') != fingerprint or previous.get('plan') != normalized:
+            raise RuntimeError('Supplement source, runtime or plan differs from this work directory. Use a new --root; do not delete its plan.json.')
+    else:
+        if any(root.rglob('*.npz')):
+            raise RuntimeError('Unregistered NPZ files in supplemental --root; use a new directory')
+        e.write_json(target, {'fingerprint': fingerprint,
+                             'created_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+                             'plan': normalized})
+    e.RUN_FINGERPRINT = fingerprint
+
+
+def copy_verified(src, dest, checksum):
+    if dest.exists():
+        if e.sha256(dest) != checksum:
+            raise RuntimeError(f'Changed local snapshot: {dest}')
+    else:
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        temp = dest.with_suffix(dest.suffix+'.copy.tmp')
+        shutil.copyfile(src, temp)
+        if e.sha256(temp) != checksum:
+            raise RuntimeError(f'Input changed during copy: {src}')
+        os.replace(temp, dest)
+
+
+def freeze_baseline(source, root, info):
+    for name, checksum in info['report_hashes'].items():
+        copy_verified(source/name, root/'baseline'/name, checksum)
+    sols = {}
+    for key, state in info['solutions'].items():
+        rel = 'solutions/'+Path(state['path']).name
+        dest = root/'baseline'/rel
+        copy_verified(source/rel, dest, info['manifest'][rel])
+        sols[key] = e.load(dest)
+    return sols
+
+
+def analyze(ps, sols, factor):
+    split = ps.index(ENDPOINT)
+    if split*2 != len(ps)-1:
+        raise RuntimeError('Refusing a route split that is not the physical opposite corner')
+    r = e.analyze_loop(ps, sols, 1.)
+    r['segments_per_side'] = None  # Mesh is nonuniform; do not mislabel it.
+    r.update(base_segments_per_side=16, local_refinement_factor=factor,
+             number_of_edges=len(ps)-1, endpoint_index=split,
+             refined_base_edges_zero_based=list(LOCAL_EDGES))
+    return r
+
+
+def close_metric(fine, coarse, name):
+    diff = abs(fine[name]-coarse[name])
+    tol = max(e.THRESHOLDS[f'mesh_{name}_absolute_tolerance'],
+              e.THRESHOLDS[f'mesh_{name}_relative_tolerance']*abs(fine[name]))
+    return {'difference': diff, 'tolerance': tol, 'pass': diff <= tol}
+
+
+def mesh_comparison(coarse, fine):
+    oldps = [tuple(p) for p in coarse['vertices']]
+    newps = [tuple(p) for p in fine['vertices']]
+    positions = {p: i for i, p in enumerate(newps[:-1])}
+    changed = []
+    for i, (a, b) in enumerate(zip(oldps[:-1], oldps[1:])):
+        left = positions[a]
+        right = len(newps)-1 if i == len(oldps)-2 else positions[b]
+        if right <= left:
+            raise RuntimeError('Fine mesh is not an ordered refinement')
+        child_perm = e.compose([ed['squared_overlap_permutation'] for ed in fine['edges'][left:right]])
+        if child_perm != coarse['edges'][i]['squared_overlap_permutation']:
+            changed.append({'a': a, 'b': b,
+                            'coarse_permutation': coarse['edges'][i]['squared_overlap_permutation'],
+                            'composed_child_permutation': child_perm})
+    checks = {
+        'both_levels_qualified': coarse['qualified'] and fine['qualified'],
+        'C_converged': close_metric(fine, coarse, 'C')['pass'],
+        'D_mu_converged': close_metric(fine, coarse, 'D_mu')['pass'],
+        'edge_assignment_composition_stable': len(changed) == 0,
+        'both_routes_same_assignment_both_levels': coarse['same_assignment'] and fine['same_assignment'],
+    }
+    return {'coarse_factor': coarse['local_refinement_factor'],
+            'fine_factor': fine['local_refinement_factor'], 'checks': checks,
+            'pass': all(checks.values()), 'C': close_metric(fine, coarse, 'C'),
+            'D_mu': close_metric(fine, coarse, 'D_mu'), 'changed_edge_permutations': changed}
+
+
+def run_histories(root, ps, sols, direct, factor, analyze_only):
+    histories = []
+    for name, sequence in [('forward', ps), ('reverse', list(reversed(ps)))]:
+        hs = {}
+        previous = sols[sequence[0]]
+        label = f'refine_{factor:03d}_{name}'
+        directory = root/'histories'/f'factor_{factor:03d}'/name
+        for i, key in enumerate(sequence):
+            state = e.get_solution(directory/f'{i:04d}.npz', key, label,
+                                   previous=previous, analyze_only=analyze_only)
+            if i == len(sequence)-1:
+                closing = state
+            else:
+                hs[key] = state
+            previous = state
+            print(f'PROGRESS history factor={factor} {name} {i+1}/{len(sequence)}', flush=True)
+        h = analyze(ps, hs, factor)
+        comparisons = [{'vertex': key, **e.compare_states(sols[key], hs[key])} for key in ps[:-1]]
+        closure = e.compare_states(hs[ps[0]], closing)
+        h.update(history=name, closure=closure, direct_comparisons=comparisons,
+                 history_direct_max_delta_E=max(c['average_energy_difference_Eh'] for c in comparisons),
+                 history_direct_max_leakage=max(c['leakage'] for c in comparisons),
+                 C_difference_from_direct=abs(h['C']-direct['C']),
+                 D_mu_difference_from_direct=abs(h['D_mu']-direct['D_mu']))
+        align = comparisons[0]['T']
+        h['W_difference_after_start_frame_alignment'] = float(np.linalg.norm(direct['W']-align@h['W']@align.conj().T))
+        controls = {
+            'same_point_reproducibility': all(e.history_qualified(c) for c in comparisons),
+            'closure': e.history_qualified(closure),
+            'C_reproducibility': h['C_difference_from_direct'] <= e.THRESHOLDS['history_max_C_difference'],
+            'D_mu_reproducibility': h['D_mu_difference_from_direct'] <= e.THRESHOLDS['history_max_D_mu_difference'],
+            'same_composed_assignment_as_direct': h['route1_permutation'] == direct['route1_permutation']
+                and h['route2_permutation'] == direct['route2_permutation'],
+        }
+        h['history_checks'] = controls
+        h['history_pass'] = bool(h['qualified'] and all(controls.values()))
+        histories.append(h)
+        e.write_json(root/'analysis'/f'histories_factor_{factor:03d}.json', histories)
+        print(f'HISTORY factor={factor} {name} pass={h["history_pass"]}', flush=True)
+    return histories
+
+
+def write_summary(root, info, baseline, loops, comparisons, histories, reason):
+    last = loops[-1] if loops else baseline
+    latest_comparison = comparisons[-1] if comparisons else None
+    inherited = info['decision']['checks']
+    same_mesh_histories = len(histories) == 2 and all(h['local_refinement_factor'] == last['local_refinement_factor'] for h in histories)
+    checks = {
+        'inherited_global_mesh_converged': inherited['main_mesh_converged'],
+        'inherited_nested_loops_qualified': inherited['nested_loops_qualified'],
+        'inherited_nested_mesh_converged': inherited['nested_mesh_converged'],
+        'supplemental_finest_loop_qualified': last['qualified'],
+        'adjacent_refinement_levels_stable': bool(latest_comparison and latest_comparison['pass']),
+        'C_consistent_with_original_n16': close_metric(last, baseline, 'C')['pass'],
+        'D_mu_consistent_with_original_n16': close_metric(last, baseline, 'D_mu')['pass'],
+        'opposed_histories_qualified_on_final_mesh': bool(same_mesh_histories and all(h['history_pass'] for h in histories)),
+    }
+    decision = {
+        'status': 'QUALIFIED' if all(checks.values()) else 'REVIEW_REQUIRED',
+        'reason': reason, 'basis': e.BASIS, 'checks': checks,
+        'local_refinement_factor': last['local_refinement_factor'],
+        'number_of_edges': last['number_of_edges'],
+        'C': last['C'], 'D_mu': last['D_mu'], 'delta_mu_au': last['delta_mu_au'],
+        'eta': last['eta'], 'leakage': last['leakage'],
+        'assignment_margin': last['assignment_margin'],
+        'same_composed_assignment': last['same_assignment'],
+        'route1_permutation': last['route1_permutation'],
+        'route2_permutation': last['route2_permutation'],
+        'comparison_to_original_n16': {k: close_metric(last, baseline, k) for k in ('C', 'D_mu')},
+        'parent_status_preserved': info['decision']['status'],
+        'parent_fingerprint': EXPECTED_PARENT, 'supplement_fingerprint': e.RUN_FINGERPRINT,
+        'thresholds': e.THRESHOLDS,
+        'scope': 'Finite-mesh singlet A1 SA4-CASSCF(2e,5o) transport. Dipole quantities compare transported matrix representations, not different physical endpoint dipoles. Fifth-root isolation is within singlet A1 only.',
+    }
+    e.write_json(root/'LiH_local_refine_decision.json', decision)
+    lines = [f'LiH / aug-cc-pVTZ local refinement: {decision["status"]}',
+             f'Reason: {reason}', f'Local factor={last["local_refinement_factor"]}; edges={last["number_of_edges"]}',
+             f'C={last["C"]:.12e}; D_mu={last["D_mu"]:.12e}',
+             f'eta={last["eta"]:.10f}; leakage={last["leakage"]:.6e}; margin={last["assignment_margin"]:.8f}',
+             'Checks: '+json.dumps(checks),
+             'Original result files and original REVIEW_REQUIRED decision are preserved.']
+    (root/'SUMMARY.txt').write_text('\n'.join(lines)+'\n')
+    return decision
+
+
+def run(args, info):
+    source, root = args.source.resolve(), args.root.resolve()
+    if root == source or source in root.parents or root in source.parents:
+        raise RuntimeError('--root and --source must be separate, non-nested directories')
+    # Continuation and reanalysis use the registered runtime. An offline audit
+    # can be performed separately without changing these checkpoint identities.
+    if not info['runtime_matches_original']:
+        raise RuntimeError('Use the original osmo4-mokit runtime for this supplement. Expected '+
+                           json.dumps(info['plan']['plan']['runtime_versions'])+'; got '+json.dumps(runtime()))
+    if args.command == 'analyze' and not (root/'plan.json').is_file():
+        raise FileNotFoundError('No supplemental plan exists; run all first')
+    root.mkdir(parents=True, exist_ok=True)
+    import fcntl
+    lock = (root/'run.lock').open('a')
+    try:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        lock.close()
+        raise RuntimeError('Another supplemental calculation is using '+str(root))
+    registered = False
+    try:
+        register_plan(root, make_plan(info))
+        registered = True
+        e.MAX_MEMORY_MB = args.memory_mb
+        e.lib.num_threads(args.threads)
+        e.write_json(root/'run_status.json', {'status':'RUNNING', 'pid':os.getpid(), 'command':args.command})
+        sols = freeze_baseline(source, root, info)
+        # Include exact source files in the result archive for future independent analysis.
+        for p in (Path(__file__), Path(e.__file__)):
+            copy_verified(p, root/'code'/p.name, e.sha256(p))
+        e.write_json(root/'selftest.json', e.selftest())
+        baseline = analyze(refined_path(1), sols, 1)
+        old16 = next(r for r in read_json(source/'loop_results.json') if r['scale'] == 1 and r['segments_per_side'] == 16)
+        if max(abs(baseline[k]-old16[k]) for k in ('C','D_mu')) > 1e-11:
+            raise RuntimeError('Recomputed baseline does not match the original report')
+        e.write_json(root/'analysis'/'baseline_n16.json', baseline)
+        previous = baseline
+        loops, comparisons, histories = [], [], []
+        reason = 'Maximum local refinement reached without all qualification checks passing.'
+        for factor in FACTORS:
+            ps = refined_path(factor)
+            missing_keys = [k for k in ps[:-1] if k not in sols]
+            for i, key in enumerate(missing_keys, 1):
+                sols[key] = e.get_solution(e.outpath(root/'solutions', key), key, 'direct',
+                                           analyze_only=args.command == 'analyze')
+                print(f'PROGRESS direct factor={factor} {i}/{len(missing_keys)}', flush=True)
+            current = analyze(ps, sols, factor)
+            comparison = mesh_comparison(previous, current)
+            loops.append(current)
+            comparisons.append(comparison)
+            e.write_json(root/'analysis'/f'loop_factor_{factor:03d}.json', current)
+            e.write_json(root/'mesh_comparisons.json', comparisons)
+            print(f'LOOP factor={factor} edges={len(ps)-1} C={current["C"]:.12e} margin={current["assignment_margin"]:.8f} qualified={current["qualified"]} stable={comparison["pass"]}', flush=True)
+            previous = current
+            # At least two NEW refinement levels are required. Original n=16
+            # cannot be used as the coarse member of the acceptance pair.
+            if factor < 4 or not comparison['pass']:
+                continue
+            histories = run_histories(root, ps, sols, current, factor, args.command == 'analyze')
+            if all(h['history_pass'] for h in histories):
+                reason = 'Two successive local refinements and complete opposed histories passed; inspect inherited and original-n16 comparisons in checks.'
+                break
+            other_failure = any(not all(v for k, v in h['checks'].items() if k != 'assignment_margin')
+                                or not all(h['history_checks'].values()) for h in histories)
+            if other_failure:
+                reason = 'Supplemental history controls failed beyond an assignment-margin-only issue; manual review required.'
+                break
+            print('History failure is assignment-margin-only; continuing the predeclared refinement ladder.', flush=True)
+        decision = write_summary(root, info, baseline, loops, comparisons, histories, reason)
+        files = {str(p.relative_to(root)): e.sha256(p) for p in sorted(root.rglob('*.npz'))}
+        e.write_json(root/'wavefunction_sha256.json', files)
+        e.write_json(root/'run_status.json', {'status':'COMPLETED', 'scientific_status':decision['status'], 'wavefunctions':len(files)})
+        print((root/'SUMMARY.txt').read_text(), flush=True)
+        return 0 if decision['status'] == 'QUALIFIED' else 2
+    except BaseException as exc:
+        # Do not replace a valid status merely because registration itself failed.
+        if registered:
+            e.write_json(root/'run_status.json', {'status':'FAILED_OR_INTERRUPTED', 'error':repr(exc), 'traceback':traceback.format_exc()})
+        raise
+    finally:
+        lock.close()
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('command', nargs='?', choices=('all','check','analyze'), default='all')
+    parser.add_argument('--source', type=Path, required=True, help='Original unpacked 022058 result directory')
+    parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parent/'LiH_augccpVTZ_local_refine_work')
+    parser.add_argument('--threads', type=int, default=8)
+    parser.add_argument('--memory-mb', type=int, default=8000)
+    args = parser.parse_args()
+    if args.threads < 1 or args.memory_mb < 500:
+        parser.error('threads must be >=1 and memory-mb >=500')
+    e.lib.num_threads(args.threads)
+    info = inspect_source(args.source.resolve())
+    if args.command == 'check':
+        print(json.dumps({'source_integrity':'PASS', 'runtime_matches_original':info['runtime_matches_original'],
+                          'required_runtime':info['plan']['plan']['runtime_versions'], 'actual_runtime':runtime(),
+                          'refined_edges':LOCAL_EDGES,
+                          'meshes':[{'factor':n, 'edges':len(refined_path(n))-1,
+                                     'new_independent_points_cumulative':6*(n-1),
+                                     'history_points_if_selected':2*len(refined_path(n))} for n in FACTORS]}, indent=2))
+        return 0 if info['runtime_matches_original'] else 2
+    return run(args, info)
+
+
+if __name__ == '__main__':
+    try:
+        sys.exit(main())
+    except KeyboardInterrupt:
+        print('Interrupted. Re-run the identical command to resume.', file=sys.stderr)
+        sys.exit(130)
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='cu02', release='4.18.0-193.el8.x86_64', version='#1 SMP Fri May 8 10:59:10 UTC 2020', machine='x86_64')  Threads 48
+Python 3.11.15 | packaged by conda-forge | (main, Aug 11 2026, 10:26:29) [GCC 14.4.0]
+numpy 2.3.5  scipy 1.17.1  h5py 3.16.0
+Date: Tue Oct 13 05:19:04 2026
+PySCF version 2.13.1
+PySCF path  /home/zdb/miniconda3/envs/osmo4-mokit/lib/python3.11/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 4
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 4
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry C2v subgroup None
+[INPUT] Mole.unit = Angstrom
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 Li     0.000000000000   0.000000000000  -2.975000000000 AA    0.000000000000   0.000000000000  -5.621935220581 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   2.975000000000 AA    0.000000000000   0.000000000000   5.621935220581 Bohr   0.0
+
+nuclear repulsion = 0.266812039119328
+point group symmetry = Coov, use subgroup C2v
+symmetry origin: [ 0.          0.         -2.81096761]
+symmetry axis x: [1. 0. 0.]
+symmetry axis y: [0. 1. 0.]
+symmetry axis z: [0. 0. 1.]
+num. orbitals of irrep A1 = 30
+num. orbitals of irrep A2 = 7
+num. orbitals of irrep B1 = 16
+num. orbitals of irrep B2 = 16
+number of shells = 22
+number of NR pGTOs = 84
+number of NR cGTOs = 69
+basis = aug-cc-pvtz
+ecp = {}
+CPU time:     43404.22
+
+
+******** <class 'pyscf.scf.hf_symm.SymAdaptedRHF'> ********
+method = SymAdaptedRHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-13
+SCF conv_tol_grad = None
+SCF max_cycles = 100
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /scr/zdb/molpro/tmpursg22cz
+max_memory 8000 MB (current use 527 MB)
+Freeze 0 electrons in irreps []
+    4 free electrons in irreps A1 A2 B1 B2
+Set gradient conv threshold to 3.16228e-07
+Initial guess from minao.
+init E= -7.69644943127365
+HOMO (A1) = -0.155566572514339  LUMO (A1) = -0.127539708337797
+cycle= 1 E= -7.65280605627778  delta_E= 0.0436  |g|= 0.0617  |ddm|= 1.13
+HOMO (A1) = -0.377267645150458  LUMO (A1) = -0.169528121867362
+cycle= 2 E= -7.57786931866034  delta_E= 0.0749  |g|= 0.376  |ddm|=  1.5
+HOMO (A1) = -0.360918356394617  LUMO (A1) = -0.169922499443568
+cycle= 3 E= -7.58551874228455  delta_E= -0.00765  |g|= 0.36  |ddm|= 0.0317
+HOMO (A1) = -0.311030233415507  LUMO (A1) = -0.17161847752461
+cycle= 4 E= -7.61787971549795  delta_E= -0.0324  |g|= 0.291  |ddm|= 0.146
+HOMO (A1) = -0.280450455925747  LUMO (A1) = -0.172595862407463
+cycle= 5 E= -7.64082244199208  delta_E= -0.0229  |g|= 0.249  |ddm|= 0.12
+HOMO (A1) = -0.294171913001756  LUMO (A1) = -0.171848737275095
+cycle= 6 E= -7.63402334862095  delta_E= 0.0068  |g|= 0.266  |ddm|= 0.0384
+HOMO (A1) = -0.237240934651327  LUMO (A1) = -0.173878839784926
+cycle= 7 E= -7.66772361401614  delta_E= -0.0337  |g|= 0.209  |ddm|= 0.189
+HOMO (A1) = -0.236530055355658  LUMO (A1) = -0.173894113912093
+cycle= 8 E= -7.66839964038466  delta_E= -0.000676  |g|= 0.208  |ddm|= 0.00419
+HOMO (A1) = -0.23727037460695  LUMO (A1) = -0.173058402363237
+cycle= 9 E= -7.67256867411487  delta_E= -0.00417  |g|= 0.211  |ddm|= 0.0399
+HOMO (A1) = -0.193041701581024  LUMO (A1) = -0.157736576497226
+cycle= 10 E= -7.62354604371643  delta_E= 0.049  |g|= 0.113  |ddm|= 1.31
+HOMO (A1) = -0.181734417970293  LUMO (A1) = -0.13965362311923
+cycle= 11 E= -7.66698657506101  delta_E= -0.0434  |g|= 0.132  |ddm|= 0.48
+HOMO (A1) = -0.224504516259462  LUMO (A1) = -0.164772771807534
+cycle= 12 E= -7.78123075482073  delta_E= -0.114  |g|= 0.0846  |ddm|= 0.975
+HOMO (A1) = -0.216027908484553  LUMO (A1) = -0.148759576800981
+cycle= 13 E= -7.79257565539668  delta_E= -0.0113  |g|= 0.00742  |ddm|= 0.193
+HOMO (A1) = -0.21612733756273  LUMO (A1) = -0.14280556193574
+cycle= 14 E= -7.79261815143142  delta_E= -4.25e-05  |g|= 0.00888  |ddm|= 0.0647
+HOMO (A1) = -0.216285575077483  LUMO (A1) = -0.142897236035147
+cycle= 15 E= -7.79274830839438  delta_E= -0.00013  |g|= 0.0035  |ddm|= 0.045
+HOMO (A1) = -0.216268984114887  LUMO (A1) = -0.143348455512061
+cycle= 16 E= -7.79276603468772  delta_E= -1.77e-05  |g|= 0.000931  |ddm|= 0.0123
+HOMO (A1) = -0.216347906729828  LUMO (A1) = -0.143350254184135
+cycle= 17 E= -7.79276707486346  delta_E= -1.04e-06  |g|= 0.000383  |ddm|= 0.00274
+HOMO (A1) = -0.216362410287885  LUMO (A1) = -0.143369832469004
+cycle= 18 E= -7.79276726572667  delta_E= -1.91e-07  |g|= 0.000118  |ddm|= 0.000871
+HOMO (A1) = -0.216369207820722  LUMO (A1) = -0.143376772400569
+cycle= 19 E= -7.79276728537207  delta_E= -1.96e-08  |g|= 1.4e-05  |ddm|= 0.000312
+HOMO (A1) = -0.21637099933652  LUMO (A1) = -0.143378381477409
+cycle= 20 E= -7.79276728564973  delta_E= -2.78e-10  |g|= 3.27e-07  |ddm|= 4.24e-05
+HOMO (A1) = -0.216371205485343  LUMO (A1) = -0.14337851187702
+cycle= 21 E= -7.79276728565021  delta_E= -4.85e-13  |g|= 8.27e-08  |ddm|= 5.69e-06
+HOMO (A1) = -0.216371238677582  LUMO (A1) = -0.143378560737612
+cycle= 22 E= -7.79276728565026  delta_E= -4.8e-14  |g|= 1.17e-08  |ddm|= 2.39e-06
+HOMO (A1) = -0.216371240792716  LUMO (A1) = -0.143378561737747
+Extra cycle  E= -7.79276728565026  delta_E= -3.55e-15  |g|= 5.56e-09  |ddm|= 1.49e-07
+converged SCF energy = -7.79276728565026
+
+******** <class 'pyscf.mcscf.addons.StateAverageCASSCF'> ********
+CAS (1e+1e, 5o), ncore = 1, nvir = 63
+max_cycle_macro = 100
+max_cycle_micro = 20
+conv_tol = 1e-12
+conv_tol_grad = 1e-08
+orbital rotation max_stepsize = 0.03
+augmented hessian ah_max_cycle = 30
+augmented hessian ah_conv_tol = 1e-16
+augmented hessian ah_linear dependence = 1e-20
+augmented hessian ah_level shift = 1e-08
+augmented hessian ah_start_tol = 500
+augmented hessian ah_start_cycle = 3
+augmented hessian ah_grad_trust_region = 3
+kf_trust_region = 3
+kf_interval = 5
+natorb = False
+canonicalization = False
+chkfile = /scr/zdb/molpro/tmpursg22cz
+max_memory 8000 MB (current use 527 MB)
+internal_rotation = False
+******** <class 'pyscf.mcscf.addons.StateAverageFCISolver'> ********
+max. cycles = 200
+conv_tol = 1e-13
+davidson only = True
+linear dependence = 1e-14
+level shift = 0.001
+max iter space = 12
+max_memory 8000 MB
+nroots = 4
+pspace_size = 400
+spin = None
+Input CI wfn symmetry = A1
+State-average over 4 states with weights [0.25, 0.25, 0.25, 0.25]
+Symmetries of active orbitals: A1 A1 A1 B1 B2
+Active space CI wfn symmetry = A1
+
+WARN: SO-CASSCF (Second order CASSCF) is an experimental feature. Its performance is bad for large systems.
+
+CASCI E = -7.54360584681168  dE = -7.5436058  S^2 = 0.0000000
+macro 1 (30 JK  24 micro), CASSCF E = -7.58833645117265  dE = -0.04473  |grad|=0.0922  S^2 = 0.0000000
+macro 2 (31 JK  25 micro), CASSCF E = -7.62731203278611  dE = -0.03898  |grad|=0.0779  S^2 = 0.0000000
+macro 3 (30 JK  24 micro), CASSCF E = -7.67917709334762  dE = -0.05187  |grad|=0.111  S^2 = 0.0000000
+macro 4 (30 JK  24 micro), CASSCF E = -7.74218842308647  dE = -0.06301  |grad|=0.129  S^2 = 0.0000000
+macro 5 (30 JK  24 micro), CASSCF E = -7.74843569833279  dE = -0.006247  |grad|=0.126  S^2 = 0.0000000
+macro 6 (30 JK  24 micro), CASSCF E = -7.76041564761762  dE = -0.01198  |grad|=0.0919  S^2 = 0.0000000
+macro 7 (30 JK  24 micro), CASSCF E = -7.77227936037868  dE = -0.01186  |grad|=0.0947  S^2 = 0.0000000
+macro 8 (31 JK  25 micro), CASSCF E = -7.78264644846875  dE = -0.01037  |grad|=0.0572  S^2 = 0.0000000
+macro 9 (33 JK  27 micro), CASSCF E = -7.78514519227011  dE = -0.002499  |grad|=0.0196  S^2 = 0.0000000
+macro 10 (31 JK  25 micro), CASSCF E = -7.78505768077045  dE = 8.751e-05  |grad|=0.0741  S^2 = 0.0000000
+macro 11 (32 JK  26 micro), CASSCF E = -7.78465807790177  dE = 0.0003996  |grad|=0.0398  S^2 = 0.0000000
+macro 12 (31 JK  25 micro), CASSCF E = -7.78585789832402  dE = -0.0012  |grad|=0.0664  S^2 = 0.0000000
+macro 13 (33 JK  27 micro), CASSCF E = -7.78809930147501  dE = -0.002241  |grad|=0.0218  S^2 = 0.0000000
+macro 14 (34 JK  28 micro), CASSCF E = -7.78862617117427  dE = -0.0005269  |grad|=0.000748  S^2 = 0.0000000
+macro 15 (24 JK  19 micro), CASSCF E = -7.78862805352976  dE = -1.882e-06  |grad|=0.000792  S^2 = 0.0000000
+macro 16 (9 JK  6 micro), CASSCF E = -7.78862849445605  dE = -4.409e-07  |grad|=0.000649  S^2 = 0.0000000
+macro 17 (14 JK  10 micro), CASSCF E = -7.78862860509503  dE = -1.106e-07  |grad|=6.39e-05  S^2 = 0.0000000
+macro 18 (11 JK  8 micro), CASSCF E = -7.7886286047164  dE = 3.786e-10  |grad|=6.45e-05  S^2 = 0.0000000
+macro 19 (35 JK  28 micro), CASSCF E = -7.78862860882788  dE = -4.111e-09  |grad|=2.19e-06  S^2 = 0.0000000
+macro 20 (7 JK  4 micro), CASSCF E = -7.7886267551724  dE = 1.854e-06  |grad|=8.93e-05  S^2 = 0.0000000
+macro 21 (8 JK  5 micro), CASSCF E = -7.78862462411108  dE = 2.131e-06  |grad|=0.00135  S^2 = 0.0000000
+macro 22 (11 JK  8 micro), CASSCF E = -7.78862670270435  dE = -2.079e-06  |grad|=0.00164  S^2 = 0.0000000
+macro 23 (36 JK  28 micro), CASSCF E = -7.78862853756181  dE = -1.835e-06  |grad|=6.22e-06  S^2 = 0.0000000
+macro 24 (15 JK  11 micro), CASSCF E = -7.78862857852597  dE = -4.096e-08  |grad|=0.000111  S^2 = 0.0000000
+macro 25 (35 JK  28 micro), CASSCF E = -7.78862861349866  dE = -3.497e-08  |grad|=3.56e-06  S^2 = 0.0000000
+macro 26 (17 JK  13 micro), CASSCF E = -7.78862861368655  dE = -1.879e-10  |grad|=1.02e-05  S^2 = 0.0000000
+macro 27 (14 JK  10 micro), CASSCF E = -7.78862861402461  dE = -3.381e-10  |grad|=6.58e-06  S^2 = 0.0000000
+macro 28 (35 JK  28 micro), CASSCF E = -7.7886286140471  dE = -2.249e-11  |grad|=1.27e-07  S^2 = 0.0000000
+macro 29 (33 JK  28 micro), CASSCF E = -7.78862861404974  dE = -2.639e-12  |grad|=7.87e-07  S^2 = 0.0000000
+macro 30 (11 JK  8 micro), CASSCF E = -7.78862861392721  dE = 1.225e-10  |grad|=1.01e-05  S^2 = 0.0000000
+macro 31 (36 JK  28 micro), CASSCF E = -7.78862861403097  dE = -1.038e-10  |grad|=9.92e-08  S^2 = 0.0000000
+macro 32 (35 JK  28 micro), CASSCF E = -7.78862861403028  dE = 6.901e-13  |grad|=5e-08  S^2 = 0.0000000
+macro 33 (32 JK  25 micro), CASSCF E = -7.78862861402961  dE = 6.644e-13  |grad|=7.76e-08  S^2 = 0.0000000
+macro 34 (15 JK  11 micro), CASSCF E = -7.78862861405117  dE = -2.156e-11  |grad|=3.76e-06  S^2 = 0.0000000
+macro 35 (32 JK  26 micro), CASSCF E = -7.78862861405261  dE = -1.445e-12  |grad|=1.87e-07  S^2 = 0.0000000
+macro 36 (35 JK  28 micro), CASSCF E = -7.78862861405201  dE = 6.048e-13  |grad|=5.94e-08  S^2 = 0.0000000
+macro 37 (20 JK  16 micro), CASSCF E = -7.78862861405055  dE = 1.463e-12  |grad|=1.19e-06  S^2 = 0.0000000
+macro 38 (19 JK  15 micro), CASSCF E = -7.78862861403268  dE = 1.787e-11  |grad|=5.62e-06  S^2 = 0.0000000
+macro 39 (16 JK  12 micro), CASSCF E = -7.78862861408429  dE = -5.161e-11  |grad|=3.42e-06  S^2 = 0.0000000
+macro 40 (10 JK  7 micro), CASSCF E = -7.78862861410738  dE = -2.309e-11  |grad|=6.47e-06  S^2 = 0.0000000
+macro 41 (16 JK  12 micro), CASSCF E = -7.78862861411491  dE = -7.526e-12  |grad|=1.17e-06  S^2 = 0.0000000
+macro 42 (7 JK  4 micro), CASSCF E = -7.7886286138877  dE = 2.272e-10  |grad|=1.7e-06  S^2 = 0.0000000
+macro 43 (9 JK  6 micro), CASSCF E = -7.78862861410393  dE = -2.162e-10  |grad|=1.34e-05  S^2 = 0.0000000
+macro 44 (26 JK  21 micro), CASSCF E = -7.788628614112  dE = -8.071e-12  |grad|=2.41e-07  S^2 = 0.0000000
+macro 45 (18 JK  14 micro), CASSCF E = -7.78862861411204  dE = -3.908e-14  |grad|=6.16e-07  S^2 = 0.0000000
+macro 46 (14 JK  11 micro), CASSCF E = -7.78862861411402  dE = -1.982e-12  |grad|=2.81e-06  S^2 = 0.0000000
+macro 47 (11 JK  8 micro), CASSCF E = -7.78862861410577  dE = 8.246e-12  |grad|=1.59e-06  S^2 = 0.0000000
+macro 48 (7 JK  4 micro), CASSCF E = -7.78862861393025  dE = 1.755e-10  |grad|=4.02e-06  S^2 = 0.0000000
+macro 49 (14 JK  11 micro), CASSCF E = -7.78862861363907  dE = 2.912e-10  |grad|=1.52e-05  S^2 = 0.0000000
+macro 50 (7 JK  4 micro), CASSCF E = -7.78862845675757  dE = 1.569e-07  |grad|=2.64e-05  S^2 = 0.0000000
+macro 51 (7 JK  4 micro), CASSCF E = -7.78862258983982  dE = 5.867e-06  |grad|=0.000403  S^2 = 0.0000000
+macro 52 (7 JK  4 micro), CASSCF E = -7.78861644397654  dE = 6.146e-06  |grad|=0.00244  S^2 = 0.0000000
+macro 53 (7 JK  4 micro), CASSCF E = -7.78861155843309  dE = 4.886e-06  |grad|=0.00309  S^2 = 0.0000000
+macro 54 (7 JK  4 micro), CASSCF E = -7.78861316647285  dE = -1.608e-06  |grad|=0.00405  S^2 = 0.0000000
+macro 55 (7 JK  4 micro), CASSCF E = -7.78853411654275  dE = 7.905e-05  |grad|=0.00357  S^2 = 0.0000000
+macro 56 (7 JK  4 micro), CASSCF E = -7.78851032311551  dE = 2.379e-05  |grad|=0.00934  S^2 = 0.0000000
+macro 57 (8 JK  5 micro), CASSCF E = -7.78832747133623  dE = 0.0001829  |grad|=0.0107  S^2 = 0.0000000
+macro 58 (30 JK  24 micro), CASSCF E = -7.78697867988401  dE = 0.001349  |grad|=0.091  S^2 = 0.0000000
+macro 59 (24 JK  19 micro), CASSCF E = -7.78823390125015  dE = -0.001255  |grad|=0.0111  S^2 = 0.0000000
+macro 60 (31 JK  25 micro), CASSCF E = -7.78768384494628  dE = 0.0005501  |grad|=0.0802  S^2 = 0.0000000
+macro 61 (32 JK  26 micro), CASSCF E = -7.78776003236185  dE = -7.619e-05  |grad|=0.0427  S^2 = 0.0000000
+macro 62 (31 JK  25 micro), CASSCF E = -7.78794748823463  dE = -0.0001875  |grad|=0.0647  S^2 = 0.0000000
+macro 63 (31 JK  25 micro), CASSCF E = -7.78743001183311  dE = 0.0005175  |grad|=0.0604  S^2 = 0.0000000
+macro 64 (15 JK  11 micro), CASSCF E = -7.78833813865048  dE = -0.0009081  |grad|=0.0101  S^2 = 0.0000000
+macro 65 (18 JK  14 micro), CASSCF E = -7.78850183714166  dE = -0.0001637  |grad|=0.00918  S^2 = 0.0000000
+macro 66 (28 JK  22 micro), CASSCF E = -7.78862825336794  dE = -0.0001264  |grad|=0.00074  S^2 = 0.0000000
+macro 67 (16 JK  12 micro), CASSCF E = -7.78862801712909  dE = 2.362e-07  |grad|=0.000587  S^2 = 0.0000000
+macro 68 (12 JK  9 micro), CASSCF E = -7.78862754380872  dE = 4.733e-07  |grad|=0.000684  S^2 = 0.0000000
+macro 69 (16 JK  12 micro), CASSCF E = -7.78862822812023  dE = -6.843e-07  |grad|=0.00129  S^2 = 0.0000000
+macro 70 (7 JK  4 micro), CASSCF E = -7.78862840268471  dE = -1.746e-07  |grad|=0.000498  S^2 = 0.0000000
+macro 71 (17 JK  12 micro), CASSCF E = -7.78862859388708  dE = -1.912e-07  |grad|=0.000176  S^2 = 0.0000000
+macro 72 (17 JK  13 micro), CASSCF E = -7.78862860853502  dE = -1.465e-08  |grad|=5.19e-05  S^2 = 0.0000000
+macro 73 (32 JK  26 micro), CASSCF E = -7.78862861410481  dE = -5.57e-09  |grad|=4.93e-06  S^2 = 0.0000000
+macro 74 (25 JK  21 micro), CASSCF E = -7.78862861409187  dE = 1.294e-11  |grad|=2.71e-06  S^2 = 0.0000000
+macro 75 (13 JK  10 micro), CASSCF E = -7.78862861411033  dE = -1.846e-11  |grad|=5.81e-06  S^2 = 0.0000000
+macro 76 (35 JK  28 micro), CASSCF E = -7.78862861411383  dE = -3.499e-12  |grad|=2.38e-08  S^2 = 0.0000000
+macro 77 (35 JK  28 micro), CASSCF E = -7.78862861411378  dE = 4.352e-14  |grad|=1.77e-08  S^2 = 0.0000000
+macro 78 (2 JK  1 micro), CASSCF E = -7.78862861411378  dE = 8.882e-16  |grad|=2.28e-06  S^2 = 0.0000000
+macro 79 (2 JK  1 micro), CASSCF E = -7.78862861411378  dE = 8.882e-16  |grad|=2.28e-06  S^2 = 0.0000000
+macro 80 (2 JK  1 micro), CASSCF E = -7.78862861411378  dE = -1.776e-15  |grad|=2.28e-06  S^2 = 0.0000000
+macro 81 (2 JK  1 micro), CASSCF E = -7.78862861411378  dE = 0  |grad|=2.28e-06  S^2 = 0.0000000
+macro 82 (2 JK  1 micro), CASSCF E = -7.78862861411379  dE = -8.882e-16  |grad|=2.28e-06  S^2 = 0.0000000
+macro 83 (2 JK  1 micro), CASSCF E = -7.78862861411378  dE = 8.882e-16  |grad|=2.28e-06  S^2 = 0.0000000
+macro 84 (2 JK  1 micro), CASSCF E = -7.78862861411379  dE = -8.882e-16  |grad|=2.28e-06  S^2 = 0.0000000
+macro 85 (2 JK  1 micro), CASSCF E = -7.78862861411378  dE = 8.882e-16  |grad|=2.28e-06  S^2 = 0.0000000
+macro 86 (2 JK  1 micro), CASSCF E = -7.78862861411379  dE = -8.882e-16  |grad|=2.28e-06  S^2 = 0.0000000
+macro 87 (2 JK  1 micro), CASSCF E = -7.78862861411379  dE = 0  |grad|=2.28e-06  S^2 = 0.0000000
+macro 88 (2 JK  1 micro), CASSCF E = -7.78862861411379  dE = -2.665e-15  |grad|=2.28e-06  S^2 = 0.0000000
+macro 89 (2 JK  1 micro), CASSCF E = -7.78862861411378  dE = 3.553e-15  |grad|=2.28e-06  S^2 = 0.0000000
+macro 90 (2 JK  1 micro), CASSCF E = -7.78862861411378  dE = 0  |grad|=2.28e-06  S^2 = 0.0000000
+macro 91 (2 JK  1 micro), CASSCF E = -7.78862861411379  dE = -1.776e-15  |grad|=2.28e-06  S^2 = 0.0000000
+macro 92 (2 JK  1 micro), CASSCF E = -7.78862861411379  dE = 8.882e-16  |grad|=2.28e-06  S^2 = 0.0000000
+macro 93 (2 JK  1 micro), CASSCF E = -7.78862861411378  dE = 1.776e-15  |grad|=2.28e-06  S^2 = 0.0000000
+macro 94 (2 JK  1 micro), CASSCF E = -7.78862861411379  dE = -2.665e-15  |grad|=2.28e-06  S^2 = 0.0000000
+macro 95 (2 JK  1 micro), CASSCF E = -7.78862861411379  dE = 8.882e-16  |grad|=2.28e-06  S^2 = 0.0000000
+macro 96 (2 JK  1 micro), CASSCF E = -7.78862861411378  dE = 2.665e-15  |grad|=2.28e-06  S^2 = 0.0000000
+macro 97 (2 JK  1 micro), CASSCF E = -7.78862861411378  dE = -1.776e-15  |grad|=2.28e-06  S^2 = 0.0000000
+macro 98 (2 JK  1 micro), CASSCF E = -7.78862861411379  dE = -1.776e-15  |grad|=2.28e-06  S^2 = 0.0000000
+macro 99 (2 JK  1 micro), CASSCF E = -7.78862861411378  dE = 1.776e-15  |grad|=2.28e-06  S^2 = 0.0000000
+macro 100 (2 JK  1 micro), CASSCF E = -7.78862861411378  dE = 0  |grad|=2.28e-06  S^2 = 0.0000000
+newton CASSCF not converged, 100 macro (234 KF 1457 Hx) steps
+CASSCF energy = -7.78862861411378
+CASCI E = -7.78862861411378  E(CI) = -0.641186779177238  S^2 = 0.0000000
+CASCI state-averaged energy = -7.78862861411378
+CASCI energy for each state
+  State 0 weight 0.25  E = -7.92508905051263 S^2 = 0.0000000
+  State 1 weight 0.25  E = -7.87457806216884 S^2 = 0.0000000
+  State 2 weight 0.25  E = -7.67750642224382 S^2 = 0.0000000
+  State 3 weight 0.25  E = -7.67734092152985 S^2 = 0.0000000
+
+******** <class 'pyscf.mcscf.addons.StateAverageCASSCF'> ********
+CAS (1e+1e, 5o), ncore = 1, nvir = 63
+max_cycle_macro = 100
+max_cycle_micro = 20
+conv_tol = 1e-12
+conv_tol_grad = 1e-08
+orbital rotation max_stepsize = 0.03
+augmented hessian ah_max_cycle = 30
+augmented hessian ah_conv_tol = 1e-16
+augmented hessian ah_linear dependence = 1e-20
+augmented hessian ah_level shift = 1e-08
+augmented hessian ah_start_tol = 500
+augmented hessian ah_start_cycle = 3
+augmented hessian ah_grad_trust_region = 3
+kf_trust_region = 3
+kf_interval = 5
+natorb = False
+canonicalization = False
+chkfile = /scr/zdb/molpro/tmpursg22cz
+max_memory 8000 MB (current use 527 MB)
+internal_rotation = False
+******** <class 'pyscf.mcscf.addons.StateAverageFCISolver'> ********
+max. cycles = 200
+conv_tol = 1e-13
+davidson only = True
+linear dependence = 1e-14
+level shift = 0.001
+max iter space = 12
+max_memory 8000 MB
+nroots = 4
+pspace_size = 400
+spin = None
+Input CI wfn symmetry = A1
+State-average over 4 states with weights [0.25, 0.25, 0.25, 0.25]
+
+WARN: SO-CASSCF (Second order CASSCF) is an experimental feature. Its performance is bad for large systems.
+
+CASCI E = -7.78862861411378  dE = -7.7886286  S^2 = 0.0000000
+macro 1 (12 JK  8 micro), CASSCF E = -7.7886286141149  dE = -1.113e-12  |grad|=7.06e-07  S^2 = 0.0000000
+macro 2 (10 JK  7 micro), CASSCF E = -7.78862861411685  dE = -1.956e-12  |grad|=1.72e-06  S^2 = 0.0000000
+macro 3 (34 JK  28 micro), CASSCF E = -7.78862861411699  dE = -1.341e-13  |grad|=1.64e-08  S^2 = 0.0000000
+macro 4 (7 JK  4 micro), CASSCF E = -7.78862861411674  dE = 2.522e-13  |grad|=6.17e-07  S^2 = 0.0000000
+macro 5 (10 JK  6 micro), CASSCF E = -7.78862861411714  dE = -4.032e-13  |grad|=2.31e-07  S^2 = 0.0000000
+macro 6 (9 JK  6 micro), CASSCF E = -7.7886286141172  dE = -6.484e-14  |grad|=3.48e-07  S^2 = 0.0000000
+macro 7 (10 JK  7 micro), CASSCF E = -7.78862861411719  dE = 1.51e-14  |grad|=1.92e-07  S^2 = 0.0000000
+macro 8 (19 JK  16 micro), CASSCF E = -7.78862861411722  dE = -3.197e-14  |grad|=1.99e-07  S^2 = 0.0000000
+macro 9 (34 JK  28 micro), CASSCF E = -7.78862861411724  dE = -2.309e-14  |grad|=9.68e-09  S^2 = 0.0000000
+newton CASSCF converged in 9 macro (17 KF 128 Hx) steps
+CASSCF energy = -7.78862861411724
+CASCI E = -7.78862861411724  E(CI) = -0.641186779108616  S^2 = 0.0000000
+CASCI state-averaged energy = -7.78862861411724
+CASCI energy for each state
+  State 0 weight 0.25  E = -7.92508867746729 S^2 = 0.0000000
+  State 1 weight 0.25  E = -7.87457762828124 S^2 = 0.0000000
+  State 2 weight 0.25  E = -7.67750707434513 S^2 = 0.0000000
+  State 3 weight 0.25  E = -7.67734107637531 S^2 = 0.0000000
+Symmetries of active orbitals: A1 A1 A1 B1 B2
+Active space CI wfn symmetry = A1
+
+******** <class 'pyscf.mcscf.casci_symm.SymAdaptedCASCI'> ********
+CAS (1e+1e, 5o), ncore = 1, nvir = 63
+natorb = False
+canonicalization = True
+sorting_mo_energy = False
+max_memory 8000 MB (current use 527 MB)
+******** <class 'pyscf.fci.direct_spin1_symm.FCISolver'> ********
+max. cycles = 100
+conv_tol = 1e-10
+davidson only = False
+linear dependence = 1e-14
+level shift = 0.001
+max iter space = 12
+max_memory 8000 MB
+nroots = 10
+pspace_size = 400
+spin = None
+Input CI wfn symmetry = A1
+
+WARN: Mulitple states found in CASCI solver. First state is used to compute the Fock matrix and natural orbitals in active space.
+
+Density matrix diagonal elements [9.96709958e-01 8.77854714e-02 9.15504571e-01 4.81903278e-32
+ 9.36728337e-33]
+CASCI converged
+CASCI state   0  E = -7.92531527894869  E(CI) = -0.777873443940061  S^2 = 2.0000000
+CASCI state   1  E = -7.92508867746729  E(CI) = -0.777646842458660  S^2 = 0.0000000
+CASCI state   2  E = -7.87459477712681  E(CI) = -0.727152942118185  S^2 = 2.0000000
+CASCI state   3  E = -7.87457762828124  E(CI) = -0.727135793272613  S^2 = 0.0000000
+CASCI state   4  E = -7.67750707434513  E(CI) = -0.530065239336508  S^2 = 0.0000000
+CASCI state   5  E = -7.67734107637531  E(CI) = -0.529899241366684  S^2 = 0.0000000
+CASCI state   6  E = -7.67351579389499  E(CI) = -0.526073958886360  S^2 = 2.0000000
+CASCI state   7  E = -7.59962790915529  E(CI) = -0.452186074146661  S^2 = 0.0000000
+CASCI state   8  E = -7.57836832807090  E(CI) = -0.430926493062272  S^2 = 0.0000000
+CASCI state   9  E = -6.55827957964442  E(CI) = 0.589162255364207  S^2 = 0.0000000

@@ -1,0 +1,115 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "name": "identity plaquette",
+      "passed": true,
+      "detail": "C=0, eta_edge=1, lambda_edge=0"
+    },
+    {
+      "name": "phase and root permutation",
+      "passed": true,
+      "detail": "independent phases and root relabeling leave C=0"
+    },
+    {
+      "name": "general pure gauge",
+      "passed": true,
+      "detail": "arbitrary U(4) corner frames close exactly"
+    },
+    {
+      "name": "nonzero-curvature gauge invariance",
+      "passed": true,
+      "detail": "C=0.09003882; K paths transform endpoint-covariantly and W by similarity"
+    },
+    {
+      "name": "leakage without curvature",
+      "passed": true,
+      "detail": "C=0 despite lambda_edge=0.28; leakage is a separate diagnostic"
+    },
+    {
+      "name": "rank-loss warning",
+      "passed": true,
+      "detail": "eta_edge=1.0e-14 flags ill-conditioned transport"
+    },
+    {
+      "name": "orientation reversal",
+      "passed": true,
+      "detail": "orientation reversal maps W to W^dagger and leaves scalar C unchanged"
+    },
+    {
+      "name": "many-electron overlap contraction",
+      "passed": true,
+      "detail": "direct Fock-space error=1.48e-16; naive CI-dot-product error=0.569"
+    },
+    {
+      "name": "continuous-limit scaling",
+      "passed": true,
+      "detail": "slope(h,h)=1.998929, slope(h,p0)=0.999914, coefficient ratio=0.99998698"
+    },
+    {
+      "name": "random bounds and formula equivalence",
+      "passed": true,
+      "detail": "200 random plaquettes: max C=0.89378772, max formula error=2.22e-16"
+    }
+  ],
+  "diagnostics": {
+    "tolerance": 1e-12,
+    "seed": 20260810,
+    "numpy_version": "2.3.5",
+    "scaling_rows": [
+      {
+        "delta_q": 0.2,
+        "delta_p": 0.2,
+        "curvature": 0.009966711079379182
+      },
+      {
+        "delta_q": 0.1,
+        "delta_p": 0.1,
+        "curvature": 0.0024979173609871175
+      },
+      {
+        "delta_q": 0.05,
+        "delta_p": 0.05,
+        "curvature": 0.0006248698025168767
+      },
+      {
+        "delta_q": 0.025,
+        "delta_p": 0.025,
+        "curvature": 0.00015624186214870683
+      },
+      {
+        "delta_q": 0.0125,
+        "delta_p": 0.0125,
+        "curvature": 3.9061991376346986e-05
+      },
+      {
+        "delta_q": 0.08,
+        "delta_p": 0.15,
+        "curvature": 0.0029963891046363668
+      },
+      {
+        "delta_q": 0.04,
+        "delta_p": 0.15,
+        "curvature": 0.0014984942411765904
+      },
+      {
+        "delta_q": 0.02,
+        "delta_p": 0.15,
+        "curvature": 0.0007492845845053195
+      },
+      {
+        "delta_q": 0.01,
+        "delta_p": 0.15,
+        "curvature": 0.00037464697533009486
+      },
+      {
+        "delta_q": 0.005,
+        "delta_p": 0.15,
+        "curvature": 0.0001873240730524708
+      }
+    ],
+    "equal_step_slope": 1.9989289189954578,
+    "fixed_delta_p_slope": 0.9999143357501863,
+    "coefficient_ratio": 0.9999869792344827
+  }
+}

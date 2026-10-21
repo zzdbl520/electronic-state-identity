@@ -1,0 +1,6 @@
+solutions : BeH2_B0_work/B0_solutions.csv
+pairwise  : BeH2_B0_work/B0_pairwise.csv
+clusters  : BeH2_B0_work/B0_clusters.csv
+protocol  : BeH2_B0_work/B0_SA3_SA4.csv
+summary   : BeH2_B0_work/B0_summary.json
+provisional switching irrep: B2

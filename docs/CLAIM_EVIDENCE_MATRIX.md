@@ -1,18 +1,20 @@
-# Claim-to-evidence matrix
+# Claim-to-evidence map
 
-This table is the shortest route from a manuscript statement to the numerical
-record that supports, qualifies, or limits it.
+Paths below are relative to [the October data directory](../data/revision-2026-10-21/).
 
-| Manuscript-level statement | Required checks | Primary record | Repository audit |
-|---|---|---|---|
-| Unit polar factors provide gauge-covariant edge transports; singular values measure retained-subspace fidelity. | Polar unitarity, endpoint gauge covariance, singular-value invariance. | System workflow self-tests. | `tests/test_transport.py`; `scripts/run_workflow_selftests.py` |
-| LiH endpoint matching gives a false negative. | Same composed permutation on both routes; nonzero `C_qp`; nonzero back-transported dipole difference; stationary and faithful edges. | `systems/lih/reference/aug-cc-pVDZ/LiH_S2_decision.json` | `verify_lih()` |
-| The LiH observation is not specific to one basis or one optimization history. | Opposed-history agreement and fixed-window larger-basis reproduction. | LiH S2 and `reference/cc-pVTZ/LiH_S3_decision.json`; S5 independent audit. | `verify_lih()` |
-| The BeH2 apparent branch end is induced by an active-orbital rotation restriction. | Event in the restricted model; single clean solution in unconstrained all-electron CAS(6,6) and valence CAS(4,6). | `systems/beh2/reference/G0C_forensic_summary.json` | `verify_beh2()` |
-| The BeH2 G0C plaquette package is not an unconditional transport pass. | Every stride-1 upper edge would have to satisfy the local gate; it does not. | Same G0C summary: `status=REVIEW_REQUIRED`, `main_figure_candidate=false`. | `verify_beh2()` asserts the limitation. |
-| The lower CP+ pair is externally isolated and can be treated as a rank-2 manifold. | Independent SA3 projector arbitration and third-singlet gap. | `CPDC_ccpVTZ_rank2_projector_v1_decision.json` | `verify_cyclopentadienyl_cation()` |
-| CP+ transport is faithful, U(2)-gauge invariant, mesh converged, and opposed-history reproducible without individual-root assignments. | Point/edge gates, random U(2), 40/80 mesh comparison, clockwise/counterclockwise replication, root-assignment flag false. | Projector, history, and opposed-history decisions in `systems/cyclopentadienyl-cation/reference/`. | `verify_cyclopentadienyl_cation()` |
+| Statement | Evidence | Qualification |
+|---|---|---|
+| Polar transport and subspace fidelity | Root `src/` and `tests/`; `analysis/explicit_generator_scaling.json` | Current explicit generators differ from historical `records/math_validation/`. |
+| LiH same assignments with different transports/operators | `analysis/augccpvtz_summary.json`, `records/lih_augccpvtz_local_refinement/` | Complete four-electron overlaps, squared-overlap assignments, final 154-edge boundary. |
+| LiH mesh and opposed-history checks | `analysis/augccpvtz_refinement_validation/` | Intermediate failures retained. |
+| LiH shrinking-loop area scaling | `analysis/lih_augccpvtz_nested.csv`, production records | Four concentric loops; descriptive regression. |
+| Three LiH bases agree qualitatively | `records/lih_revision_augccpvdz/`, `records/lih_revision_ccpvtz/`, aug-cc-pVTZ records | Separate within-basis results; not basis convergence. |
+| Original selection disclosed | `analysis/lih_100_locator_plaquettes.csv`, `analysis/lih_100_stride_distribution.csv`, `analysis/lih_100_complete_overlap_rectangles.csv` | None of the original unrefined rectangles passes complete-overlap fidelity. |
+| BeH2 constraint sensitivity | `records/beh2_model_comparison/`, `records/BeH2/source_data/` | Summary-level energy evidence; failed SA3/SA4 fidelity prevents physical branch-transition inference. |
+| C5H5+ externally isolated rank-2 pair | `records/CPDC/`, `analysis/cpdc_sa3.csv` | No individual-root, scalar Berry-phase, CI-count or absolute-ground-state claim. |
+| C5H5+ initialization sensitivity | `analysis/cpdc_histories.csv`, `analysis/cpdc_phase_reference_levels.csv` | Reference/history phase difference 6.4154e-5 rad exceeds 40/80 mesh difference 9.6413e-6 rad. |
+| H3/O3 historical diagnostics | `records/H3/`, `records/O3/` | Pointwise-refinement/weighted-SA2 failures remain explicit. |
 
-Passing the listed checks does not assign a scalar Berry phase to a member of a
-near-degenerate pair, count internal conical intersections, or turn route
-nonclosure by itself into a topological invariant.
+`python scripts/verify_reference_results.py` checks current records and LiH
+raw-file hashes. The September audit is preserved as
+`scripts/verify_legacy_reference_results.py` for historical checks only.

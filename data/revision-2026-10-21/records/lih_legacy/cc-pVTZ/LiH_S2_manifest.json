@@ -1,0 +1,210 @@
+{
+  "script_version": "LiH-S2-physical-field-confirmation-v1.0",
+  "gate": "LiH S2 opposed-history physical-field confirmation",
+  "protocol": {
+    "basis": "cc-pvtz",
+    "r_grid_angstrom": [
+      5.8,
+      5.85,
+      5.9,
+      5.95
+    ],
+    "field_grid_au": [
+      0.0105,
+      0.01075,
+      0.011,
+      0.01125,
+      0.0115
+    ]
+  },
+  "thresholds": {
+    "history_maximum_average_energy_difference_Eh": 1e-08,
+    "history_minimum_state_subspace_sigma": 0.9999,
+    "history_maximum_state_subspace_leakage": 1e-06,
+    "history_minimum_active_orbital_sigma": 0.9999,
+    "history_maximum_active_orbital_leakage": 1e-06,
+    "maximum_final_orbital_gradient": 0.0001,
+    "maximum_spin_square": 1e-07,
+    "maximum_mo_orthonormality_error": 1e-09,
+    "maximum_probe_retained_energy_error_Eh": 1e-08,
+    "maximum_history_C_qp_difference": 1e-08,
+    "maximum_history_normalized_dipole_difference": 1e-08,
+    "eta_edge_minimum": 0.98,
+    "maximum_edge_leakage": 0.01,
+    "minimum_normalized_assignment_margin": 0.1,
+    "active_orbital_subspace_sigma_minimum": 0.9,
+    "active_orbital_subspace_leakage_maximum": 0.1,
+    "target_pair_maximum_gap_Eh": 0.01,
+    "minimum_C_qp": 0.0001,
+    "minimum_normalized_dipole_path_difference": 1e-05
+  },
+  "history_semantics": {
+    "forward_snake": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        3,
+        4
+      ]
+    ],
+    "reverse_snake": [
+      [
+        3,
+        4
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "first_vertex_of_each_history": "independent field-specific RHF start",
+    "subsequent_vertices": "projected preceding converged CASSCF orbitals",
+    "window_selection": "read unchanged from LiH_S1_decision.json"
+  }
+}

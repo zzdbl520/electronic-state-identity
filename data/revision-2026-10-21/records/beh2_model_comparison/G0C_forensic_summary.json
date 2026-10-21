@@ -1,0 +1,158 @@
+{
+  "gate": "G0C zero-new-QC BeH2 forensic comparison",
+  "status": "REVIEW_REQUIRED",
+  "input_decisions": {
+    "g0_status": "STOP_LEGACY_CONSTRAINT_ONLY",
+    "g0b_status": "CONFIRMED_CONSTRAINT_INDUCED"
+  },
+  "basis": "cc-pVTZ",
+  "model_semantics": {
+    "legacy": "CAS(6e,6o); active MO 0 excluded from orbital rotations",
+    "all_electron": "unconstrained all-electron CAS(6e,6o)",
+    "standard_valence": "CAS(4e,6o) with one optimized inactive doubly occupied core; no orbital removed from optimization"
+  },
+  "decision_checks": {
+    "legacy_event_present": true,
+    "both_clean_models_single_solution": true,
+    "all_stride1_upper_edges_locally_valid": false,
+    "legacy_to_clean_max_C_qp_ratio": 62.683386953741426,
+    "C_qp_contrast_threshold": 10.0,
+    "main_figure_candidate": false
+  },
+  "thresholds": {
+    "eta_edge_minimum": 0.95,
+    "maximum_edge_leakage": 0.05,
+    "minimum_normalized_assignment_margin": 0.1
+  },
+  "models": {
+    "legacy_frozen_active_mo0": {
+      "label": "legacy: frozen active MO 0",
+      "SA3_high_end": {
+        "lambda_bohr": 2.52195,
+        "delta_e_average_Eh": 0.005619197783113705,
+        "state_leakage": 0.05473489262565767,
+        "same_stationary_solution_reduced_test": false
+      },
+      "upper_history_stride1": {
+        "maximum_C_qp": 0.0005837967108990102,
+        "minimum_eta_edge": 0.897836142908656,
+        "maximum_edge_leakage": 0.08306923022596768,
+        "minimum_assignment_margin": 0.5738257466347553
+      },
+      "reference_history_stride1": {
+        "maximum_C_qp": 8.44574314326147e-06
+      }
+    },
+    "all_electron_cas66": {
+      "label": "all-electron CAS(6e,6o)",
+      "SA3_high_end": {
+        "lambda_bohr": 2.52195,
+        "delta_e_average_Eh": 7.899458864812914e-12,
+        "state_leakage": 5.719832940620506e-09,
+        "same_stationary_solution_reduced_test": true
+      },
+      "upper_history_stride1": {
+        "maximum_C_qp": 9.313420018765669e-06,
+        "minimum_eta_edge": 0.8968934034808169,
+        "maximum_edge_leakage": 0.08378814337902918,
+        "minimum_assignment_margin": 0.573467244646317
+      },
+      "reference_history_stride1": {
+        "maximum_C_qp": 9.762575667032268e-06
+      }
+    },
+    "standard_valence_cas46": {
+      "label": "standard valence CAS(4e,6o)",
+      "SA3_high_end": {
+        "lambda_bohr": 2.52195,
+        "delta_e_average_Eh": 2.8066438062523957e-12,
+        "state_leakage": 3.0580764587284648e-09,
+        "same_stationary_solution_reduced_test": true
+      },
+      "upper_history_stride1": {
+        "maximum_C_qp": 8.55825213894805e-06,
+        "minimum_eta_edge": 0.8647832328609718,
+        "maximum_edge_leakage": 0.10622108010029363,
+        "minimum_assignment_margin": 0.5647732290173685
+      },
+      "reference_history_stride1": {
+        "maximum_C_qp": 9.234238585310008e-06
+      }
+    }
+  },
+  "authorized_interpretation": "The archived BeH2 event is a constraint-induced variational branch termination within a deliberately restricted orbital-optimization manifold, not a physical spinodal of unconstrained CASSCF.",
+  "prohibited_interpretations": [
+    "physical spinodal",
+    "intrinsic BeH2 branch collapse",
+    "frozen-core CAS(6e,6o)"
+  ],
+  "common_grid_bohr": [
+    2.5217,
+    2.52175,
+    2.5218,
+    2.52185,
+    2.5219,
+    2.52195
+  ],
+  "strides": [
+    1,
+    2,
+    4
+  ],
+  "model_configs": {
+    "legacy_frozen_active_mo0": {
+      "name": "legacy_frozen_mo0",
+      "nelecas": 6,
+      "ncas": 6,
+      "freeze_lowest_mo": true,
+      "interpretation": "CAS(6e,6o); MO 0 is active but excluded from orbital rotations",
+      "ncore": 0,
+      "basis": "cc-pVTZ",
+      "analysis_grid_bohr": [
+        2.5217,
+        2.52175,
+        2.5218,
+        2.52185,
+        2.5219,
+        2.52195
+      ],
+      "note": "The inherited RunConfig field freeze_core maps to PySCF mc.frozen=1 and is interpreted here only through freeze_lowest_mo."
+    },
+    "all_electron_cas66": {
+      "name": "all_electron_cas66",
+      "nelecas": 6,
+      "ncas": 6,
+      "freeze_lowest_mo": false,
+      "interpretation": "unconstrained all-electron CAS(6e,6o)",
+      "ncore": 0,
+      "basis": "cc-pVTZ",
+      "analysis_grid_bohr": [
+        2.5217,
+        2.52175,
+        2.5218,
+        2.52185,
+        2.5219,
+        2.52195
+      ],
+      "note": "The inherited RunConfig field freeze_core maps to PySCF mc.frozen=1 and is interpreted here only through freeze_lowest_mo."
+    },
+    "standard_valence_cas46": {
+      "name": "valence_cas46_optimized_core",
+      "nelecas": 4,
+      "ncas": 6,
+      "freeze_lowest_mo": false,
+      "interpretation": "standard CAS(4e,6o) with one optimized inactive doubly occupied core",
+      "ncore": 1,
+      "basis": "cc-pVTZ",
+      "analysis_grid_bohr": [
+        2.5217,
+        2.52175,
+        2.5218,
+        2.52185,
+        2.5219,
+        2.52195
+      ],
+      "semantic_note": "The inactive core is doubly occupied by the CAS electron count; no MO is removed from orbital optimization."
+    }
+  }
+}

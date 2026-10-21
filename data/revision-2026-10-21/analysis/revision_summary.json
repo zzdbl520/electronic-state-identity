@@ -1,0 +1,1032 @@
+{
+  "legacy_locator": {
+    "all": {
+      "n": 100,
+      "slope_with_intercept": 2.438187720483572,
+      "intercept": 2.647944742748161e-08,
+      "R2_with_intercept": 0.9994100830365991,
+      "zero_intercept_slope": 2.4385266574106423,
+      "log_log_slope": 0.9995515346573571,
+      "log_log_R2": 0.9991151978739186,
+      "max_relative_residual_zero_intercept": 0.059295950185801284,
+      "note": "Descriptive fits. Shared vertices and overlapping loops preclude interpreting ordinary regression p-values as independent-sample significance.",
+      "quantiles_C": {
+        "min": 2.9243366082606972e-05,
+        "q25": 6.030767852552335e-05,
+        "median": 9.190536541773116e-05,
+        "q75": 0.00017914103793315888,
+        "max": 0.00048803728753559774
+      }
+    },
+    "fidelity_qualified": {
+      "n": 90,
+      "slope_with_intercept": 2.4362517013276035,
+      "intercept": 7.448417037349817e-08,
+      "R2_with_intercept": 0.9992370575688546,
+      "zero_intercept_slope": 2.4373733453049904,
+      "log_log_slope": 0.9992015681381425,
+      "log_log_R2": 0.9989668227963806,
+      "max_relative_residual_zero_intercept": 0.05974086037990951,
+      "note": "Descriptive fits. Shared vertices and overlapping loops preclude interpreting ordinary regression p-values as independent-sample significance.",
+      "quantiles_C": {
+        "min": 2.9243366082606972e-05,
+        "q25": 6.0229319628487274e-05,
+        "median": 8.994551710405639e-05,
+        "q75": 0.00012456822447501104,
+        "max": 0.0003684704839730426
+      }
+    },
+    "selection_candidates": {
+      "n": 33,
+      "slope_with_intercept": 2.4420919500951217,
+      "intercept": -5.381638088422101e-07,
+      "R2_with_intercept": 0.9984004994381162,
+      "zero_intercept_slope": 2.4359415065654964,
+      "log_log_slope": 1.0039490175346484,
+      "log_log_R2": 0.997980544368891,
+      "max_relative_residual_zero_intercept": 0.030664707212703812,
+      "note": "Descriptive fits. Shared vertices and overlapping loops preclude interpreting ordinary regression p-values as independent-sample significance.",
+      "quantiles_C": {
+        "min": 0.00011817332491927326,
+        "q25": 0.00012265652831337583,
+        "median": 0.00018101818698922976,
+        "q75": 0.00023980833520109552,
+        "max": 0.0003684704839730426
+      }
+    },
+    "selected": {
+      "plaquette": "R0->3:F0->4",
+      "R_stride": 3,
+      "F_stride": 4,
+      "R0": 5.8,
+      "R1": 5.95,
+      "F0": 0.0105,
+      "F1": 0.0115,
+      "area": 0.00015000000000000023,
+      "C": 0.0003684704839730426,
+      "D_mu": 0.0007586174630409905,
+      "fidelity_pass_active_only": true,
+      "candidate": true,
+      "eta": 0.9951452443050866,
+      "leakage": 0.006773245681085949,
+      "selected": true
+    },
+    "selected_rank_descending_all": 3,
+    "selected_rank_descending_qualified": 1,
+    "definition_warning": "All legacy locator statistics use active-only overlap and absolute-overlap assignments. They document original selection; they are not full-electron fidelity-qualified molecular curvature data."
+  },
+  "augccpvdz": {
+    "production": {
+      "segments_per_side": 16,
+      "C": 0.00036856161550347593,
+      "delta_mu": 0.017404947310992028,
+      "D_mu": 0.0007580443815649779,
+      "eta": 0.9997919853011893,
+      "leakage": 0.0004045755517532168,
+      "assignment_margin": 0.17439840917717886,
+      "fidelity_pass": true,
+      "assignment_pass": true,
+      "same_assignment": true,
+      "route1_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "route2_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "eigenphases": [
+        -0.0009215561740703253,
+        -0.0004872736379239079,
+        0.0004872736379239079,
+        0.0009215561740703253
+      ],
+      "gauge_C_abs_error": 5.765787153277913e-16,
+      "gauge_W_covariance_error": 2.0677678114617004e-14,
+      "reverse_overlap_error": 1.9984014443252818e-15,
+      "max_orbital_gradient": 4.979752618594624e-08,
+      "min_excluded_gap": 0.07070530906118933,
+      "all_converged": true,
+      "scale": 1.0,
+      "area": 0.00015
+    },
+    "loops": [
+      {
+        "segments_per_side": 4,
+        "C": 0.0003685239287731948,
+        "delta_mu": 0.017404526358308924,
+        "D_mu": 0.0007580260476504517,
+        "eta": 0.9966819279630657,
+        "leakage": 0.0064435680887624525,
+        "assignment_margin": 0.46684646771278615,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "eigenphases": [
+          -0.000921421839147506,
+          -0.0004872996488178494,
+          0.0004872996488178494,
+          0.000921421839147506
+        ],
+        "gauge_C_abs_error": 1.537940781670688e-16,
+        "gauge_W_covariance_error": 5.762067029610214e-15,
+        "reverse_overlap_error": 9.992007221626409e-16,
+        "max_orbital_gradient": 4.748408886229294e-08,
+        "min_excluded_gap": 0.07070530906118933,
+        "all_converged": true,
+        "scale": 1.0,
+        "area": 0.00015
+      },
+      {
+        "segments_per_side": 8,
+        "C": 0.0003685544789952035,
+        "delta_mu": 0.017404890234849743,
+        "D_mu": 0.0007580418957057444,
+        "eta": 0.9991684574161955,
+        "leakage": 0.0016167977607018935,
+        "assignment_margin": 0.30749753748489494,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "eigenphases": [
+          -0.0009215301154782059,
+          -0.0004872797378939195,
+          0.0004872797378939195,
+          0.0009215301154782059
+        ],
+        "gauge_C_abs_error": 1.1844908734404136e-16,
+        "gauge_W_covariance_error": 6.389390323177855e-15,
+        "reverse_overlap_error": 2.1094237467877974e-15,
+        "max_orbital_gradient": 4.979752618594624e-08,
+        "min_excluded_gap": 0.07070530906118933,
+        "all_converged": true,
+        "scale": 1.0,
+        "area": 0.00015
+      },
+      {
+        "segments_per_side": 16,
+        "C": 0.00036856161550347593,
+        "delta_mu": 0.017404947310992028,
+        "D_mu": 0.0007580443815649779,
+        "eta": 0.9997919853011893,
+        "leakage": 0.0004045755517532168,
+        "assignment_margin": 0.17439840917717886,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "eigenphases": [
+          -0.0009215561740703253,
+          -0.0004872736379239079,
+          0.0004872736379239079,
+          0.0009215561740703253
+        ],
+        "gauge_C_abs_error": 5.765787153277913e-16,
+        "gauge_W_covariance_error": 2.0677678114617004e-14,
+        "reverse_overlap_error": 1.9984014443252818e-15,
+        "max_orbital_gradient": 4.979752618594624e-08,
+        "min_excluded_gap": 0.07070530906118933,
+        "all_converged": true,
+        "scale": 1.0,
+        "area": 0.00015
+      },
+      {
+        "segments_per_side": 4,
+        "C": 9.181768285034545e-05,
+        "delta_mu": 0.004283688308228156,
+        "D_mu": 0.0001881671997058915,
+        "eta": 0.9991684783334086,
+        "leakage": 0.0016163041595999017,
+        "assignment_margin": 0.49915463904557633,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "eigenphases": [
+          -0.00022939100992634942,
+          -0.00012175245330624417,
+          0.00012175245330624417,
+          0.00022939100992634942
+        ],
+        "gauge_C_abs_error": 1.3106649012634142e-16,
+        "gauge_W_covariance_error": 6.17279656884778e-15,
+        "reverse_overlap_error": 1.4432899320127035e-15,
+        "max_orbital_gradient": 3.2959082796324424e-08,
+        "min_excluded_gap": 0.07223389114507395,
+        "all_converged": true,
+        "scale": 0.5,
+        "area": 3.75e-05
+      },
+      {
+        "segments_per_side": 8,
+        "C": 9.181920060465991e-05,
+        "delta_mu": 0.00428369696896166,
+        "D_mu": 0.0001881675801411271,
+        "eta": 0.9997919904954857,
+        "leakage": 0.0004044517222548949,
+        "assignment_margin": 0.4997856833932508,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "eigenphases": [
+          -0.00022939686501117042,
+          -0.00012175057851826672,
+          0.00012175057851826672,
+          0.00022939686501117042
+        ],
+        "gauge_C_abs_error": 2.8488767334772236e-16,
+        "gauge_W_covariance_error": 1.161458346472267e-14,
+        "reverse_overlap_error": 1.6653345369377348e-15,
+        "max_orbital_gradient": 3.9946813755291355e-08,
+        "min_excluded_gap": 0.07223389114507395,
+        "all_converged": true,
+        "scale": 0.5,
+        "area": 3.75e-05
+      },
+      {
+        "segments_per_side": 4,
+        "C": 2.2934992193106122e-05,
+        "delta_mu": 0.0010632581762990605,
+        "D_mu": 4.6910645977912176e-05,
+        "eta": 0.9997919932753121,
+        "leakage": 0.0004043955143935296,
+        "assignment_margin": 0.49979394082548373,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "eigenphases": [
+          -5.728763205409174e-05,
+          -3.0434160901712053e-05,
+          3.0434160901712053e-05,
+          5.728763205409174e-05
+        ],
+        "gauge_C_abs_error": 1.5853068640811485e-17,
+        "gauge_W_covariance_error": 7.032280036760573e-15,
+        "reverse_overlap_error": 1.4432899320127035e-15,
+        "max_orbital_gradient": 4.032813927441238e-08,
+        "min_excluded_gap": 0.07301370030789034,
+        "all_converged": true,
+        "scale": 0.25,
+        "area": 9.375e-06
+      },
+      {
+        "segments_per_side": 8,
+        "C": 2.293490957465154e-05,
+        "delta_mu": 0.00106325104203933,
+        "D_mu": 4.691033121641775e-05,
+        "eta": 0.9999479900959074,
+        "leakage": 0.00010112266257900071,
+        "assignment_margin": 0.49994847161129974,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "eigenphases": [
+          -5.7287527776893575e-05,
+          -3.043385910069884e-05,
+          3.043385910069884e-05,
+          5.7287527776893575e-05
+        ],
+        "gauge_C_abs_error": 4.3855943995720764e-15,
+        "gauge_W_covariance_error": 3.78498266798832e-14,
+        "reverse_overlap_error": 2.6645352591003757e-15,
+        "max_orbital_gradient": 4.032813927441238e-08,
+        "min_excluded_gap": 0.07301370030789034,
+        "all_converged": true,
+        "scale": 0.25,
+        "area": 9.375e-06
+      },
+      {
+        "segments_per_side": 4,
+        "C": 5.73345441970584e-06,
+        "delta_mu": 0.000264948706668052,
+        "D_mu": 1.171554356138996e-05,
+        "eta": 0.9999479906895871,
+        "leakage": 0.00010111578993088344,
+        "assignment_margin": 0.4999484876907915,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "eigenphases": [
+          -1.4320290273973503e-05,
+          -7.609814921195805e-06,
+          7.609814921195805e-06,
+          1.4320290273973503e-05
+        ],
+        "gauge_C_abs_error": 3.702086244982902e-15,
+        "gauge_W_covariance_error": 2.2075541878347128e-14,
+        "reverse_overlap_error": 1.5543122344752192e-15,
+        "max_orbital_gradient": 1.8215136793776204e-07,
+        "min_excluded_gap": 0.07340655549625552,
+        "all_converged": true,
+        "scale": 0.125,
+        "area": 2.34375e-06
+      },
+      {
+        "segments_per_side": 8,
+        "C": 5.73293887001137e-06,
+        "delta_mu": 0.00026492195585038777,
+        "D_mu": 1.1714360689529252e-05,
+        "eta": 0.9999869968777186,
+        "leakage": 2.52807094114349e-05,
+        "assignment_margin": 0.499987121138744,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "eigenphases": [
+          -1.4319170820887564e-05,
+          -7.608814080063572e-06,
+          7.608814080063572e-06,
+          1.4319170820887564e-05
+        ],
+        "gauge_C_abs_error": 3.631955305082035e-15,
+        "gauge_W_covariance_error": 1.0716540820622318e-13,
+        "reverse_overlap_error": 1.9984014443252818e-15,
+        "max_orbital_gradient": 1.8215136793776204e-07,
+        "min_excluded_gap": 0.07340655549625552,
+        "all_converged": true,
+        "scale": 0.125,
+        "area": 2.34375e-06
+      },
+      {
+        "segments_per_side": 4,
+        "C": 1.4330221615889536e-06,
+        "delta_mu": 6.611339699131238e-05,
+        "D_mu": 2.926697900700632e-06,
+        "eta": 0.9999869972142015,
+        "leakage": 2.5279624779717125e-05,
+        "assignment_margin": 0.4999871217821481,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "eigenphases": [
+          -3.579202525701854e-06,
+          -1.9020329662955767e-06,
+          1.9020329662955767e-06,
+          3.579202525701854e-06
+        ],
+        "gauge_C_abs_error": 2.573308116615193e-15,
+        "gauge_W_covariance_error": 6.147798306714435e-14,
+        "reverse_overlap_error": 1.9984014443252818e-15,
+        "max_orbital_gradient": 2.673541298005462e-08,
+        "min_excluded_gap": 0.07360359217374768,
+        "all_converged": true,
+        "scale": 0.0625,
+        "area": 5.859375e-07
+      },
+      {
+        "segments_per_side": 8,
+        "C": 1.433012150703863e-06,
+        "delta_mu": 6.611261058192848e-05,
+        "D_mu": 2.926663088048466e-06,
+        "eta": 0.999996749271057,
+        "leakage": 6.320003408055719e-06,
+        "assignment_margin": 0.4999967803859564,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "eigenphases": [
+          -3.579179527515167e-06,
+          -1.9020159050542685e-06,
+          1.9020159050542685e-06,
+          3.579179527515167e-06
+        ],
+        "gauge_C_abs_error": 9.874324699099633e-15,
+        "gauge_W_covariance_error": 9.651415562367757e-14,
+        "reverse_overlap_error": 2.3314683517128287e-15,
+        "max_orbital_gradient": 3.8412430487496166e-08,
+        "min_excluded_gap": 0.07360359217374768,
+        "all_converged": true,
+        "scale": 0.0625,
+        "area": 5.859375e-07
+      }
+    ],
+    "histories": [
+      {
+        "segments_per_side": 16,
+        "C": 0.000368548742997386,
+        "delta_mu": 0.017404446297178012,
+        "D_mu": 0.0007580229284080235,
+        "eta": 0.9997919855197205,
+        "leakage": 0.00040456864710947116,
+        "assignment_margin": 0.17439511906583227,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "eigenphases": [
+          -0.0009215207561847764,
+          -0.00048726273039587776,
+          0.00048726273039587776,
+          0.0009215207561847764
+        ],
+        "gauge_C_abs_error": 1.6615940394426598e-15,
+        "gauge_W_covariance_error": 1.6886020968317675e-14,
+        "reverse_overlap_error": 1.7763568394002505e-15,
+        "max_orbital_gradient": 9.442666540977925e-08,
+        "min_excluded_gap": 0.0707053090611911,
+        "all_converged": true,
+        "history": "clockwise",
+        "closure_eta": 0.9999999999795209,
+        "closure_leakage": 1.623057244160009e-11,
+        "history_direct_max_delta_E": 6.643574579356937e-13,
+        "history_direct_max_leakage": 1.7939538743405592e-11
+      },
+      {
+        "segments_per_side": 16,
+        "C": 0.00036857304401179234,
+        "delta_mu": 0.017405294008913497,
+        "D_mu": 0.000758059628557383,
+        "eta": 0.9997919850931107,
+        "leakage": 0.00040457169579810603,
+        "assignment_margin": 0.1744065388131354,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "eigenphases": [
+          -0.0009215947354041759,
+          -0.0004872698622574024,
+          0.0004872698622574024,
+          0.0009215947354041759
+        ],
+        "gauge_C_abs_error": 2.7777259659078624e-16,
+        "gauge_W_covariance_error": 1.3995747391584595e-14,
+        "reverse_overlap_error": 2.220446049250313e-15,
+        "max_orbital_gradient": 9.710229340043064e-08,
+        "min_excluded_gap": 0.07070530906119021,
+        "all_converged": true,
+        "history": "counterclockwise",
+        "closure_eta": 0.9999999999962694,
+        "closure_leakage": 3.1908919950751624e-12,
+        "history_direct_max_delta_E": 7.567280135845067e-13,
+        "history_direct_max_leakage": 2.0333068562194967e-11
+      }
+    ],
+    "empirical_C_sensitivity": 1.2872506089918814e-08,
+    "empirical_D_mu_sensitivity": 2.1453156954349094e-08,
+    "mesh_C_difference_8_16": 7.136508272406836e-09,
+    "nested_fit_all": {
+      "n": 5,
+      "slope_with_intercept": 2.457346211991317,
+      "intercept": -1.029503542007373e-07,
+      "R2_with_intercept": 0.9999992730643505,
+      "zero_intercept_slope": 2.456489129367727,
+      "log_log_slope": 1.0007407774166392,
+      "log_log_R2": 0.999999762021236,
+      "max_relative_residual_zero_intercept": 0.00442211779706617,
+      "note": "Descriptive fits. Shared vertices and overlapping loops preclude interpreting ordinary regression p-values as independent-sample significance."
+    },
+    "nested_fit_smallest3": {
+      "n": 3,
+      "slope_with_intercept": 2.44645650499192,
+      "intercept": -6.740603003301188e-10,
+      "R2_with_intercept": 0.999999999528709,
+      "zero_intercept_slope": 2.446368012973005,
+      "log_log_slope": 1.0001056179384775,
+      "log_log_R2": 0.9999999999863121,
+      "max_relative_residual_zero_intercept": 0.0002837428121648193,
+      "note": "Descriptive fits. Shared vertices and overlapping loops preclude interpreting ordinary regression p-values as independent-sample significance."
+    },
+    "curvature_norm_smallest": 9.782696282138371
+  },
+  "ccpvtz": {
+    "production": {
+      "segments_per_side": 16,
+      "C": 0.00018477457738818134,
+      "delta_mu": 0.008152167844422095,
+      "D_mu": 0.000467480719137694,
+      "eta": 0.9997914397645695,
+      "leakage": 0.0004055585432973796,
+      "assignment_margin": 0.49979381909261644,
+      "fidelity_pass": true,
+      "assignment_pass": true,
+      "same_assignment": true,
+      "route1_permutation": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "route2_permutation": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "eigenphases": [
+        -0.00048734905819124407,
+        -0.00018874335982630217,
+        0.00018874335982630217,
+        0.00048734905819124407
+      ],
+      "gauge_C_abs_error": 8.784206001477557e-16,
+      "gauge_W_covariance_error": 1.9044188037227583e-14,
+      "reverse_overlap_error": 1.6653345369377348e-15,
+      "max_orbital_gradient": 3.09221197588444e-07,
+      "min_excluded_gap": 0.10995295825135454,
+      "all_converged": true,
+      "scale": 1.0,
+      "area": 0.00015
+    },
+    "loops": [
+      {
+        "segments_per_side": 4,
+        "C": 0.000184775693355416,
+        "delta_mu": 0.008152006004005459,
+        "D_mu": 0.0004674714385051312,
+        "eta": 0.9966732771644118,
+        "leakage": 0.006459188778622504,
+        "assignment_margin": 0.49671663539384037,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "eigenphases": [
+          -0.0004873557938146579,
+          -0.0001887347076773445,
+          0.0001887347076773445,
+          0.0004873557938146579
+        ],
+        "gauge_C_abs_error": 1.7102476119329468e-15,
+        "gauge_W_covariance_error": 1.870496529835522e-14,
+        "reverse_overlap_error": 1.2212453270876722e-15,
+        "max_orbital_gradient": 1.8241813666813184e-07,
+        "min_excluded_gap": 0.10995295825135454,
+        "all_converged": true,
+        "scale": 1.0,
+        "area": 0.00015
+      },
+      {
+        "segments_per_side": 8,
+        "C": 0.0001847762247214855,
+        "delta_mu": 0.008152184061534774,
+        "D_mu": 0.000467481649097386,
+        "eta": 0.9991662821866427,
+        "leakage": 0.0016207183971013173,
+        "assignment_margin": 0.49917608350295484,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "eigenphases": [
+          -0.000487353901169088,
+          -0.0001887437564549556,
+          0.0001887437564549556,
+          0.000487353901169088
+        ],
+        "gauge_C_abs_error": 8.95822045016148e-16,
+        "gauge_W_covariance_error": 1.070575798678519e-14,
+        "reverse_overlap_error": 1.9984014443252818e-15,
+        "max_orbital_gradient": 3.0472356984945215e-07,
+        "min_excluded_gap": 0.10995295825135454,
+        "all_converged": true,
+        "scale": 1.0,
+        "area": 0.00015
+      },
+      {
+        "segments_per_side": 16,
+        "C": 0.00018477457738818134,
+        "delta_mu": 0.008152167844422095,
+        "D_mu": 0.000467480719137694,
+        "eta": 0.9997914397645695,
+        "leakage": 0.0004055585432973796,
+        "assignment_margin": 0.49979381909261644,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "eigenphases": [
+          -0.00048734905819124407,
+          -0.00018874335982630217,
+          0.00018874335982630217,
+          0.00048734905819124407
+        ],
+        "gauge_C_abs_error": 8.784206001477557e-16,
+        "gauge_W_covariance_error": 1.9044188037227583e-14,
+        "reverse_overlap_error": 1.6653345369377348e-15,
+        "max_orbital_gradient": 3.09221197588444e-07,
+        "min_excluded_gap": 0.10995295825135454,
+        "all_converged": true,
+        "scale": 1.0,
+        "area": 0.00015
+      }
+    ],
+    "histories": [
+      {
+        "segments_per_side": 16,
+        "C": 0.0001847709778346654,
+        "delta_mu": 0.008152038776939066,
+        "D_mu": 0.00046747353385620424,
+        "eta": 0.9997914397877958,
+        "leakage": 0.000405559864587568,
+        "assignment_margin": 0.49979382457090277,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "eigenphases": [
+          -0.000487338462051187,
+          -0.0001887425288894676,
+          0.0001887425288894676,
+          0.000487338462051187
+        ],
+        "gauge_C_abs_error": 2.8837067282683204e-16,
+        "gauge_W_covariance_error": 1.8607961010663484e-14,
+        "reverse_overlap_error": 1.7763568394002505e-15,
+        "max_orbital_gradient": 3.707725660167735e-07,
+        "min_excluded_gap": 0.10995291527504136,
+        "all_converged": true,
+        "history": "clockwise",
+        "closure_eta": 0.9999999999979611,
+        "closure_leakage": 2.1225243784783743e-12,
+        "history_direct_max_delta_E": 1.7394974349826953e-11,
+        "history_direct_max_leakage": 4.015809906832146e-11
+      },
+      {
+        "segments_per_side": 16,
+        "C": 0.000184767344519004,
+        "delta_mu": 0.008151714623475985,
+        "D_mu": 0.000467454958480831,
+        "eta": 0.9997914407626539,
+        "leakage": 0.00040556129548896536,
+        "assignment_margin": 0.49979381858131333,
+        "fidelity_pass": true,
+        "assignment_pass": true,
+        "same_assignment": true,
+        "route1_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "eigenphases": [
+          -0.000487323952090562,
+          -0.00018875153861453822,
+          0.00018875153861453822,
+          0.000487323952090562
+        ],
+        "gauge_C_abs_error": 2.696139752428328e-16,
+        "gauge_W_covariance_error": 1.4325867641544716e-14,
+        "reverse_overlap_error": 1.5543122344752192e-15,
+        "max_orbital_gradient": 5.249614412772968e-07,
+        "min_excluded_gap": 0.10995268382835732,
+        "all_converged": true,
+        "history": "counterclockwise",
+        "closure_eta": 0.9999999999986052,
+        "closure_leakage": 1.2259082637910979e-12,
+        "history_direct_max_delta_E": 1.7362999926717748e-11,
+        "history_direct_max_leakage": 3.3924862918865983e-11
+      }
+    ],
+    "empirical_C_sensitivity": 7.2328691773392885e-09,
+    "empirical_D_mu_sensitivity": 2.5760656862977745e-08,
+    "mesh_C_difference_8_16": 1.647333304163369e-09
+  },
+  "complete_overlap_comparison": {
+    "overlap_definition": "complete determinants include optimized inactive core and core-active cross terms",
+    "assignment_definition": "sum of squared absolute overlaps; legacy absolute-overlap results retained for comparison",
+    "pyscf_version": "2.13.1",
+    "wavefunctions": 25,
+    "max_orbital_gradient": 2.297705129633565e-07,
+    "all_converged": true,
+    "self_overlap_error": 2.2648549702353193e-14,
+    "reverse_overlap_error": 1.9984014443252818e-15,
+    "pyscf_embedded_fci_check_max_error": 2.220446049250313e-16,
+    "fixed_window_direct": [
+      {
+        "mode": "active_only",
+        "R0": 5.8,
+        "R1": 5.95,
+        "F0": 0.0105,
+        "F1": 0.0115,
+        "area": 0.00015000000000000023,
+        "C": 0.0003684704838445062,
+        "delta_mu": 0.01741810544455873,
+        "D_mu": 0.0007586174628299709,
+        "eta": 0.9951452443050681,
+        "leakage": 0.006773245681434781,
+        "assignment_margin": 0.49449622152548156,
+        "route1_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "same_assignment": true,
+        "eigenphases": [
+          -0.000920883715246191,
+          -0.0004879930607766712,
+          0.0004879930607766712,
+          0.000920883715246191
+        ],
+        "fidelity_pass": true,
+        "assignment_pass": true
+      },
+      {
+        "mode": "complete_four_electron",
+        "R0": 5.8,
+        "R1": 5.95,
+        "F0": 0.0105,
+        "F1": 0.0115,
+        "area": 0.00015000000000000023,
+        "C": 0.0003679310948463311,
+        "delta_mu": 0.017397782013463644,
+        "D_mu": 0.000757732308598793,
+        "eta": 0.9491681876200855,
+        "leakage": 0.09643967358589589,
+        "assignment_margin": 0.44985805679868707,
+        "route1_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "route2_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "same_assignment": true,
+        "eigenphases": [
+          -0.0009193079876051358,
+          -0.0004877081223424448,
+          0.0004877081223424448,
+          0.0009193079876051358
+        ],
+        "fidelity_pass": false,
+        "assignment_pass": true
+      }
+    ],
+    "full_electron_qualified_original_rectangles": 0
+  },
+  "beh2_models": {
+    "legacy_frozen_active_mo0": {
+      "label": "legacy: frozen active MO 0",
+      "SA3_high_end": {
+        "lambda_bohr": 2.52195,
+        "delta_e_average_Eh": 0.005619197783113705,
+        "state_leakage": 0.05473489262565767,
+        "same_stationary_solution_reduced_test": false
+      },
+      "upper_history_stride1": {
+        "maximum_C_qp": 0.0005837967108990102,
+        "minimum_eta_edge": 0.897836142908656,
+        "maximum_edge_leakage": 0.08306923022596768,
+        "minimum_assignment_margin": 0.5738257466347553
+      },
+      "reference_history_stride1": {
+        "maximum_C_qp": 8.44574314326147e-06
+      }
+    },
+    "all_electron_cas66": {
+      "label": "all-electron CAS(6e,6o)",
+      "SA3_high_end": {
+        "lambda_bohr": 2.52195,
+        "delta_e_average_Eh": 7.899458864812914e-12,
+        "state_leakage": 5.719832940620506e-09,
+        "same_stationary_solution_reduced_test": true
+      },
+      "upper_history_stride1": {
+        "maximum_C_qp": 9.313420018765669e-06,
+        "minimum_eta_edge": 0.8968934034808169,
+        "maximum_edge_leakage": 0.08378814337902918,
+        "minimum_assignment_margin": 0.573467244646317
+      },
+      "reference_history_stride1": {
+        "maximum_C_qp": 9.762575667032268e-06
+      }
+    },
+    "standard_valence_cas46": {
+      "label": "standard valence CAS(4e,6o)",
+      "SA3_high_end": {
+        "lambda_bohr": 2.52195,
+        "delta_e_average_Eh": 2.8066438062523957e-12,
+        "state_leakage": 3.0580764587284648e-09,
+        "same_stationary_solution_reduced_test": true
+      },
+      "upper_history_stride1": {
+        "maximum_C_qp": 8.55825213894805e-06,
+        "minimum_eta_edge": 0.8647832328609718,
+        "maximum_edge_leakage": 0.10622108010029363,
+        "minimum_assignment_margin": 0.5647732290173685
+      },
+      "reference_history_stride1": {
+        "maximum_C_qp": 9.234238585310008e-06
+      }
+    }
+  },
+  "cpdc_gauge_eigenphase_floor_rad": 2.4655841604492856e-15
+}

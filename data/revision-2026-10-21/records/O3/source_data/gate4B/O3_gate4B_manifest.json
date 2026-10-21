@@ -1,0 +1,177 @@
+{
+  "schema_version": 4,
+  "stage": "Gate4B",
+  "optimizer": "one_step",
+  "seeding": "protocol-matched directional coarse-to-fine continuation",
+  "forced_symmetry": "Cs",
+  "basis": "cc-pvtz",
+  "active_space": [
+    18,
+    12
+  ],
+  "r_sum_A": 2.7288,
+  "theta0_deg": 119.7,
+  "delta_r_steps_A": [
+    0.01,
+    0.005,
+    0.0025,
+    0.00125
+  ],
+  "theta_steps_deg": [
+    0.2,
+    0.1,
+    0.05,
+    0.025
+  ],
+  "thresholds": {
+    "rhf_conv_tol": 1e-12,
+    "fci_conv_tol": 1e-12,
+    "mc_conv_tol": 1e-10,
+    "mc_conv_tol_grad": 1e-05,
+    "mc_stage1_conv_tol_grad": 1e-05,
+    "mc_stationary_window": 5,
+    "mc_stationary_energy_tol": 1e-10,
+    "mc_stationary_grad_ceiling": 0.0001,
+    "mc_stationary_ddm_tol": 1e-07,
+    "mc_stationary_maxrot_tol": 1e-07
+  },
+  "seed_workdir": "/mnt/O3/O3_gate4A/O3_gate4A_work",
+  "points": [
+    {
+      "tag": "center",
+      "direction": "center",
+      "sign": 0,
+      "h": 0.0,
+      "delta_r": 0.0,
+      "theta": 119.7
+    },
+    {
+      "tag": "dr_minus_h_0p010000",
+      "direction": "delta_r",
+      "sign": -1,
+      "h": 0.01,
+      "delta_r": -0.01,
+      "theta": 119.7
+    },
+    {
+      "tag": "dr_plus_h_0p010000",
+      "direction": "delta_r",
+      "sign": 1,
+      "h": 0.01,
+      "delta_r": 0.01,
+      "theta": 119.7
+    },
+    {
+      "tag": "dr_minus_h_0p005000",
+      "direction": "delta_r",
+      "sign": -1,
+      "h": 0.005,
+      "delta_r": -0.005,
+      "theta": 119.7
+    },
+    {
+      "tag": "dr_plus_h_0p005000",
+      "direction": "delta_r",
+      "sign": 1,
+      "h": 0.005,
+      "delta_r": 0.005,
+      "theta": 119.7
+    },
+    {
+      "tag": "dr_minus_h_0p002500",
+      "direction": "delta_r",
+      "sign": -1,
+      "h": 0.0025,
+      "delta_r": -0.0025,
+      "theta": 119.7
+    },
+    {
+      "tag": "dr_plus_h_0p002500",
+      "direction": "delta_r",
+      "sign": 1,
+      "h": 0.0025,
+      "delta_r": 0.0025,
+      "theta": 119.7
+    },
+    {
+      "tag": "dr_minus_h_0p001250",
+      "direction": "delta_r",
+      "sign": -1,
+      "h": 0.00125,
+      "delta_r": -0.00125,
+      "theta": 119.7
+    },
+    {
+      "tag": "dr_plus_h_0p001250",
+      "direction": "delta_r",
+      "sign": 1,
+      "h": 0.00125,
+      "delta_r": 0.00125,
+      "theta": 119.7
+    },
+    {
+      "tag": "theta_minus_h_0p200000",
+      "direction": "theta",
+      "sign": -1,
+      "h": 0.2,
+      "delta_r": 0.0,
+      "theta": 119.5
+    },
+    {
+      "tag": "theta_plus_h_0p200000",
+      "direction": "theta",
+      "sign": 1,
+      "h": 0.2,
+      "delta_r": 0.0,
+      "theta": 119.9
+    },
+    {
+      "tag": "theta_minus_h_0p100000",
+      "direction": "theta",
+      "sign": -1,
+      "h": 0.1,
+      "delta_r": 0.0,
+      "theta": 119.60000000000001
+    },
+    {
+      "tag": "theta_plus_h_0p100000",
+      "direction": "theta",
+      "sign": 1,
+      "h": 0.1,
+      "delta_r": 0.0,
+      "theta": 119.8
+    },
+    {
+      "tag": "theta_minus_h_0p050000",
+      "direction": "theta",
+      "sign": -1,
+      "h": 0.05,
+      "delta_r": 0.0,
+      "theta": 119.65
+    },
+    {
+      "tag": "theta_plus_h_0p050000",
+      "direction": "theta",
+      "sign": 1,
+      "h": 0.05,
+      "delta_r": 0.0,
+      "theta": 119.75
+    },
+    {
+      "tag": "theta_minus_h_0p025000",
+      "direction": "theta",
+      "sign": -1,
+      "h": 0.025,
+      "delta_r": 0.0,
+      "theta": 119.675
+    },
+    {
+      "tag": "theta_plus_h_0p025000",
+      "direction": "theta",
+      "sign": 1,
+      "h": 0.025,
+      "delta_r": 0.0,
+      "theta": 119.72500000000001
+    }
+  ]
+}

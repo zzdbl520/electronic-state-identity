@@ -1,0 +1,147 @@
+{
+  "protocol_version": "CPDC-CCPVTZ-RANK2-PROJECTOR-v1.0",
+  "protocol_id": "CPDC-CCPVTZ-RANK2-PROJECTOR-20260920",
+  "preregistered_date": "2026-09-20",
+  "scientific_target": "Determine whether the unresolved two-lowest-singlet pair of C5H5+ is nevertheless an isolated, reproducible rank-2 electronic manifold on the already computed central loop.",
+  "antecedents": {
+    "relaxed_multiring_required_status": "STOP_BOUNDED_LOOP_GEOMETRY_FAILURE",
+    "relaxed_multiring_required_failure": "The 20/40/80 central-loop meshes pass all electronic, external-isolation, pair-subspace, active-space, and geometry checks but fail only the unchanged 2e-4 Eh internal adiabatic-gap gate.",
+    "central_gap_screen_required_status": "REFINE_SPOKE_MAXIMUM_OR_PIVOT_PROJECTOR",
+    "central_gap_screen_required_result": "Neither the cone_v1 nor smooth_quadratic sampled spoke reaches the unchanged 2e-4 Eh internal-gap target and the antecedent anchors reproduce within the frozen tolerance.",
+    "scalar_topology_decision_must_be_absent": true
+  },
+  "locked_model": {
+    "molecule": "C5H5+",
+    "electronic_sector": "lowest singlet manifold only",
+    "absolute_ground_state_claimed": false,
+    "basis": "cc-pvtz",
+    "pyscf_version_exact": "2.13.1",
+    "charge": 1,
+    "spin_2S": 0,
+    "spin_solver": "PySCF direct_spin0",
+    "ncas": 5,
+    "nelecas": 4,
+    "production_nroots": 2,
+    "production_state_average_weights": [
+      0.5,
+      0.5
+    ],
+    "arbitration_nroots": 3,
+    "arbitration_state_average_weights": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "active_space": "complete five-orbital carbon valence-pi space",
+    "rank2_object": "P12, the projector onto the two lowest singlets",
+    "external_isolation_gap": "E3-E2",
+    "internal_gap_E2_minus_E1_used_as_gate": false
+  },
+  "projector_mesh": {
+    "surface": "the immutable antecedent cone_v1 relaxed Fourier surface",
+    "loop": "central_inner at radius_u=0.45",
+    "existing_mesh_sizes": [
+      20,
+      40,
+      80
+    ],
+    "new_SA2_calculations": 0,
+    "point_requirements": "Recompute the antecedent production checks, including the CASCI third-singlet isolation probe, from each hash-frozen SA2 checkpoint.",
+    "edge_requirements": "Use exact determinant overlap matrices and gate only rank-2 pair and active-orbital subspace singular values/leakage.",
+    "individual_root_permutation_or_margin_used": false,
+    "lowest_state_overlap_used": false
+  },
+  "SA3_symmetry_wedge": {
+    "source_mesh_size": 40,
+    "point_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "angles_degrees": [
+      0.0,
+      9.0,
+      18.0,
+      27.0,
+      36.0
+    ],
+    "symmetry_reduction": "On the 40-point ring, C5 rotations reduce indices modulo 8 and reflection maps residue j to 8-j; residues 0 through 4 are the five inequivalent classes.",
+    "calculation": "five fresh, independently initialized, equal-weight SA3-CASSCF(4e,5o) calculations",
+    "comparison": "exact determinant overlap of each existing SA2 pair with the lower-two subspace and third root of the matching SA3 solution",
+    "purpose": "test electronic rank and third-state isolation independently of the SA2 optimizer"
+  },
+  "nonabelian_transport": {
+    "edge_overlap": "M_k with elements <Psi_a(R_k)|Psi_b(R_k+1)> from exact complete-CASSCF determinant overlaps",
+    "edge_transport": "the unitary polar factor U_k of M_k",
+    "Wilson_product": "W=U_0 U_1 ... U_N-1",
+    "gauge_covariance": "under independent corner gauges G_k in U(2), W transforms by similarity G_0^dagger W G_0",
+    "reported_invariants": [
+      "trace",
+      "determinant",
+      "unordered eigenphase pair"
+    ],
+    "random_U2_gauge_seeds": [
+      20260920,
+      20260921,
+      20260922,
+      20260923,
+      20260924
+    ],
+    "orientation_control": "recompute all exact overlaps on the independently traversed reverse polygon and compare its invariants with the conjugate forward invariants",
+    "cyclic_start_control": "evaluate every cyclic starting edge and compare similarity invariants",
+    "mesh_control": "compare the 40- and 80-point invariant spectra using an unordered wrapped-eigenphase metric plus trace and determinant differences"
+  },
+  "thresholds": {
+    "maximum_final_orbital_gradient": 0.0001,
+    "maximum_spin_square_error": 1e-06,
+    "maximum_mo_orthonormality_error": 1e-08,
+    "maximum_casci_reproduction_error_Eh": 1e-07,
+    "minimum_active_reference_sigma": 0.9,
+    "minimum_third_singlet_gap_Eh": 0.002,
+    "SA2_SA3_projector_sigma_minimum": 0.95,
+    "SA2_SA3_projector_leakage_maximum": 0.03,
+    "SA3_third_root_SA2_weight_maximum": 0.05,
+    "pair_edge_sigma_minimum": 0.98,
+    "pair_edge_leakage_maximum": 0.01,
+    "active_edge_sigma_minimum": 0.98,
+    "active_edge_leakage_maximum": 0.01,
+    "maximum_gauge_invariant_error": 1e-10,
+    "maximum_orientation_invariant_error": 1e-10,
+    "maximum_cyclic_start_invariant_error": 1e-10,
+    "maximum_40_80_eigenphase_difference_rad": 0.001,
+    "maximum_40_80_trace_difference": 0.001,
+    "maximum_40_80_determinant_difference": 0.001
+  },
+  "scalar_phase_allowed": false,
+  "signed_single_state_overlap_allowed": false,
+  "CI_count_from_rank2_Wilson_allowed": false,
+  "interpretive_limits": [
+    "A pass establishes a smoothly transportable and externally isolated rank-2 manifold under the frozen model and path.",
+    "A pass does not resolve either individual adiabatic root where E2-E1 is below the frozen scalar threshold.",
+    "The rank-2 Wilson spectrum is a manifold-holonomy diagnostic and cannot by itself count conical intersections internal to P12.",
+    "No scalar Berry sign, secondary-CI parity, or absolute-ground-state claim is authorized."
+  ],
+  "decision_statuses": {
+    "PASS_RANK2_PROJECTOR_AUTHORIZATION": "Both phase-blind antecedents and all reused checkpoints are intact and authorize only the rank-2 calculation.",
+    "STOP_RANK2_PROJECTOR_AUTHORIZATION_FAILURE": "The source, provenance, phase embargo, or internal-gap-only diagnosis changed.",
+    "STOP_SA3_WEDGE_ARBITRATION_FAILURE": "At least one independent SA3 symmetry class fails to preserve an isolated lower-two-state projector.",
+    "STOP_PROJECTOR_POINT_QUALITY_FAILURE": "At least one reused SA2 vertex fails its frozen electronic or third-state-isolation checks.",
+    "STOP_PROJECTOR_EDGE_FIDELITY_FAILURE": "At least one pair-projector or active-space edge fails its frozen fidelity thresholds.",
+    "STOP_PROJECTOR_INVARIANCE_FAILURE": "A random U(2) gauge, reverse-orientation, or cyclic-start invariant fails numerical closure.",
+    "REFINE_RANK2_PROJECTOR_MESH": "The manifold passes local controls but the 40/80 Wilson spectra do not meet the preregistered discretization tolerance.",
+    "PASS_RANK2_PROJECTOR_QUALIFICATION": "The rank-2 manifold passes independent SA3, external-isolation, edge-fidelity, invariance, and mesh-convergence controls."
+  },
+  "publication_policy": {
+    "manuscript_claim_authorized": false,
+    "required_after_pass": "an independently seeded opposed-history replication of the five SA3 wedge calculations and rank-2 spectra",
+    "forbidden_post_hoc_changes": [
+      "lowering the original 2e-4 Eh scalar internal-gap threshold",
+      "exposing or multiplying signed one-state overlaps",
+      "using individual-root assignment as a rank-2 pass gate",
+      "changing the cone surface, radius, 20/40/80 meshes, active space, basis, or electronic rank after seeing the Wilson spectrum",
+      "interpreting a rank-2 Wilson spectrum as a count of conical intersections internal to the two-state manifold"
+    ]
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "protocol_version": "CPDC-CCPVTZ-RELAXED-MULTIRING-v1.0",
+  "protocol_id": "CPDC-CCPVTZ-RELAXED-MULTIRING-20260920",
+  "preregistered_date": "2026-09-20",
+  "scientific_target": "A scalar-Berry-sign false negative on one geometry-relaxed nuclear surface of the lowest singlet manifold of C5H5+: six individually controlled conical intersections but a trivial scalar sign on the loop enclosing all six.",
+  "source": {
+    "required_script_version": "CPDC-SCI-CCPVTZ-LIFT-v1.0",
+    "required_protocol_id": "CPDC-SECONDARY-CI-CCPVTZ-LIFT-20260920",
+    "required_status": "PASS_CCPVTZ_SECONDARY_CI_LIFT",
+    "decision_filename": "CPDC_secondary_CI_ccpVTZ_lift_v1_decision.json",
+    "decision_canonical_sha256": "21f4cb12adaed4f6fe8576b4982c2a881f9df12a9a4b341833fac6efa8f564b9",
+    "required_evidence": "the independently qualified D5h SA2 center, one relaxed secondary CI, and its five directly recalculated 72-degree replicas",
+    "phase_or_loop_previously_calculated": false
+  },
+  "locked_model": {
+    "molecule": "C5H5+",
+    "electronic_sector": "lowest singlet manifold only",
+    "absolute_ground_state_claimed": false,
+    "basis": "cc-pvtz",
+    "pyscf_version_exact": "2.13.1",
+    "production_engine": "the byte-identical CPDC-SCI-CCPVTZ-LIFT-v1.0 SA2 electronic kernel",
+    "production_engine_sha256": "7ff5d5dab945128e6031e61e2510d836ffd42d0a5e1f86078ef72e9b0ddcd325",
+    "charge": 1,
+    "spin_2S": 0,
+    "spin_solver": "PySCF direct_spin0",
+    "ncas": 5,
+    "nelecas": 4,
+    "production_nroots": 2,
+    "production_state_average_weights": [0.5, 0.5],
+    "arbitration_nroots": 3,
+    "arbitration_state_average_weights": [0.3333333333333333, 0.3333333333333333, 0.3333333333333333],
+    "active_space": "complete five-orbital carbon valence-pi space selected at D5h with a MINAO carbon-2pz projector",
+    "casscf_energy_convergence_Eh": 1e-10,
+    "casscf_orbital_gradient_convergence": 1e-5,
+    "loop_points_seeded_from": "the same frozen cc-pVTZ D5h SA2 center, never from an adjacent loop point"
+  },
+  "rank_arbitration": {
+    "calculation": "an independently optimized equal-weight SA3-CASSCF(4e,5o) center",
+    "comparison": "exact determinant overlap between the frozen source SA2 center and the new SA3 roots",
+    "information_allowed": "center energies, stationarity, spin, active-space metrics, root gaps, and absolute projector weights; no loop or Berry quantity"
+  },
+  "relaxed_surface": {
+    "parameter_domain": "dimensionless plane u=(ux,uy)",
+    "center": "the frozen D5h source geometry at u=(0,0)",
+    "anchor_count": 5,
+    "anchors": "the five frozen relaxed secondary-CI replica geometries at u_k=(cos(2pi k/5),sin(2pi k/5))",
+    "interpolation": "five-point real discrete Fourier interpolation",
+    "map": "R(u)=R_center+|u| D_Fourier(arg(u))",
+    "frequencies": [0, 1, 2, -2, -1],
+    "topological_reason": "the center and all five relaxed secondary CIs lie exactly on one explicitly parameterized two-dimensional nuclear surface",
+    "surface_selection_uses_phase": false
+  },
+  "loops": {
+    "inner_radius_u": 0.45,
+    "local_radius_u": 0.08,
+    "outer_radius_u": 1.45,
+    "inner_center_u": [0.0, 0.0],
+    "local_centers_u": "the five unit-circle source anchors",
+    "outer_center_u": [0.0, 0.0],
+    "global_vertex_levels": [20, 40, 80],
+    "local_vertex_levels": [12, 24, 48],
+    "mesh_rule": "freeze the first strict preregistered mesh and the first higher strict mesh; both must pass before phase is authorized",
+    "strict_information_allowed": "stationarity, spin, root isolation, geometric bounds, on-loop gaps, conventional assignment, state-pair singular values and leakage, active-space singular values and leakage, and absolute single-state edge overlaps",
+    "strict_information_forbidden": "signed edge overlaps, scalar Berry products, Wilson products, or any topological sign",
+    "phase_embargo": "surface and phase are separate commands; phase is code-blocked until an immutable PASS_LOOP_GEOMETRY decision exists"
+  },
+  "hypothesis": {
+    "central_expected_sign": -1,
+    "each_local_expected_sign": -1,
+    "number_of_secondary_intersections": 5,
+    "outer_expected_sign": 1,
+    "topological_accounting": "one central plus five secondary intersections gives six negative local signs and a positive total scalar sign",
+    "classification_policy": "all alternative sign patterns receive explicit stop statuses; geometry and meshes may not be changed after phase exposure"
+  },
+  "phase_controls": {
+    "electronic_overlap": "exact determinant overlap of the complete CASSCF wavefunctions including inactive determinants",
+    "scalar_quantity": "normalized closed product of lowest-state overlaps on each adiabatically gapped polygon",
+    "random_gauge_seeds": [20260920, 20260921, 20260922, 20260923, 20260924],
+    "orientation_control": "independently recompute every edge in reverse traversal and compare with the conjugate forward product",
+    "cyclic_start_control": "evaluate every cyclic starting vertex",
+    "mesh_control": "the selected and independently frozen higher-resolution mesh must give the same sign and agree within the phase threshold",
+    "pair_subspace_determinant_phase": "recorded as a diagnostic but not substituted for the scalar lowest-state sign"
+  },
+  "thresholds": {
+    "maximum_final_orbital_gradient": 0.0001,
+    "maximum_spin_square_error": 1e-6,
+    "maximum_mo_orthonormality_error": 1e-8,
+    "maximum_casci_reproduction_error_Eh": 1e-7,
+    "minimum_active_reference_sigma": 0.9,
+    "minimum_third_singlet_gap_Eh": 0.002,
+    "minimum_center_third_singlet_gap_Eh": 0.003,
+    "maximum_center_pair_splitting_Eh": 0.0002,
+    "arbitration_projector_sigma_minimum": 0.95,
+    "arbitration_projector_leakage_maximum": 0.03,
+    "arbitration_third_root_SA2_weight_maximum": 0.05,
+    "maximum_average_energy_above_center_Eh": 0.03,
+    "minimum_CC_bond_angstrom": 1.2,
+    "maximum_CC_bond_angstrom": 1.7,
+    "minimum_CH_bond_angstrom": 0.9,
+    "maximum_CH_bond_angstrom": 1.25,
+    "maximum_planarity_error_angstrom": 1e-10,
+    "maximum_anchor_interpolation_error_angstrom": 2e-10,
+    "pair_edge_sigma_minimum": 0.98,
+    "pair_edge_leakage_maximum": 0.01,
+    "active_edge_sigma_minimum": 0.98,
+    "active_edge_leakage_maximum": 0.01,
+    "minimum_assignment_margin": 0.1,
+    "minimum_single_state_edge_overlap": 0.5,
+    "minimum_loop_adiabatic_gap_Eh": 0.0002,
+    "minimum_phase_real_magnitude": 0.9,
+    "maximum_phase_imaginary_abs": 1e-8,
+    "maximum_gauge_error": 1e-10,
+    "maximum_orientation_error": 1e-10,
+    "maximum_cyclic_start_error": 1e-10,
+    "maximum_mesh_phase_difference": 1e-8
+  },
+  "decision_statuses": {
+    "PASS_SOURCE_AUTHORIZATION": "The exact frozen lift decision and all center/candidate/replica artifacts pass provenance, numerical, geometry, and hash checks.",
+    "STOP_SOURCE_AUTHORIZATION_FAILURE": "The frozen lift evidence is missing, changed, or inconsistent; no surface may be constructed.",
+    "PASS_SA3_ARBITRATION": "An independent SA3 center confirms that the source SA2 pair is the isolated target subspace.",
+    "STOP_SA3_ARBITRATION_FAILURE": "The cc-pVTZ center rank is not independently controlled.",
+    "PASS_LOOP_GEOMETRY": "The relaxed Fourier surface and two strict meshes for every one of seven loops are frozen without a phase product.",
+    "STOP_BOUNDED_LOOP_GEOMETRY_FAILURE": "At least one loop lacks both a strict selected and a strict higher-resolution mesh.",
+    "PROMOTE_RELAXED_MULTIRING_TO_OPPOSED_HISTORY": "The central and five secondary local loops are negative, the outer loop is positive, and all gauge/orientation/mesh controls pass; freeze the polygons for opposed-history confirmation.",
+    "STOP_PHASE_NUMERICS_FAILURE": "At least one scalar phase is unresolved under mesh, gauge, orientation, or cyclic-start controls.",
+    "STOP_TOPOLOGY_CONTROL_FAILURE": "The central or a secondary local negative control fails on the frozen surface.",
+    "STOP_OUTER_LOOP_NOT_FALSE_NEGATIVE": "The frozen outer loop does not give the preregistered positive scalar sign."
+  },
+  "publication_policy": {
+    "manuscript_claim_authorized": false,
+    "required_after_promotion": "clockwise and counterclockwise sequential orbital-history confirmation on the exact frozen selected and confirmation meshes",
+    "forbidden_post_hoc_changes": [
+      "changing the source decision or any source geometry",
+      "changing the Fourier surface after source authorization",
+      "changing an inner, local, or outer radius after phase exposure",
+      "changing a vertex schedule, threshold, state rank, active space, basis, or expected sign after phase exposure",
+      "interpreting the lowest-singlet result as an absolute molecular ground-state claim"
+    ]
+  },
+  "literature_anchors": [
+    {
+      "doi": "10.1021/ja026304y",
+      "role": "central and five secondary conical-intersection topology in singlet cyclopentadienyl cation"
+    },
+    {
+      "doi": "10.1063/1.2973631",
+      "role": "geometric-phase context for cyclopentadienyl vibronic structure"
+    }
+  ]
+}

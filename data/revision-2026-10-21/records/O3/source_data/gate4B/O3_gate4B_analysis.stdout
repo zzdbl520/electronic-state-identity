@@ -1,0 +1,11 @@
+
+Gate 4B scaling fits
+direction  statistic   alpha       R2(log-log)
+delta_r    maximum     0.751261  0.99705734
+delta_r    mean        0.752730  0.99700944
+delta_r    rms         0.752727  0.99700963
+theta      maximum    -0.120452  0.21274419
+theta      mean       -0.041245  0.01219847
+theta      rms        -0.089720  0.10920080
+
+Results written to /mnt/O3/O3_gate4B/O3_gate4B_work_v5

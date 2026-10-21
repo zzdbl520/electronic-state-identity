@@ -1,0 +1,284 @@
+{
+  "thresholds": {
+    "energy_tol_Eh": 1e-07,
+    "active_angle_tol_rad": 0.001,
+    "state_leakage_tol": 1e-06,
+    "rdm1_fro_tol": 0.0001,
+    "noon_rms_tol": 0.0001
+  },
+  "solution_count": 80,
+  "pair_count": 120,
+  "protocol_comparison_count": 40,
+  "switching_candidates": [
+    {
+      "lambda_bohr": 2.6235,
+      "irrep": "A1",
+      "protocol": "SA3",
+      "number_of_clusters": 4,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 3,
+        "right": 4
+      }
+    },
+    {
+      "lambda_bohr": 2.6235,
+      "irrep": "A1",
+      "protocol": "SA4",
+      "number_of_clusters": 4,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 3,
+        "right": 4
+      }
+    },
+    {
+      "lambda_bohr": 2.6235,
+      "irrep": "B2",
+      "protocol": "SA3",
+      "number_of_clusters": 3,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 1,
+        "right": 3
+      }
+    },
+    {
+      "lambda_bohr": 2.6235,
+      "irrep": "B2",
+      "protocol": "SA4",
+      "number_of_clusters": 3,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 1,
+        "right": 3
+      }
+    },
+    {
+      "lambda_bohr": 2.624,
+      "irrep": "A1",
+      "protocol": "SA3",
+      "number_of_clusters": 4,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 3,
+        "right": 4
+      }
+    },
+    {
+      "lambda_bohr": 2.624,
+      "irrep": "A1",
+      "protocol": "SA4",
+      "number_of_clusters": 4,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 3,
+        "right": 4
+      }
+    },
+    {
+      "lambda_bohr": 2.624,
+      "irrep": "B2",
+      "protocol": "SA3",
+      "number_of_clusters": 3,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 1,
+        "right": 3
+      }
+    },
+    {
+      "lambda_bohr": 2.624,
+      "irrep": "B2",
+      "protocol": "SA4",
+      "number_of_clusters": 3,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 1,
+        "right": 3
+      }
+    },
+    {
+      "lambda_bohr": 2.62425,
+      "irrep": "A1",
+      "protocol": "SA3",
+      "number_of_clusters": 4,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 3,
+        "right": 4
+      }
+    },
+    {
+      "lambda_bohr": 2.62425,
+      "irrep": "A1",
+      "protocol": "SA4",
+      "number_of_clusters": 4,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 3,
+        "right": 4
+      }
+    },
+    {
+      "lambda_bohr": 2.62425,
+      "irrep": "B2",
+      "protocol": "SA3",
+      "number_of_clusters": 3,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 1,
+        "right": 3
+      }
+    },
+    {
+      "lambda_bohr": 2.62425,
+      "irrep": "B2",
+      "protocol": "SA4",
+      "number_of_clusters": 3,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 1,
+        "right": 3
+      }
+    },
+    {
+      "lambda_bohr": 2.6245,
+      "irrep": "A1",
+      "protocol": "SA3",
+      "number_of_clusters": 4,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 3,
+        "right": 4
+      }
+    },
+    {
+      "lambda_bohr": 2.6245,
+      "irrep": "A1",
+      "protocol": "SA4",
+      "number_of_clusters": 4,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 3,
+        "right": 4
+      }
+    },
+    {
+      "lambda_bohr": 2.6245,
+      "irrep": "B2",
+      "protocol": "SA3",
+      "number_of_clusters": 3,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 1,
+        "right": 3
+      }
+    },
+    {
+      "lambda_bohr": 2.6245,
+      "irrep": "B2",
+      "protocol": "SA4",
+      "number_of_clusters": 3,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 1,
+        "right": 3
+      }
+    },
+    {
+      "lambda_bohr": 2.625,
+      "irrep": "A1",
+      "protocol": "SA3",
+      "number_of_clusters": 4,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 3,
+        "right": 4
+      }
+    },
+    {
+      "lambda_bohr": 2.625,
+      "irrep": "A1",
+      "protocol": "SA4",
+      "number_of_clusters": 4,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 3,
+        "right": 4
+      }
+    },
+    {
+      "lambda_bohr": 2.625,
+      "irrep": "B2",
+      "protocol": "SA3",
+      "number_of_clusters": 3,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 1,
+        "right": 3
+      }
+    },
+    {
+      "lambda_bohr": 2.625,
+      "irrep": "B2",
+      "protocol": "SA4",
+      "number_of_clusters": 3,
+      "left_right_distinct": true,
+      "source_clusters": {
+        "common_sa2": 1,
+        "left": 2,
+        "rhf": 1,
+        "right": 3
+      }
+    }
+  ],
+  "candidate_counts_by_irrep": {
+    "A1": 10,
+    "B2": 10
+  },
+  "left_right_distinct_counts_by_irrep": {
+    "A1": 10,
+    "B2": 10
+  },
+  "provisional_switching_irrep": "B2",
+  "interpretation": "Provisional only: inspect pairwise metrics and convergence logs before locking the switching block. No threshold was tuned to the result."
+}

@@ -1,33 +1,16 @@
-# Cyclopentadienyl cation: isolated rank-2 manifold
+# Cyclopentadienyl cation: isolated rank-2 pair
 
-This workflow treats the lower two singlets as a retained rank-2 manifold and
-does not assign either individual root. Independent SA3 calculations test
-external isolation from the third singlet. Exact many-electron overlaps then test
-edge fidelity, Wilson transport, random U(2) gauge invariance, mesh convergence,
-and opposed-history reproducibility.
+Current [records](../../data/revision-2026-10-21/records/CPDC/) and
+[summary](../../data/revision-2026-10-21/analysis/cpdc_summary.json) support
+an externally isolated near-degenerate pair without individual-root assignments.
 
-## Contents
+The maximum reference/history Wilson-eigenphase difference is 6.4154e-5 rad,
+exceeding the 40/80 mesh difference of 9.6413e-6 rad. Initialization sensitivity
+limits phase precision. September pass labels record their specified thresholds;
+they do not establish exact history independence.
 
-- `workflow/`: central screening, relaxed-loop, SA3 projector, and opposed-history
-  programs plus their protocols;
-- `reference/`: final decisions, authorization, build validation, and stdout
-  records;
-- `CPDC_rank2_final_wrapup_20260920.md`: the frozen evidence summary.
-
-The standalone cc-pVTZ lift protocol declaration was absent from the assembled
-bundle. The copy in `workflow/` is reconstructed directly from the executable's
-immutable constants and is tagged as such inside the JSON. The later projector
-and opposed-history decision records are original archived outputs.
-
-Fresh production runs also require the source, relaxed-loop, screening, and
-projector work roots named by the wrapper. Their large `solution.npz` trees are
-part of the external restart archive, not ordinary Git.
-
-The final expected status is `PASS_RANK2_OPPOSED_HISTORY_REPLICATION`.
-
-## Claim boundary
-
-The pass supports history-independent identity and transport of an externally
-isolated lower two-state manifold. It does not assign a scalar Berry phase to an
-individual state, resolve the two members separately, or count conical
-intersections inside the loop.
+Original geometries, relaxed-surface coefficients and orbital/CI arrays are
+unavailable. Record arithmetic/tables can be regenerated; independent overlap
+and Wilson reconstruction cannot. No scalar Berry phase, enclosed-CI count,
+absolute-ground-state or individual-root identity is inferred.
+See [availability](../../docs/DATA_AVAILABILITY.md).

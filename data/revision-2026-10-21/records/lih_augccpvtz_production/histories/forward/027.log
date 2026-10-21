@@ -1,0 +1,1215 @@
+#INFO: **** input file is /scr/zdb/LiH_augccpVTZ_one_shot/LiH_augccpVTZ_one_shot/LiH_augccpVTZ_one_shot.py ****
+#!/usr/bin/env python3
+"""Standalone LiH aug-cc-pVTZ closed-loop calculation, v1.0 (2026-10-13).
+
+Run: python LiH_augccpVTZ_one_shot.py all --threads 8
+No previous scripts, reference directory or wavefunction files are required.
+The fixed physical model and occupied-valence selector are recovered from the
+archived JCTC revision. Complete four-electron overlaps are used throughout.
+See README_CN.txt for definitions, qualification rules, and scope.
+"""
+from __future__ import annotations
+import argparse, csv, hashlib, itertools, json, math, os, platform, sys, time, traceback
+from collections import Counter
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Dict, List, Mapping, Sequence, Tuple
+
+# Set thread pools before importing NumPy/PySCF. CLI overrides the environment.
+def _early_threads():
+    for i, arg in enumerate(sys.argv[1:], 1):
+        if arg == '--threads' and i+1 < len(sys.argv): return sys.argv[i+1]
+        if arg.startswith('--threads='): return arg.split('=',1)[1]
+    return os.environ.get('LIH_THREADS','8')
+for _key in ('OMP_NUM_THREADS','MKL_NUM_THREADS','OPENBLAS_NUM_THREADS','NUMEXPR_NUM_THREADS'):
+    os.environ[_key] = _early_threads()
+import numpy as np
+
+SCRIPT_VERSION = 'LiH-augccpVTZ-standalone-v1.0'
+BASIS = 'aug-cc-pvtz'
+NELECAS, NCAS, NROOTS, NPROBE_ROOTS = 2, 5, 4, 5
+WFNSYM = 'A1'
+ACTIVE_IRREP_COUNTS = {'A1':3,'B1':1,'B2':1}
+TARGET_PAIR = (2,3)
+SEED_SELECTOR_VERSION = 'occupied-valence-locked-projector-v1'
+MAX_MEMORY_MB = 8000
+ENERGY_TOL = 1e-12
+ORBITAL_GRAD_TOL = 1e-8
+FCI_TOL = 1e-13
+RUN_FINGERPRINT = ''
+CURRENT_PARENT_SHA = None
+
+SOURCE_PROVENANCE = {'s0': {'filename': 'LiH_S0_SA4_qualification.py', 'sha256': '8276ae0590895caca30c5e58178c3863a953236bfa80f4453a275fa69b626f40'}, 's1': {'filename': 'LiH_S1_physical_field_locator.py', 'sha256': '99aac258eb91729650f000012fd05bc2f21c290fd1f187ab9a0ef2c76cc56c3a'}, 's3': {'filename': 'LiH_S3_fixed_window_basis_robustness.py', 'sha256': 'be0fd18bd69006074fe9a1a7a5ec0401acff53c1efd54ce6f655d105b85c09a8'}, 'ov': {'filename': 'lih_complete_overlap.py', 'sha256': '54def04ea3559f57e3651f38e1f1333eb4d872711e6120eadc31682573b28c98'}}
+
+def _jsonable(value: Any) -> Any:
+    if isinstance(value, (np.floating, np.integer, np.bool_)):
+        return value.item()
+    if isinstance(value, complex):
+        return {"real": float(value.real), "imag": float(value.imag)}
+    if isinstance(value, np.ndarray):
+        if np.iscomplexobj(value):
+            return {"real": value.real.tolist(), "imag": value.imag.tolist()}
+        return value.tolist()
+    if isinstance(value, Path):
+        return str(value)
+    if isinstance(value, dict):
+        return {str(k): _jsonable(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_jsonable(v) for v in value]
+    return value
+
+
+def write_json(path: Path, payload: Mapping[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(json.dumps(_jsonable(payload), indent=2, sort_keys=False) + "\n")
+    os.replace(tmp, path)
+
+
+def require_pyscf():
+    try:
+        import pyscf  # noqa: F401
+        from pyscf import fci, gto, lib, mcscf, scf, symm
+        from pyscf.scf import addons as scf_addons
+    except ImportError as exc:
+        raise SystemExit(
+            "PySCF is required for 'run', 'analyze', and 'all'. "
+            "Run 'selftest' without PySCF or use the calculation environment."
+        ) from exc
+    return fci, gto, lib, mcscf, scf, scf_addons, symm
+
+
+def make_mol(r_angstrom: float, basis: str, output: str | None = None, verbose: int = 0):
+    _, gto, _, _, _, _, _ = require_pyscf()
+    kwargs: Dict[str, Any] = {
+        "atom": [("Li", (0.0, 0.0, -r_angstrom / 2.0)), ("H", (0.0, 0.0, r_angstrom / 2.0))],
+        "unit": "Angstrom",
+        "basis": basis,
+        "charge": 0,
+        "spin": 0,
+        "symmetry": "C2v",
+        "verbose": verbose,
+    }
+    if output is not None:
+        kwargs["output"] = output
+    kwargs["max_memory"] = MAX_MEMORY_MB
+    return gto.M(**kwargs)
+
+
+def ao_indices(mol, element: str, shell: str, component: str | None = None) -> List[int]:
+    result: List[int] = []
+    element = element.lower()
+    shell = shell.lower()
+    component = None if component is None else component.lower()
+    for i, label in enumerate(mol.ao_labels(fmt=False)):
+        parts = [str(x).strip().lower().replace(" ", "") for x in label]
+        joined = "|".join(parts)
+        if element not in parts:
+            continue
+        if shell not in joined:
+            continue
+        if component is not None and component not in joined:
+            continue
+        result.append(i)
+    return result
+
+
+def subspace_population(mo: np.ndarray, s_ao: np.ndarray, ao_idx: Sequence[int]) -> np.ndarray:
+    if not ao_idx:
+        raise RuntimeError("AO target subspace is empty")
+    idx = np.asarray(ao_idx, dtype=int)
+    cross = s_ao[:, idx]
+    gram = s_ao[np.ix_(idx, idx)]
+    amplitudes = mo.conj().T @ cross
+    return np.einsum(
+        "pi,ij,pj->p",
+        amplitudes.conj(),
+        np.linalg.pinv(gram, rcond=1.0e-12),
+        amplitudes,
+    ).real
+
+
+def orbital_irrep_names(mol, mo: np.ndarray) -> List[str]:
+    _, _, _, _, _, _, symm = require_pyscf()
+    labels = symm.label_orb_symm(mol, mol.irrep_name, mol.symm_orb, mo, check=False)
+    return [str(x) for x in labels]
+
+
+def metric_orthonormalize(mo: np.ndarray, s_ao: np.ndarray) -> np.ndarray:
+    gram = mo.conj().T @ s_ao @ mo
+    gram = (gram + gram.conj().T) / 2.0
+    eig, vec = np.linalg.eigh(gram)
+    if float(np.min(eig)) < 1.0e-10:
+        raise RuntimeError(f"projected MO Gram matrix is singular: {np.min(eig):.3e}")
+    return mo @ (vec @ np.diag(eig ** -0.5) @ vec.conj().T)
+
+
+def project_mos(old_mol, old_mo: np.ndarray, new_mol) -> np.ndarray:
+    _, _, _, _, _, scf_addons, symm = require_pyscf()
+    projected = np.asarray(scf_addons.project_mo_nr2nr(old_mol, old_mo, new_mol))
+    s_ao = new_mol.intor_symmetric("int1e_ovlp")
+    projected = metric_orthonormalize(projected, s_ao)
+    projected = np.asarray(symm.symmetrize_space(new_mol, projected, s=s_ao, check=False))
+    return metric_orthonormalize(projected, s_ao)
+
+
+def transition_dipoles(mol, mo: np.ndarray, ci_roots: Sequence[np.ndarray], ncore: int) -> np.ndarray:
+    fci, _, _, _, _, _, _ = require_pyscf()
+    mo_core = mo[:, :ncore]
+    mo_cas = mo[:, ncore : ncore + NCAS]
+    r_ao = mol.intor("int1e_r", comp=3)
+    core_dm = 2.0 * mo_core @ mo_core.conj().T
+    nuclear = np.einsum("a,ax->x", mol.atom_charges(), mol.atom_coords())
+    dip = np.zeros((3, NROOTS, NROOTS), dtype=np.complex128)
+    for i in range(NROOTS):
+        for j in range(NROOTS):
+            dm_act = fci.direct_spin1.trans_rdm1(ci_roots[i], ci_roots[j], NCAS, (1, 1))
+            dm_ao = np.einsum("pi,ij,qj->pq", mo_cas, dm_act, mo_cas.conj())
+            if i == j:
+                dm_ao = dm_ao + core_dm
+            electronic = -np.einsum("xpq,qp->x", r_ao, dm_ao)
+            dip[:, i, j] = electronic + (nuclear if i == j else 0.0)
+    return (dip + dip.conj().transpose(0, 2, 1)) / 2.0
+
+
+def five_root_probe(mf, mo: np.ndarray) -> Tuple[np.ndarray, List[np.ndarray]]:
+    """Return the five lowest singlet-A1 roots by deterministic dense CASCI.
+
+    PySCF's iterative multi-root solver can occasionally fail to converge a
+    fifth root while still returning an energy array.  Dense diagonalization
+    is trivial for CAS(2e,5o), but the M_s=0 determinant space also contains
+    triplets.  We therefore diagonalize the complete A1 block, evaluate S^2,
+    and retain the five lowest roots with S^2=0.  This turns the external-root
+    probe into a checked diagnostic rather than trusting an unconverged
+    Davidson return value.
+    """
+    fci, _, _, mcscf, _, _, _ = require_pyscf()
+    probe = mcscf.CASCI(mf, NCAS, NELECAS)
+    probe.fcisolver = fci.direct_spin1_symm.FCI(mf.mol)
+    probe.fcisolver.wfnsym = WFNSYM
+    probe.fcisolver.nroots = 10
+    probe.fcisolver.davidson_only = False
+    probe.kernel(mo)
+    if not bool(probe.converged):
+        raise RuntimeError("dense singlet-A1 CASCI probe did not converge")
+    raw_energies = np.asarray(probe.e_tot, dtype=float).reshape(-1)
+    raw_ci = [np.asarray(x) for x in probe.ci]
+    singlets: List[Tuple[float, np.ndarray]] = []
+    for energy, ci_root in zip(raw_energies, raw_ci):
+        s2 = float(fci.spin_op.spin_square0(ci_root, NCAS, (1, 1))[0])
+        if abs(s2) <= 1.0e-7:
+            singlets.append((float(energy), ci_root))
+    singlets.sort(key=lambda item: item[0])
+    if len(singlets) < NPROBE_ROOTS:
+        raise RuntimeError(
+            f"dense A1 probe found only {len(singlets)} singlets among "
+            f"{raw_energies.size} M_s=0 roots"
+        )
+    selected = singlets[:NPROBE_ROOTS]
+    energies = np.asarray([item[0] for item in selected], dtype=float)
+    ci = [item[1] for item in selected]
+    return energies, ci
+
+
+def build_initial_mos(mf) -> Tuple[np.ndarray, Dict[str, Any]]:
+    """Build the same CAS(2e,5o) seed without losing the occupied valence MO.
+
+    The original S0/S1 selector ranks every non-core orbital only by its total
+    target-AO population.  That ranking is adequate for aug-cc-pVDZ, but in
+    aug-cc-pVTZ several diffuse virtual A1 orbitals can outrank the occupied
+    Li--H valence orbital.  CAS(2e,5o) has exactly one non-core occupied RHF
+    orbital by construction, so its inclusion is a model semantic, not an
+    adjustable selection threshold.  Lock it into the A1 quota and use the
+    unchanged projector ranking only for the remaining virtual slots.
+    """
+    mol = mf.mol
+    mo = np.asarray(mf.mo_coeff)
+    occ = np.where(np.asarray(mf.mo_occ) > 0.0)[0].tolist()
+    expected_ncore = (mol.nelectron - NELECAS) // 2
+    if expected_ncore != 1 or len(occ) != expected_ncore + 1:
+        raise RuntimeError(
+            f"unexpected LiH occupation: ncore={expected_ncore}, occupied MOs={len(occ)}"
+        )
+    core = [min(occ, key=lambda i: float(mf.mo_energy[i]))]
+    occupied_valence = [i for i in occ if i not in core]
+    if len(occupied_valence) != 1:
+        raise RuntimeError(
+            "CAS(2e,5o) requires exactly one non-core occupied RHF orbital; "
+            f"got {occupied_valence}"
+        )
+    candidates = [i for i in range(mo.shape[1]) if i not in core]
+    s_ao = mf.get_ovlp()
+
+    targets = {
+        "Li_2s": ao_indices(mol, "li", "2s"),
+        "Li_2pz": ao_indices(mol, "li", "2p", "z"),
+        "H_1s": ao_indices(mol, "h", "1s"),
+        "H_2px": ao_indices(mol, "h", "2p", "x"),
+        "H_2py": ao_indices(mol, "h", "2p", "y"),
+    }
+    missing = [name for name, indices in targets.items() if not indices]
+    if missing:
+        raise RuntimeError(
+            f"could not identify target AO labels: {missing}; labels={mol.ao_labels()}"
+        )
+    scores_by_target = {
+        name: subspace_population(mo, s_ao, indices)
+        for name, indices in targets.items()
+    }
+    total_score = sum(scores_by_target.values())
+    irreps = orbital_irrep_names(mol, mo)
+    occupied_valence_irrep = irreps[occupied_valence[0]]
+    if occupied_valence_irrep != "A1":
+        raise RuntimeError(
+            "the unique occupied LiH valence MO must be A1 for the locked model; "
+            f"got {occupied_valence_irrep}"
+        )
+
+    active: List[int] = []
+    selected_by_irrep: Dict[str, List[int]] = {}
+    for irrep, count in ACTIVE_IRREP_COUNTS.items():
+        required = occupied_valence if irrep == occupied_valence_irrep else []
+        if len(required) > count:
+            raise RuntimeError(
+                f"required occupied orbitals exceed the {irrep} active quota"
+            )
+        eligible = [
+            i
+            for i in candidates
+            if irreps[i] == irrep and i not in required
+        ]
+        eligible.sort(
+            key=lambda i: (float(total_score[i]), -float(mf.mo_energy[i])),
+            reverse=True,
+        )
+        needed = count - len(required)
+        if len(eligible) < needed:
+            raise RuntimeError(
+                f"not enough {irrep} orbitals for active-space quota {count}"
+            )
+        chosen = list(required) + eligible[:needed]
+        selected_by_irrep[irrep] = chosen
+        active.extend(chosen)
+
+    active.sort()
+    if len(active) != NCAS or len(set(active)) != NCAS:
+        raise RuntimeError(f"invalid active selection: {active}")
+    active_occupied = [i for i in active if i in occ]
+    if active_occupied != occupied_valence:
+        raise RuntimeError(
+            "occupied-valence lock failed: "
+            f"expected {occupied_valence}, selected {active_occupied}"
+        )
+    if Counter(irreps[i] for i in active) != Counter(ACTIVE_IRREP_COUNTS):
+        raise RuntimeError(
+            "active irrep quota changed during occupied-valence locking: "
+            f"{[irreps[i] for i in active]}"
+        )
+
+    external = [
+        i for i in range(mo.shape[1]) if i not in core and i not in active
+    ]
+    order = core + active + external
+    if len(order) != mo.shape[1] or len(set(order)) != mo.shape[1]:
+        raise RuntimeError("MO reordering is not a permutation")
+
+    diagnostics = {
+        "selector_version": SEED_SELECTOR_VERSION,
+        "selector_semantics": (
+            "lock the unique non-core occupied RHF orbital into the A1 active "
+            "quota; fill all remaining symmetry quotas by the unchanged target-AO "
+            "projector ranking"
+        ),
+        "ncore": expected_ncore,
+        "core_canonical_index": core[0],
+        "occupied_valence_canonical_index": occupied_valence[0],
+        "occupied_valence_irrep": occupied_valence_irrep,
+        "active_canonical_indices": active,
+        "active_irrep_names": [irreps[i] for i in active],
+        "selected_by_irrep": selected_by_irrep,
+        "active_target_population_total": [float(total_score[i]) for i in active],
+        "target_populations_on_active": {
+            name: [float(scores[i]) for i in active]
+            for name, scores in scores_by_target.items()
+        },
+        "target_ao_indices": targets,
+        "mo_reordering": order,
+    }
+    return mo[:, order], diagnostics
+
+
+@dataclass(frozen=True)
+class Protocol:
+    basis: str
+    r_grid_angstrom: Tuple[float, ...]
+    field_grid_au: Tuple[float, ...]
+
+
+def run_rhf_field(mol, field_au: float):
+    _, _, _, _, scf, _, _ = require_pyscf()
+    mf = scf.RHF(mol)
+    hcore_zero = np.asarray(scf.hf.get_hcore(mol))
+    r_z = np.asarray(mol.intor("int1e_r", comp=3)[2])
+    enuc_zero = float(mol.energy_nuc())
+    nuclear_dipole_z = float(np.dot(mol.atom_charges(), mol.atom_coords()[:, 2]))
+    hcore_field = hcore_zero + field_au * r_z
+    enuc_field = enuc_zero - field_au * nuclear_dipole_z
+    mf.get_hcore = lambda *args: hcore_field
+    mf.energy_nuc = lambda *args: enuc_field
+    mf.conv_tol = 1.0e-13
+    mf.max_cycle = 100
+    mf.kernel()
+    if not mf.converged:
+        mf = mf.newton()
+        mf.get_hcore = lambda *args: hcore_field
+        mf.energy_nuc = lambda *args: enuc_field
+        mf.conv_tol = 1.0e-13
+        mf.max_cycle = 100
+        mf.kernel()
+    if not mf.converged:
+        raise RuntimeError("field-dressed RHF failed to converge")
+    return mf, {
+        "field_au": field_au,
+        "hamiltonian_convention": "H(Fz)=H(0)-mu_z*Fz",
+        "electronic_hcore_term": "+Fz*r_z",
+        "nuclear_energy_term_Eh": -field_au * nuclear_dipole_z,
+        "nuclear_dipole_z_au": nuclear_dipole_z,
+        "origin": "Li and H at z=-R/2 and +R/2",
+    }
+
+
+def casscf_job(
+    r_angstrom: float,
+    field_au: float,
+    protocol: Protocol,
+    out_path: Path,
+    initial_from: Tuple[Any, np.ndarray] | None = None,
+    history: str = "direct",
+    optimizer: str = "one_step",
+) -> Dict[str, Any]:
+    fci, _, _, mcscf, _, _, _ = require_pyscf()
+    log_path = out_path.parent / (out_path.stem + ".log")
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    mol = make_mol(r_angstrom, protocol.basis, str(log_path), verbose=4)
+    mf, field_metadata = run_rhf_field(mol, field_au)
+    if initial_from is None:
+        mo_guess, selection = build_initial_mos(mf)
+        guess_semantics = (
+            "independent field-specific RHF target-projector selection with fixed irrep quotas"
+        )
+    else:
+        old_mol, old_mo = initial_from
+        mo_guess = project_mos(old_mol, old_mo, mol)
+        selection = {
+            "ncore": (mol.nelectron - NELECAS) // 2,
+            "projected_active_irrep_names": orbital_irrep_names(mol, mo_guess)[
+                1 : 1 + NCAS
+            ],
+        }
+        guess_semantics = (
+            "symmetry-restored projection of the preceding converged field-CASSCF orbitals"
+        )
+
+    mc = mcscf.CASSCF(mf, NCAS, NELECAS)
+    if optimizer == 'newton':
+        mc = mc.newton()
+    mc.fcisolver = fci.direct_spin0_symm.FCI(mol)
+    mc.fcisolver.wfnsym = WFNSYM
+    mc.fcisolver.nroots = NROOTS
+    mc.fcisolver.conv_tol = FCI_TOL
+    mc.fcisolver.max_cycle = 200
+    mc = mc.state_average_([1.0 / NROOTS] * NROOTS)
+    mc.conv_tol = ENERGY_TOL
+    mc.conv_tol_grad = ORBITAL_GRAD_TOL
+    mc.max_cycle_macro = 100
+    mc.max_cycle_micro = 20
+    mc.ah_conv_tol = 1e-16
+    mc.ah_lindep = 1e-20
+    mc.canonicalization = False
+    mc.kernel(mo_guess)
+    primary_converged = bool(mc.converged)
+    fallback_attempts = 0
+    while not bool(mc.converged) and fallback_attempts < 3:
+        mc = mc.newton()
+        mc.conv_tol = ENERGY_TOL
+        mc.conv_tol_grad = ORBITAL_GRAD_TOL
+        mc.max_cycle_macro = 100
+        mc.max_cycle_micro = 20
+        mc.ah_conv_tol = 1e-16
+        mc.ah_lindep = 1e-20
+        mc.canonicalization = False
+        mc.kernel(mc.mo_coeff)
+        fallback_attempts += 1
+    fallback_used = fallback_attempts > 0
+
+    ci_roots = [np.asarray(x) for x in mc.ci]
+    state_energies = np.asarray(mc.e_states, dtype=float).reshape(-1)
+    if len(ci_roots) != NROOTS or state_energies.size != NROOTS:
+        raise RuntimeError(
+            f"SA4 returned {len(ci_roots)} CI roots and {state_energies.size} energies"
+        )
+    try:
+        grad = np.asarray(mc.get_grad(mc.mo_coeff))
+        maximum_gradient = float(np.max(np.abs(grad))) if grad.size else 0.0
+    except Exception:
+        maximum_gradient = float("nan")
+
+    final_mo = np.asarray(mc.mo_coeff)
+    ncore = int(mc.ncore)
+    active_irreps = orbital_irrep_names(mol, final_mo)[ncore : ncore + NCAS]
+    probe_energies, _ = five_root_probe(mf, final_mo)
+    probe_error = float(np.max(np.abs(probe_energies[: NROOTS] - state_energies)))
+    excluded_gap = float(probe_energies[NROOTS] - probe_energies[NROOTS - 1])
+    dipoles = transition_dipoles(mol, final_mo, ci_roots, ncore)
+    state_s2 = [
+        float(fci.spin_op.spin_square0(ci, NCAS, (1, 1))[0]) for ci in ci_roots
+    ]
+    s_ao = mol.intor_symmetric("int1e_ovlp")
+    mo_error = float(
+        np.max(np.abs(final_mo.conj().T @ s_ao @ final_mo - np.eye(final_mo.shape[1])))
+    )
+    target_gap = float(state_energies[TARGET_PAIR[1]] - state_energies[TARGET_PAIR[0]])
+    metadata = {
+        "script_version": SCRIPT_VERSION,
+        "run_fingerprint": RUN_FINGERPRINT,
+        "parent_sha256": CURRENT_PARENT_SHA,
+        "solver_tolerances": {"energy": ENERGY_TOL, "orbital_gradient": ORBITAL_GRAD_TOL, "fci": FCI_TOL},
+        "R_angstrom": r_angstrom,
+        "field_z_au": field_au,
+        "history": history,
+        "basis": protocol.basis,
+        "charge": 0,
+        "spin_2S": 0,
+        "point_group": str(mol.groupname),
+        "target_state_symmetry": WFNSYM,
+        "nelecas": NELECAS,
+        "ncas": NCAS,
+        "nroots": NROOTS,
+        "retained_roots": list(range(NROOTS)),
+        "state_average_weights": [1.0 / NROOTS] * NROOTS,
+        "ncore": ncore,
+        "frozen_orbitals": 0,
+        "converged": bool(mc.converged),
+        "optimizer_protocol": {
+            "primary": optimizer,
+            "primary_converged": primary_converged,
+            "deterministic_fallback": (
+                "symmetry-adapted second-order SA-CASSCF from primary final orbitals"
+            ),
+            "fallback_used": fallback_used,
+            "fallback_attempts": fallback_attempts,
+            "final_converged": bool(mc.converged),
+        },
+        "average_energy_Eh": float(mc.e_tot),
+        "state_energies_Eh": state_energies,
+        "target_pair": list(TARGET_PAIR),
+        "target_pair_gap_Eh": target_gap,
+        "five_root_probe_energies_Eh": probe_energies,
+        "excluded_root_gap_Eh": excluded_gap,
+        "probe_retained_energy_max_error_Eh": probe_error,
+        "state_S2": state_s2,
+        "maximum_orbital_gradient": maximum_gradient,
+        "mo_orthonormality_max_error": mo_error,
+        "active_irrep_names": active_irreps,
+        "active_irrep_counts": dict(Counter(active_irreps)),
+        "initial_guess_semantics": guess_semantics,
+        "active_orbital_selection": selection,
+        "field_hamiltonian": field_metadata,
+        "pyscf_version": __import__("pyscf").__version__,
+        "python_version": platform.python_version(),
+        "timestamp_unix": time.time(),
+    }
+
+    tmp = out_path.with_suffix(".tmp.npz")
+    arrays: Dict[str, Any] = {
+        "metadata_json": np.asarray(json.dumps(_jsonable(metadata))),
+        "mo_coeff": final_mo,
+        "state_energies_Eh": state_energies,
+        "five_root_probe_energies_Eh": probe_energies,
+        "dipole_au": dipoles,
+    }
+    for i, ci in enumerate(ci_roots):
+        arrays[f"ci_root_{i}"] = ci
+    np.savez_compressed(tmp, **arrays)
+    os.replace(tmp, out_path)
+    if mol.stdout is not sys.stdout:
+        mol.stdout.close()
+    return metadata
+
+
+def load(path):
+    with np.load(path, allow_pickle=False) as d:
+        md=json.loads(str(d['metadata_json'].item()))
+        return {'metadata':md,'path':str(path),'mo':d['mo_coeff'],
+                'ci':np.stack([d[f'ci_root_{i}'] for i in range(4)]),
+                'dipole':d['dipole_au']}
+
+
+def mol(s):
+    m=s['metadata'];r=m['R_angstrom']
+    return gto.M(atom=[('Li',(0,0,-r/2)),('H',(0,0,r/2))],unit='Angstrom',
+                 basis=m['basis'],symmetry='C2v',spin=0,verbose=0)
+
+
+def overlaps(a,b,ma,mb):
+    x=a['mo'][:,:6].conj().T @ gto.intor_cross('int1e_ovlp',ma,mb) @ b['mo'][:,:6]
+    xa=x[1:,1:]
+    determinants=x[0,0]*xa-np.outer(x[1:,0],x[0,1:])
+    def contract(d):return np.einsum('iab,jcd,ac,bd->ij',a['ci'].conj(),b['ci'],d,d,optimize=True)
+    return {'active_only':contract(xa),'complete_four_electron':contract(determinants)},x
+
+
+def polar(m):
+    u,s,vh=np.linalg.svd(m);return u@vh,s
+
+
+def assign(m,power=2):
+    scores=sorted([(sum(abs(m[i,p[i]])**power for i in range(4)),p)
+                   for p in itertools.permutations(range(4))],reverse=True)
+    return list(scores[0][1]),float((scores[0][0]-scores[1][0])/4)
+
+
+def edge(m):
+    t,s=polar(m);p,margin=assign(m)
+    return {'T':t,'sigma_min':float(s.min()),'leakage':float(1-np.mean(s*s)),
+            'squared_overlap_permutation':p,'squared_overlap_margin':margin,
+            'absolute_overlap_permutation':assign(m,1)[0],
+            'absolute_overlap_margin':assign(m,1)[1]}
+
+
+def compose(ps):
+    p=np.arange(4)
+    for step in ps:p=np.asarray(step)[p]
+    return p.tolist()
+
+
+def fci_reference(a,b,x):
+    strings=fci.cistring.make_strings(range(6),2)
+    idx={int(s):i for i,s in enumerate(strings)}
+    def embed(cs):
+        answer=[]
+        for c in cs:
+            v=np.zeros((15,15))
+            for i in range(5):
+                for j in range(5):v[idx[1|(1<<(i+1))],idx[1|(1<<(j+1))]]=c[i,j]
+            answer.append(v)
+        return answer
+    aa,bb=embed(a['ci']),embed(b['ci'])
+    return np.array([[fci.addons.overlap(c,d,6,(2,2),s=x) for d in bb] for c in aa])
+
+
+# All imports needed by the overlap kernel are explicit in this standalone file.
+from pyscf import fci, gto, lib
+if sys.platform.startswith('linux') and not Path(f'/proc/{os.getpid()}/statm').exists():
+    # Some containers do not mount /proc. Use peak RSS as a conservative estimate.
+    import resource
+    lib.current_memory = lambda: (resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1024., 0.)
+
+THRESHOLDS = {
+    'eta_min': .98, 'leakage_max': .01, 'assignment_margin_min': .10,
+    'max_orbital_gradient': 1e-6, 'min_excluded_A1_gap_Eh': .01,
+    'max_spin_square': 1e-7, 'max_mo_orth_error': 1e-9,
+    'max_probe_energy_error_Eh': 1e-8, 'max_algebra_error': 1e-9,
+    'history_max_average_energy_error_Eh': 1e-8,
+    'history_min_eta': .9999, 'history_max_leakage': 1e-6,
+    'history_max_C_difference': 1e-8, 'history_max_D_mu_difference': 1e-8,
+    'mesh_C_relative_tolerance': 1e-3, 'mesh_C_absolute_tolerance': 1e-8,
+    'mesh_D_mu_relative_tolerance': 1e-3, 'mesh_D_mu_absolute_tolerance': 1e-8,
+}
+
+
+def sha256(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def coords(scale, n):
+    rc, fc = 5.875, .011
+    dr, df = .15*scale, .001*scale
+    r0,r1,f0,f1 = rc-dr/2,rc+dr/2,fc-df/2,fc+df/2
+    sides = [[(r0+dr*k/n,f0) for k in range(n)],
+             [(r1,f0+df*k/n) for k in range(n)],
+             [(r1-dr*k/n,f1) for k in range(n)],
+             [(r0,f1-df*k/n) for k in range(n)]]
+    ps = [(round(r,12),round(f,12)) for side in sides for r,f in side]
+    return ps+[ps[0]]
+
+
+def specifications():
+    return [(1.,n) for n in (1,2,4,8,16)]+[(s,n) for s in (.5,.25,.125,.0625) for n in (4,8)]
+
+
+def fixed_grid():
+    return [(r,f) for f in (.01050,.01075,.01100,.01125,.01150) for r in (5.80,5.85,5.90,5.95)]
+
+
+def direct_keys():
+    return list(dict.fromkeys(fixed_grid()+[p for s,n in specifications() for p in coords(s,n)[:-1]]))
+
+
+def outpath(root,key):
+    return root/f'R_{key[0]:.12f}_F_{key[1]:.12f}.npz'
+
+
+def state_checks(s):
+    m=s['metadata']
+    arrays=[s['mo'],s['ci'],s['dipole'],np.asarray(m['state_energies_Eh'])]
+    numbers=[m['maximum_orbital_gradient'],m['excluded_root_gap_Eh'],
+             m['probe_retained_energy_max_error_Eh'],m['mo_orthonormality_max_error'],*m['state_S2']]
+    return {
+        'model': m['basis']==BASIS and m['ncas']==5 and m['nelecas']==2 and m['nroots']==4
+            and m['ncore']==1 and m['frozen_orbitals']==0 and m['target_state_symmetry']=='A1'
+            and m['active_irrep_counts']==ACTIVE_IRREP_COUNTS
+            and m['state_average_weights']==[.25]*4,
+        'finite': all(np.all(np.isfinite(x)) for x in arrays) and bool(np.all(np.isfinite(numbers))),
+        'converged':bool(m['converged']),
+        'stationary': bool(np.isfinite(m['maximum_orbital_gradient']) and
+                           m['maximum_orbital_gradient'] <= THRESHOLDS['max_orbital_gradient']),
+        'spin':max(abs(x) for x in m['state_S2'])<=THRESHOLDS['max_spin_square'],
+        'orthonormal':m['mo_orthonormality_max_error']<=THRESHOLDS['max_mo_orth_error'],
+        'probe_consistency':m['probe_retained_energy_max_error_Eh']<=THRESHOLDS['max_probe_energy_error_Eh'],
+        'same_symmetry_isolation':m['excluded_root_gap_Eh']>=THRESHOLDS['min_excluded_A1_gap_Eh'],
+    }
+
+
+def get_solution(path,key,history,previous=None,analyze_only=False,optimizer='one_step',allow_unqualified=False):
+    global CURRENT_PARENT_SHA
+    expected_parent=None if previous is None else sha256(previous['path'])
+    if path.exists():
+        s=load(path);md=s['metadata']
+        if (md.get('run_fingerprint')!=RUN_FINGERPRINT or md.get('parent_sha256')!=expected_parent
+            or md.get('history')!=history or md.get('basis')!=BASIS
+            or abs(md['R_angstrom']-key[0])>1e-11 or abs(md['field_z_au']-key[1])>1e-13):
+            raise RuntimeError(f'Incompatible checkpoint: {path}. Use a NEW --root; existing files are not overwritten.')
+    else:
+        if analyze_only: raise FileNotFoundError(f'Missing checkpoint: {path}; resume with all.')
+        if history == 'direct':
+            candidates=[]; records=[]
+            for method in ('one_step','newton'):
+                cp=path.parent.parent/'candidates'/method/path.name
+                try:
+                    candidate=get_solution(cp,key,'candidate_'+method,analyze_only=analyze_only,
+                                           optimizer=method,allow_unqualified=True)
+                    ck=state_checks(candidate)
+                    accepted=all(v for k,v in ck.items() if k!='same_symmetry_isolation')
+                    records.append({'method':method,'path':str(cp),'sha256':sha256(cp),
+                                    'average_energy_Eh':candidate['metadata']['average_energy_Eh'],
+                                    'solver_valid':accepted,'checks':ck})
+                    if accepted:candidates.append(candidate)
+                except Exception as exc:
+                    records.append({'method':method,'path':str(cp),'error':repr(exc),'solver_valid':False})
+            if not candidates:raise RuntimeError(f'Both fixed optimizer routes failed at {key}: {records}')
+            chosen=min(candidates,key=lambda s:s['metadata']['average_energy_Eh'])
+            with np.load(chosen['path'],allow_pickle=False) as z: arrays={k:z[k].copy() for k in z.files}
+            md=dict(chosen['metadata']);md['history']='direct'
+            md['candidate_selection']={'rule':'lowest SA4 energy among solver-valid one_step and Newton routes from the same fixed RHF seed',
+                                       'selected_history':chosen['metadata']['history'],'candidates':records}
+            arrays['metadata_json']=np.asarray(json.dumps(_jsonable(md)))
+            path.parent.mkdir(parents=True,exist_ok=True);tmp=path.with_suffix('.tmp.npz')
+            np.savez_compressed(tmp,**arrays);os.replace(tmp,path)
+            print(f'SELECT {key} {chosen["metadata"]["history"]} E={md["average_energy_Eh"]:.12f}',flush=True)
+            return load(path)
+        CURRENT_PARENT_SHA=expected_parent
+        start=time.time();print(f'RUN {history} R={key[0]:.9f} F={key[1]:.10f}',flush=True)
+        try:
+            casscf_job(*key,Protocol(BASIS,(5.8,5.95),(.0105,.0115)),path,
+                       initial_from=None if previous is None else (mol(previous),previous['mo']),history=history,optimizer=optimizer)
+        except Exception as exc:
+            write_json(path.with_suffix('.failed.json'),{'error':repr(exc),'traceback':traceback.format_exc(),
+                        'R':key[0],'F':key[1],'history':history})
+            raise
+        s=load(path)
+        print(f'DONE {history} seconds={time.time()-start:.2f} grad={s["metadata"]["maximum_orbital_gradient"]:.3e}',flush=True)
+    checks=state_checks(s)
+    # Physical isolation is a reported qualification, not a reason to skip other points.
+    fatal=[k for k,v in checks.items() if not v and k!='same_symmetry_isolation']
+    if fatal:
+        write_json(path.with_suffix('.failed.json'),{'failed_state_checks':fatal,'metadata':s['metadata']})
+        if not allow_unqualified:
+            raise RuntimeError(f'Unqualified wavefunction at {path}: {fatal}. Raw result retained; do not interpret loop metrics.')
+        return s
+    failed=path.with_suffix('.failed.json')
+    if failed.exists():failed.unlink()
+    return s
+
+
+def analyze_loop(ps,sols,scale):
+    matrices=[];edges=[];mols={};reverse_error=0.;self_error=0.;reference_error=0.
+    for k in set(ps):
+        mols[k]=mol(sols[k])
+        sm,_=overlaps(sols[k],sols[k],mols[k],mols[k])
+        self_error=max(self_error,float(np.max(abs(sm['complete_four_electron']-np.eye(4)))))
+    for i,(a,b) in enumerate(zip(ps[:-1],ps[1:])):
+        mm,x=overlaps(sols[a],sols[b],mols[a],mols[b]);m=mm['complete_four_electron']
+        rev,_=overlaps(sols[b],sols[a],mols[b],mols[a])
+        reverse_error=max(reverse_error,float(np.max(abs(m-rev['complete_four_electron'].conj().T))))
+        if i==0:reference_error=float(np.max(abs(m-fci_reference(sols[a],sols[b],x))))
+        e=edge(m);matrices.append(m)
+        sa=np.linalg.svd(x[1:,1:],compute_uv=False)
+        e.update(active_orbital_sigma_min=float(min(sa)),active_orbital_leakage=float(1-np.mean(sa*sa)))
+        edges.append(e)
+    mid=len(edges)//2;k1=np.eye(4);k2=np.eye(4)
+    for e in edges[:mid]:k1=k1@e['T']
+    for e in reversed(edges[mid:]):k2=k2@e['T'].conj().T
+    o=sols[ps[mid]]['dipole'];delta=np.array([k1@v@k1.conj().T-k2@v@k2.conj().T for v in o])
+    p1=compose([e['squared_overlap_permutation'] for e in edges[:mid]])
+    p2=compose([np.argsort(e['squared_overlap_permutation']).tolist() for e in reversed(edges[mid:])])
+    w=k1@k2.conj().T
+    rng=np.random.default_rng(20261013)
+    gauges={p:np.linalg.qr(rng.normal(size=(4,4))+1j*rng.normal(size=(4,4)))[0] for p in ps[:-1]}
+    transformed=[edge(gauges[a].conj().T@m@gauges[b])['T'] for (a,b),m in zip(zip(ps[:-1],ps[1:]),matrices)]
+    g1=np.eye(4);g2=np.eye(4)
+    for t in transformed[:mid]:g1=g1@t
+    for t in reversed(transformed[mid:]):g2=g2@t.conj().T
+    og=np.array([gauges[ps[mid]].conj().T@v@gauges[ps[mid]] for v in o])
+    dg=np.array([g1@v@g1.conj().T-g2@v@g2.conj().T for v in og])
+    delta_norm=float(np.linalg.norm(delta));o_norm=float(np.linalg.norm(o))
+    C=float(np.linalg.norm(k1-k2)/4)
+    eta=min(e['sigma_min'] for e in edges);leak=max(e['leakage'] for e in edges)
+    margin=min(e['squared_overlap_margin'] for e in edges)
+    all_checks={str(k):state_checks(sols[k]) for k in set(ps)}
+    checks={
+        'wavefunctions':all(all(c.values()) for c in all_checks.values()),
+        'edge_fidelity':eta>=THRESHOLDS['eta_min'] and leak<=THRESHOLDS['leakage_max'],
+        'assignment_margin':margin>=THRESHOLDS['assignment_margin_min'],
+    }
+    errors={'self_overlap':self_error,'reverse_overlap':reverse_error,'embedded_fci':reference_error,
+            'gauge_C':abs(float(np.linalg.norm(g1-g2)/4)-C),
+            'gauge_W':float(np.linalg.norm(g1@g2.conj().T-gauges[ps[0]].conj().T@w@gauges[ps[0]])),
+            'gauge_delta_mu':abs(float(np.linalg.norm(dg))-delta_norm)}
+    checks['algebra']=max(errors.values())<=THRESHOLDS['max_algebra_error']
+    area=.15*.001*scale**2
+    return {'scale':scale,'segments_per_side':len(edges)//4,'area_Angstrom_au':area,'C':C,
+            'delta_mu_au':delta_norm,'D_mu':delta_norm/o_norm if o_norm>0 else None,
+            'curvature_norm_estimate_per_Angstrom_au':4*C/area,
+            'eta':eta,'leakage':leak,'assignment_margin':margin,'same_assignment':p1==p2,
+            'route1_permutation':p1,'route2_permutation':p2,
+            'eigenphases_rad':sorted(np.angle(np.linalg.eigvals(w)).tolist()),
+            'max_orbital_gradient':max(sols[p]['metadata']['maximum_orbital_gradient'] for p in set(ps)),
+            'min_excluded_A1_gap_Eh':min(sols[p]['metadata']['excluded_root_gap_Eh'] for p in set(ps)),
+            'checks':checks,'qualified':all(checks.values()),'algebra_errors':errors,
+            'W':w,'route_R_then_F':k1,'route_F_then_R':k2,'delta_dipole_in_start_frame':delta,
+            'vertices':ps,'edges':[{'a':a,'b':b,'M':m,**e} for (a,b),m,e in zip(zip(ps[:-1],ps[1:]),matrices,edges)]}
+
+
+def compare_states(a,b):
+    m,x=overlaps(a,b,mol(a),mol(b));e=edge(m['complete_four_electron'])
+    sa=np.linalg.svd(x[1:,1:],compute_uv=False)
+    ea=np.asarray(a['metadata']['state_energies_Eh']);eb=np.asarray(b['metadata']['state_energies_Eh'])
+    return {'eta':e['sigma_min'],'leakage':e['leakage'],
+            'average_energy_difference_Eh':abs(a['metadata']['average_energy_Eh']-b['metadata']['average_energy_Eh']),
+            'matched_root_energy_max_difference_Eh':float(np.max(abs(ea-eb[e['squared_overlap_permutation']]))),
+            'active_orbital_sigma_min':float(min(sa)),'active_orbital_leakage':float(1-np.mean(sa*sa)),
+            'T':e['T']}
+
+
+def history_qualified(c):
+    return (c['eta']>=THRESHOLDS['history_min_eta'] and c['leakage']<=THRESHOLDS['history_max_leakage']
+            and c['average_energy_difference_Eh']<=THRESHOLDS['history_max_average_energy_error_Eh']
+            and c['active_orbital_sigma_min']>=THRESHOLDS['history_min_eta']
+            and c['active_orbital_leakage']<=THRESHOLDS['history_max_leakage'])
+
+
+def selftest():
+    # Test core-active mixing against an independent full determinant-space contraction.
+    rng=np.random.default_rng(719)
+    x=np.linalg.qr(rng.normal(size=(6,6)))[0]
+    cs=[]
+    for _ in range(2):
+        q=np.linalg.qr(rng.normal(size=(25,4)))[0]
+        cs.append({'ci':q.T.reshape(4,5,5)})
+    d=x[0,0]*x[1:,1:]-np.outer(x[1:,0],x[0,1:])
+    actual=np.einsum('iab,jcd,ac,bd->ij',cs[0]['ci'],cs[1]['ci'],d,d,optimize=True)
+    ref=fci_reference(cs[0],cs[1],x)
+    err=float(np.max(abs(actual-ref)));assert err<1e-12,err
+    # Nontrivial subspace loop checks route orientation and U(4) covariance.
+    frames=[np.linalg.qr(rng.normal(size=(9,4))+1j*rng.normal(size=(9,4)))[0] for _ in range(4)]
+    gs=[np.linalg.qr(rng.normal(size=(4,4))+1j*rng.normal(size=(4,4)))[0] for _ in range(4)]
+    ms=[frames[i].conj().T@frames[(i+1)%4] for i in range(4)]
+    ts=[polar(m)[0] for m in ms]
+    tg=[polar(gs[i].conj().T@ms[i]@gs[(i+1)%4])[0] for i in range(4)]
+    w=ts[0]@ts[1]@ts[2]@ts[3];wg=tg[0]@tg[1]@tg[2]@tg[3]
+    k1=ts[0]@ts[1];k2=ts[3].conj().T@ts[2].conj().T
+    cov=float(np.linalg.norm(wg-gs[0].conj().T@w@gs[0]));assert cov<1e-12,cov
+    norm_error=abs(np.linalg.norm(k1-k2)-np.linalg.norm(np.eye(4)-w));assert norm_error<1e-12
+    for scale,n in specifications():
+        p=coords(scale,n);assert len(p)==4*n+1 and p[0]==p[-1] and len(set(p[:-1]))==4*n
+    result={'status':'PASS','embedded_fci_error':err,'gauge_covariance_error':cov,'route_norm_error':float(norm_error)}
+    print('SELFTEST '+json.dumps(result),flush=True)
+    return result
+
+
+def emit_tables(root,loops,sols):
+    cols=['scale','segments_per_side','area_Angstrom_au','C','D_mu','delta_mu_au','curvature_norm_estimate_per_Angstrom_au',
+          'eta','leakage','assignment_margin','same_assignment','qualified','max_orbital_gradient','min_excluded_A1_gap_Eh']
+    with (root/'loop_summary.csv').open('w',newline='') as f:
+        w=csv.DictWriter(f,fieldnames=cols);w.writeheader();w.writerows({k:r[k] for k in cols} for r in loops)
+    with (root/'point_summary.csv').open('w',newline='') as f:
+        cols=['R_angstrom','field_z_au','average_energy_Eh','maximum_orbital_gradient','excluded_root_gap_Eh','converged']
+        w=csv.DictWriter(f,fieldnames=cols);w.writeheader();w.writerows({k:s['metadata'][k] for k in cols} for s in sols.values())
+
+
+def summarize(root,loops,histories,plan):
+    finest=next(r for r in loops if r['scale']==1 and r['segments_per_side']==16)
+    medium=next(r for r in loops if r['scale']==1 and r['segments_per_side']==8)
+    def close_metric(a,b,k):
+        return abs(a[k]-b[k])<=max(THRESHOLDS[f'mesh_{k}_absolute_tolerance'],THRESHOLDS[f'mesh_{k}_relative_tolerance']*abs(a[k]))
+    mesh_ok=close_metric(finest,medium,'C') and close_metric(finest,medium,'D_mu')
+    nested=[r for r in loops if r['scale']<1 and r['segments_per_side']==8]
+    # Scaling and curvature estimates are diagnostics; fixed statistical rules are not invented post hoc.
+    exponent=float(np.polyfit(np.log([r['area_Angstrom_au'] for r in nested]),np.log([r['C'] for r in nested]),1)[0]) if all(r['C']>0 for r in nested) else None
+    nested_mesh=[{'scale':r['scale'],'C_difference':abs(r['C']-next(t['C'] for t in loops if t['scale']==r['scale'] and t['segments_per_side']==4)),
+                 'qualified':r['qualified']} for r in nested]
+    nested_mesh_ok=all(close_metric(r,next(t for t in loops if t['scale']==r['scale'] and t['segments_per_side']==4),'C')
+                       and close_metric(r,next(t for t in loops if t['scale']==r['scale'] and t['segments_per_side']==4),'D_mu') for r in nested)
+    checks={'finest_loop_qualified':finest['qualified'],'main_mesh_converged':mesh_ok,
+            'opposed_histories_qualified':len(histories)==2 and all(h['history_pass'] for h in histories),
+            'nested_loops_qualified':all(r['qualified'] for r in nested),
+            'nested_mesh_converged':nested_mesh_ok}
+    decision={'status':'QUALIFIED' if all(checks.values()) else 'REVIEW_REQUIRED','basis':BASIS,'checks':checks,
+              'C':finest['C'],'D_mu':finest['D_mu'],'delta_mu_au':finest['delta_mu_au'],
+              'same_composed_assignment':finest['same_assignment'],
+              'mesh_C_difference_8_to_16':abs(finest['C']-medium['C']),
+              'mesh_D_mu_difference_8_to_16':abs(finest['D_mu']-medium['D_mu']),
+              'log_C_vs_log_area_slope':exponent,'nested_mesh_diagnostics':nested_mesh,
+              'smallest_loop_curvature_norm_estimate_per_Angstrom_au':nested[-1]['curvature_norm_estimate_per_Angstrom_au'],
+              'minimum_nested_C':min(r['C'] for r in nested),
+              'interpretation':'Dipole difference compares matrix representations in a common starting frame; it is not a difference in the endpoint physical dipole. Isolation probe is for the fifth singlet A1 CASCI root only.',
+              'thresholds':THRESHOLDS,'plan_fingerprint':RUN_FINGERPRINT}
+    write_json(root/'LiH_augccpVTZ_decision.json',decision)
+    report=[f"LiH / aug-cc-pVTZ: {decision['status']}",f"Completed: {len(direct_keys())} independent points (2 optimizer routes each) + 2 x 65 history points.",
+            f"C (16 segments/side) = {finest['C']:.12e}",f"D_mu = {finest['D_mu']:.12e}",
+            f"Same composed assignment = {finest['same_assignment']}",
+            f"Main mesh |C16-C8| = {decision['mesh_C_difference_8_to_16']:.6e}",
+            f"log(C) vs log(area) slope = {exponent}",
+            'Qualification checks: '+json.dumps(checks),
+            'Coarse loops (1 and 2 segments/side) are diagnostic and may fail edge fidelity.',
+            'This tests the retained singlet-A1 model; it does not establish isolation from every spin/symmetry sector.',
+            'A tiny-loop curvature estimate requires inspecting both area scaling and its 4/8-segment differences.',
+            'No old cc-pVTZ or aug-cc-pVDZ result is substituted for this calculation.']
+    (root/'SUMMARY.txt').write_text('\n'.join(report)+'\n')
+    return decision
+
+
+def make_plan():
+    return {'version':SCRIPT_VERSION,'basis':BASIS,'source_sha256':sha256(__file__),
+            'model':'equal-weight singlet-A1 SA4-CASSCF(2e,5o); C2v; optimized inactive core; no frozen orbitals',
+            'center_R_Angstrom_F_au':[5.875,.011],'full_widths_R_Angstrom_F_au':[.15,.001],
+            'fixed_grid':fixed_grid(),'loop_scales_and_segments':specifications(),
+            'independent_points':len(direct_keys()),'history_points':130,
+            'independent_optimizer_routes':['one_step','newton'],
+            'independent_candidate_rule':'lowest SA4 energy among solver-valid candidates; retain both; no selection by transport or fidelity',
+            'history_protocol':'two opposed traversals of the 64-edge outer loop; separate reoptimized start and closure; MO projection only, same field-specific RHF at each point',
+            'thresholds':THRESHOLDS,'solver_tolerances':{'energy':ENERGY_TOL,'orbital_gradient':ORBITAL_GRAD_TOL,'FCI':FCI_TOL,'ah_conv_tol':1e-16,'ah_lindep':1e-20},
+            'overlap':'complete four-electron determinants, including inactive-core and core-active cross terms',
+            'seed_selector':SEED_SELECTOR_VERSION,'runtime_versions':{'pyscf':__import__('pyscf').__version__,
+            'numpy':np.__version__,'scipy':__import__('scipy').__version__},'source_provenance':SOURCE_PROVENANCE}
+
+
+def save_plan(root):
+    global RUN_FINGERPRINT
+    plan=json.loads(json.dumps(make_plan()))
+    RUN_FINGERPRINT=hashlib.sha256(json.dumps(plan,sort_keys=True).encode()).hexdigest()
+    p=root/'plan.json'
+    if p.exists():
+        previous=json.loads(p.read_text())
+        if previous.get('fingerprint')!=RUN_FINGERPRINT or previous.get('plan')!=plan:
+            raise RuntimeError('Run plan/source/runtime versions differ from existing directory. Use a NEW --root.')
+    else:
+        if list(root.glob('**/*.npz')):raise RuntimeError('Unregistered checkpoint files exist. Use a NEW --root.')
+        write_json(p,{'fingerprint':RUN_FINGERPRINT,'created_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'plan':plan})
+    return plan
+
+
+def run_all(args):
+    root=args.root.resolve();root.mkdir(parents=True,exist_ok=True)
+    # OS advisory lock releases automatically after crash/termination; no stale-lock deletion needed.
+    import fcntl
+    lock=(root/'run.lock').open('a')
+    try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    except BlockingIOError:raise RuntimeError(f'Another calculation is using {root}')
+    plan=save_plan(root)
+    write_json(root/'selftest.json',selftest())
+    write_json(root/'run_status.json',{'status':'RUNNING','command':args.command,'pid':os.getpid()})
+    sols={};loops=[];histories=[]
+    try:
+        for i,k in enumerate(direct_keys(),1):
+            sols[k]=get_solution(outpath(root/'solutions',k),k,'direct',analyze_only=args.command=='analyze')
+            print(f'PROGRESS direct {i}/{len(direct_keys())}',flush=True)
+        for scale,n in specifications():
+            r=analyze_loop(coords(scale,n),sols,scale);loops.append(r)
+            write_json(root/'loop_results.json',loops)
+            print(f'LOOP scale={scale} n={n} C={r["C"]:.10e} eta={r["eta"]:.8f} qualified={r["qualified"]}',flush=True)
+        direct=next(r for r in loops if r['scale']==1 and r['segments_per_side']==16)
+        ps=coords(1.,16)
+        for name,seq in [('forward',ps),('reverse',list(reversed(ps)))]:
+            hs={};previous=sols[seq[0]]
+            for i,k in enumerate(seq):
+                now=get_solution(root/'histories'/name/f'{i:03d}.npz',k,name,previous,args.command=='analyze')
+                if i==len(seq)-1:closing=now
+                else:hs[k]=now
+                previous=now
+                print(f'PROGRESS {name} {i+1}/{len(seq)}',flush=True)
+            h=analyze_loop(ps,hs,1.);h['history']=name
+            comparisons=[{'vertex':k,**compare_states(sols[k],hs[k])} for k in ps[:-1]]
+            closure=compare_states(hs[ps[0]],closing)
+            h['closure']=closure;h['direct_comparisons']=comparisons
+            h['history_direct_max_delta_E']=max(c['average_energy_difference_Eh'] for c in comparisons)
+            h['history_direct_max_leakage']=max(c['leakage'] for c in comparisons)
+            h['C_difference_from_direct']=abs(h['C']-direct['C']);h['D_mu_difference_from_direct']=abs(h['D_mu']-direct['D_mu'])
+            align=comparisons[0]['T']
+            h['W_difference_after_start_frame_alignment']=float(np.linalg.norm(direct['W']-align@h['W']@align.conj().T))
+            h['history_pass']=bool(h['qualified'] and history_qualified(closure) and all(history_qualified(c) for c in comparisons)
+                 and h['C_difference_from_direct']<=THRESHOLDS['history_max_C_difference']
+                 and h['D_mu_difference_from_direct']<=THRESHOLDS['history_max_D_mu_difference'])
+            histories.append(h);write_json(root/'history_results.json',histories)
+            print(f'HISTORY_DONE {name} C={h["C"]:.10e} pass={h["history_pass"]}',flush=True)
+        emit_tables(root,loops,sols)
+        decision=summarize(root,loops,histories,plan)
+        files={str(f.relative_to(root)):sha256(f) for f in sorted(root.rglob('*.npz'))}
+        write_json(root/'wavefunction_sha256.json',files)
+        write_json(root/'run_status.json',{'status':'COMPLETED','scientific_status':decision['status'],'wavefunctions':len(files)})
+        print((root/'SUMMARY.txt').read_text(),flush=True)
+        return 0 if decision['status']=='QUALIFIED' else 2
+    except BaseException as exc:
+        write_json(root/'run_status.json',{'status':'FAILED_OR_INTERRUPTED','error':repr(exc),'traceback':traceback.format_exc()})
+        raise
+    finally:
+        lock.close()
+
+
+def main():
+    global MAX_MEMORY_MB
+    p=argparse.ArgumentParser(description=__doc__,formatter_class=argparse.RawDescriptionHelpFormatter)
+    p.add_argument('command',nargs='?',choices=['all','selftest','plan','smoke','analyze'],default='all')
+    p.add_argument('--root',type=Path,default=Path('LiH_augccpVTZ_results'))
+    p.add_argument('--threads',type=int,default=int(os.environ.get('LIH_THREADS','8')))
+    p.add_argument('--memory-mb',type=int,default=8000)
+    args=p.parse_args()
+    if args.threads<1 or args.memory_mb<500:p.error('threads must be >=1 and memory-mb >=500')
+    MAX_MEMORY_MB=args.memory_mb;lib.num_threads(args.threads)
+    if args.command=='selftest':selftest();return 0
+    if args.command=='plan':print(json.dumps(make_plan(),indent=2));return 0
+    if args.command=='smoke':
+        selftest();root=args.root.resolve()/'smoke';root.mkdir(parents=True,exist_ok=True)
+        save_plan(root)
+        ps=coords(1.,4);ss={}
+        # Two different geometries test core displacement, two different fields test field dressing.
+        for k in [ps[0],ps[1],ps[4],ps[5]]:
+            ss[k]=get_solution(outpath(root,k),k,'direct')
+        errs=[]
+        for a,b in [(ps[0],ps[1]),(ps[4],ps[5])]:
+            mm,x=overlaps(ss[a],ss[b],mol(ss[a]),mol(ss[b]))
+            errs.append(float(np.max(abs(mm['complete_four_electron']-fci_reference(ss[a],ss[b],x)))))
+        result={'status':'PASS','basis':BASIS,'points':len(ss),'max_embedded_fci_error':max(errs),
+                'max_orbital_gradient':max(s['metadata']['maximum_orbital_gradient'] for s in ss.values())}
+        assert result['max_embedded_fci_error']<1e-10
+        write_json(root/'smoke_result.json',result);print(json.dumps(result,indent=2));return 0
+    return run_all(args)
+
+
+if __name__=='__main__':
+    sys.exit(main())
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='cu02', release='4.18.0-193.el8.x86_64', version='#1 SMP Fri May 8 10:59:10 UTC 2020', machine='x86_64')  Threads 48
+Python 3.11.15 | packaged by conda-forge | (main, Aug 11 2026, 10:26:29) [GCC 14.4.0]
+numpy 2.3.5  scipy 1.17.1  h5py 3.16.0
+Date: Tue Oct 13 03:02:24 2026
+PySCF version 2.13.1
+PySCF path  /home/zdb/miniconda3/envs/osmo4-mokit/lib/python3.11/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 4
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 4
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry C2v subgroup None
+[INPUT] Mole.unit = Angstrom
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 Li     0.000000000000   0.000000000000  -2.975000000000 AA    0.000000000000   0.000000000000  -5.621935220581 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   2.975000000000 AA    0.000000000000   0.000000000000   5.621935220581 Bohr   0.0
+
+nuclear repulsion = 0.266812039119328
+point group symmetry = Coov, use subgroup C2v
+symmetry origin: [ 0.          0.         -2.81096761]
+symmetry axis x: [1. 0. 0.]
+symmetry axis y: [0. 1. 0.]
+symmetry axis z: [0. 0. 1.]
+num. orbitals of irrep A1 = 30
+num. orbitals of irrep A2 = 7
+num. orbitals of irrep B1 = 16
+num. orbitals of irrep B2 = 16
+number of shells = 22
+number of NR pGTOs = 84
+number of NR cGTOs = 69
+basis = aug-cc-pvtz
+ecp = {}
+CPU time:    118625.49
+
+
+******** <class 'pyscf.scf.hf_symm.SymAdaptedRHF'> ********
+method = SymAdaptedRHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-13
+SCF conv_tol_grad = None
+SCF max_cycles = 100
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /scr/zdb/molpro/tmp_gdw_sop
+max_memory 8000 MB (current use 537 MB)
+Freeze 0 electrons in irreps []
+    4 free electrons in irreps A1 A2 B1 B2
+Set gradient conv threshold to 3.16228e-07
+Initial guess from minao.
+init E= -7.69644942914894
+HOMO (A1) = -0.155343737786952  LUMO (A1) = -0.127210819689326
+cycle= 1 E= -7.65232151927065  delta_E= 0.0441  |g|= 0.0621  |ddm|= 1.12
+HOMO (A1) = -0.377193318988167  LUMO (A1) = -0.169071184163119
+cycle= 2 E= -7.57820832674989  delta_E= 0.0741  |g|= 0.376  |ddm|=  1.5
+HOMO (A1) = -0.360597481094661  LUMO (A1) = -0.169477665372533
+cycle= 3 E= -7.58597381970287  delta_E= -0.00777  |g|= 0.359  |ddm|= 0.0322
+HOMO (A1) = -0.31016333910434  LUMO (A1) = -0.171222040241875
+cycle= 4 E= -7.61867097392086  delta_E= -0.0327  |g|= 0.29  |ddm|= 0.148
+HOMO (A1) = -0.279515344916408  LUMO (A1) = -0.172215823432142
+cycle= 5 E= -7.64170383316196  delta_E= -0.023  |g|= 0.247  |ddm|= 0.121
+HOMO (A1) = -0.293314756119091  LUMO (A1) = -0.171454784202524
+cycle= 6 E= -7.634875913882  delta_E= 0.00683  |g|= 0.265  |ddm|= 0.0386
+HOMO (A1) = -0.237123517279074  LUMO (A1) = -0.173480470682188
+cycle= 7 E= -7.66824084845906  delta_E= -0.0334  |g|= 0.209  |ddm|= 0.187
+HOMO (A1) = -0.236346736403823  LUMO (A1) = -0.173497407594527
+cycle= 8 E= -7.66898433049636  delta_E= -0.000743  |g|= 0.207  |ddm|= 0.0046
+HOMO (A1) = -0.236945575145361  LUMO (A1) = -0.17264575020094
+cycle= 9 E= -7.67337655194873  delta_E= -0.00439  |g|= 0.21  |ddm|= 0.041
+HOMO (A1) = -0.192723713197832  LUMO (A1) = -0.157264476333733
+cycle= 10 E= -7.62331932802629  delta_E= 0.0501  |g|= 0.114  |ddm|= 1.31
+HOMO (A1) = -0.181481292476542  LUMO (A1) = -0.139975731596459
+cycle= 11 E= -7.66815511201324  delta_E= -0.0448  |g|= 0.135  |ddm|= 0.479
+HOMO (A1) = -0.22408741363929  LUMO (A1) = -0.163734296435198
+cycle= 12 E= -7.78246030648298  delta_E= -0.114  |g|= 0.0798  |ddm|= 0.958
+HOMO (A1) = -0.215433622954431  LUMO (A1) = -0.147839734103869
+cycle= 13 E= -7.79256991221771  delta_E= -0.0101  |g|= 0.00496  |ddm|= 0.19
+HOMO (A1) = -0.215884486760811  LUMO (A1) = -0.1424039804285
+cycle= 14 E= -7.79255400063603  delta_E= 1.59e-05  |g|= 0.00942  |ddm|= 0.0621
+HOMO (A1) = -0.216117184173364  LUMO (A1) = -0.142719123855976
+cycle= 15 E= -7.79270170351233  delta_E= -0.000148  |g|= 0.00295  |ddm|= 0.0447
+HOMO (A1) = -0.21606537781702  LUMO (A1) = -0.143067584857024
+cycle= 16 E= -7.79271408886504  delta_E= -1.24e-05  |g|= 0.000929  |ddm|= 0.0112
+HOMO (A1) = -0.216139814703403  LUMO (A1) = -0.14307436841724
+cycle= 17 E= -7.79271508038406  delta_E= -9.92e-07  |g|= 0.000419  |ddm|= 0.00254
+HOMO (A1) = -0.21616250568885  LUMO (A1) = -0.143091271733414
+cycle= 18 E= -7.79271531180448  delta_E= -2.31e-07  |g|= 0.000116  |ddm|= 0.00103
+HOMO (A1) = -0.216169287992606  LUMO (A1) = -0.143098733266984
+cycle= 19 E= -7.79271533083715  delta_E= -1.9e-08  |g|= 1.09e-05  |ddm|= 0.00028
+HOMO (A1) = -0.216171356060232  LUMO (A1) = -0.143100298710888
+cycle= 20 E= -7.79271533100998  delta_E= -1.73e-10  |g|= 4.14e-07  |ddm|= 5.35e-05
+HOMO (A1) = -0.216171480129479  LUMO (A1) = -0.143100473465521
+cycle= 21 E= -7.79271533101062  delta_E= -6.34e-13  |g|= 8.25e-08  |ddm|= 6.6e-06
+HOMO (A1) = -0.216171508739901  LUMO (A1) = -0.143100509989259
+cycle= 22 E= -7.79271533101063  delta_E= -1.6e-14  |g|= 1.04e-08  |ddm|= 1.88e-06
+HOMO (A1) = -0.21617150973004  LUMO (A1) = -0.14310050968936
+Extra cycle  E= -7.79271533101066  delta_E= -2.66e-14  |g|= 7.46e-09  |ddm|= 1.14e-07
+converged SCF energy = -7.79271533101066
+
+******** <class 'pyscf.mcscf.addons.StateAverageSymAdaptedCASSCF'> ********
+CAS (1e+1e, 5o), ncore = 1, nvir = 63
+max_cycle_macro = 100
+max_cycle_micro = 20
+conv_tol = 1e-12
+conv_tol_grad = 1e-08
+orbital rotation max_stepsize = 0.02
+orbital rotation threshold for CI restart = 0.01
+augmented hessian ah_max_cycle = 30
+augmented hessian ah_conv_tol = 1e-16
+augmented hessian ah_linear dependence = 1e-20
+augmented hessian ah_level shift = 1e-08
+augmented hessian ah_start_tol = 2.5
+augmented hessian ah_start_cycle = 3
+augmented hessian ah_grad_trust_region = 3
+kf_trust_region = 3
+kf_interval = 4
+ci_response_space = 4
+ci_grad_trust_region = 3
+with_dep4 0
+natorb = False
+canonicalization = False
+sorting_mo_energy = False
+ao2mo_level = 2
+chkfile = /scr/zdb/molpro/tmp_gdw_sop
+max_memory 8000 MB (current use 537 MB)
+internal_rotation = False
+******** <class 'pyscf.mcscf.addons.StateAverageFCISolver'> ********
+max. cycles = 200
+conv_tol = 1e-13
+davidson only = True
+linear dependence = 1e-14
+level shift = 0.001
+max iter space = 12
+max_memory 8000 MB
+nroots = 4
+pspace_size = 400
+spin = None
+Input CI wfn symmetry = A1
+State-average over 4 states with weights [0.25, 0.25, 0.25, 0.25]
+Symmetries of active orbitals: A1 A1 A1 B1 B2
+Active space CI wfn symmetry = A1
+CASCI E = -7.78850702435332  S^2 = 0.0000000
+macro iter   1 ( 23 JK    8 micro), CASSCF E = -7.78850737076021  dE = -3.46406892e-07  S^2 = 0.0000000
+               |grad[o]|=0.00014  |ddm|=0.000463  |maxRot[o]|=0.00215
+macro iter   2 ( 11 JK    3 micro), CASSCF E = -7.78850737076053  dE = -3.17967874e-13  S^2 = 0.0000000
+               |grad[o]|=1.34e-07  |ddm|=3.22e-07  |maxRot[o]|=2.73e-06
+macro iter   3 (  1 JK    1 micro), CASSCF E = -7.78850737076053  dE =  0.00000000e+00  S^2 = 0.0000000
+               |grad[o]|=5.33e-10  |ddm|=2.72e-16  |maxRot[o]|=    0
+1-step CASSCF converged in   3 macro ( 35 JK  12 micro) steps
+CASSCF energy = -7.78850737076053
+CASCI E = -7.78850737076053  E(CI) = -0.641065539520335  S^2 = 0.0000000
+CASCI state-averaged energy = -7.78850737076053
+CASCI energy for each state
+  State 0 weight 0.25  E = -7.92503141800743 S^2 = 0.0000000
+  State 1 weight 0.25  E = -7.87438760644546 S^2 = 0.0000000
+  State 2 weight 0.25  E = -7.67774309575734 S^2 = 0.0000000
+  State 3 weight 0.25  E = -7.67686736283188 S^2 = 0.0000000
+Symmetries of active orbitals: A1 A1 A1 B1 B2
+Active space CI wfn symmetry = A1
+
+******** <class 'pyscf.mcscf.casci_symm.SymAdaptedCASCI'> ********
+CAS (1e+1e, 5o), ncore = 1, nvir = 63
+natorb = False
+canonicalization = True
+sorting_mo_energy = False
+max_memory 8000 MB (current use 537 MB)
+******** <class 'pyscf.fci.direct_spin1_symm.FCISolver'> ********
+max. cycles = 100
+conv_tol = 1e-10
+davidson only = False
+linear dependence = 1e-14
+level shift = 0.001
+max iter space = 12
+max_memory 8000 MB
+nroots = 10
+pspace_size = 400
+spin = None
+Input CI wfn symmetry = A1
+
+WARN: Mulitple states found in CASCI solver. First state is used to compute the Fock matrix and natural orbitals in active space.
+
+Density matrix diagonal elements [9.74851072e-01 9.62557809e-01 6.25911191e-02 2.65915050e-32
+ 1.87872550e-32]
+CASCI converged
+CASCI state   0  E = -7.92525730198545  E(CI) = -0.777815470745252  S^2 = 2.0000000
+CASCI state   1  E = -7.92503141800743  E(CI) = -0.777589586767241  S^2 = 0.0000000
+CASCI state   2  E = -7.87440463630306  E(CI) = -0.726962805062864  S^2 = 2.0000000
+CASCI state   3  E = -7.87438760644546  E(CI) = -0.726945775205270  S^2 = 0.0000000
+CASCI state   4  E = -7.67774309575735  E(CI) = -0.530301264517152  S^2 = 0.0000000
+CASCI state   5  E = -7.67686736283189  E(CI) = -0.529425531591700  S^2 = 0.0000000
+CASCI state   6  E = -7.67299250308019  E(CI) = -0.525550671839998  S^2 = 2.0000000
+CASCI state   7  E = -7.59927659986213  E(CI) = -0.451834768621941  S^2 = 0.0000000
+CASCI state   8  E = -7.57766507887735  E(CI) = -0.430223247637153  S^2 = 0.0000000
+CASCI state   9  E = -6.55856315723742  E(CI) = 0.588878674002776  S^2 = 0.0000000

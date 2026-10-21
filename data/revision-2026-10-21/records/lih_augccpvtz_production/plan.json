@@ -1,0 +1,214 @@
+{
+  "fingerprint": "a9c63b81faf21ad3e8e6b85318a4b783ac3b89177850d713d3b293e8fa547f62",
+  "created_utc": "2026-10-13T06:20:59Z",
+  "plan": {
+    "version": "LiH-augccpVTZ-standalone-v1.0",
+    "basis": "aug-cc-pvtz",
+    "source_sha256": "15f834a365312b4271efa3643595f7ec0baa62d2704fca25148ed7fe47545df4",
+    "model": "equal-weight singlet-A1 SA4-CASSCF(2e,5o); C2v; optimized inactive core; no frozen orbitals",
+    "center_R_Angstrom_F_au": [
+      5.875,
+      0.011
+    ],
+    "full_widths_R_Angstrom_F_au": [
+      0.15,
+      0.001
+    ],
+    "fixed_grid": [
+      [
+        5.8,
+        0.0105
+      ],
+      [
+        5.85,
+        0.0105
+      ],
+      [
+        5.9,
+        0.0105
+      ],
+      [
+        5.95,
+        0.0105
+      ],
+      [
+        5.8,
+        0.01075
+      ],
+      [
+        5.85,
+        0.01075
+      ],
+      [
+        5.9,
+        0.01075
+      ],
+      [
+        5.95,
+        0.01075
+      ],
+      [
+        5.8,
+        0.011
+      ],
+      [
+        5.85,
+        0.011
+      ],
+      [
+        5.9,
+        0.011
+      ],
+      [
+        5.95,
+        0.011
+      ],
+      [
+        5.8,
+        0.01125
+      ],
+      [
+        5.85,
+        0.01125
+      ],
+      [
+        5.9,
+        0.01125
+      ],
+      [
+        5.95,
+        0.01125
+      ],
+      [
+        5.8,
+        0.0115
+      ],
+      [
+        5.85,
+        0.0115
+      ],
+      [
+        5.9,
+        0.0115
+      ],
+      [
+        5.95,
+        0.0115
+      ]
+    ],
+    "loop_scales_and_segments": [
+      [
+        1.0,
+        1
+      ],
+      [
+        1.0,
+        2
+      ],
+      [
+        1.0,
+        4
+      ],
+      [
+        1.0,
+        8
+      ],
+      [
+        1.0,
+        16
+      ],
+      [
+        0.5,
+        4
+      ],
+      [
+        0.5,
+        8
+      ],
+      [
+        0.25,
+        4
+      ],
+      [
+        0.25,
+        8
+      ],
+      [
+        0.125,
+        4
+      ],
+      [
+        0.125,
+        8
+      ],
+      [
+        0.0625,
+        4
+      ],
+      [
+        0.0625,
+        8
+      ]
+    ],
+    "independent_points": 202,
+    "history_points": 130,
+    "independent_optimizer_routes": [
+      "one_step",
+      "newton"
+    ],
+    "independent_candidate_rule": "lowest SA4 energy among solver-valid candidates; retain both; no selection by transport or fidelity",
+    "history_protocol": "two opposed traversals of the 64-edge outer loop; separate reoptimized start and closure; MO projection only, same field-specific RHF at each point",
+    "thresholds": {
+      "eta_min": 0.98,
+      "leakage_max": 0.01,
+      "assignment_margin_min": 0.1,
+      "max_orbital_gradient": 1e-06,
+      "min_excluded_A1_gap_Eh": 0.01,
+      "max_spin_square": 1e-07,
+      "max_mo_orth_error": 1e-09,
+      "max_probe_energy_error_Eh": 1e-08,
+      "max_algebra_error": 1e-09,
+      "history_max_average_energy_error_Eh": 1e-08,
+      "history_min_eta": 0.9999,
+      "history_max_leakage": 1e-06,
+      "history_max_C_difference": 1e-08,
+      "history_max_D_mu_difference": 1e-08,
+      "mesh_C_relative_tolerance": 0.001,
+      "mesh_C_absolute_tolerance": 1e-08,
+      "mesh_D_mu_relative_tolerance": 0.001,
+      "mesh_D_mu_absolute_tolerance": 1e-08
+    },
+    "solver_tolerances": {
+      "energy": 1e-12,
+      "orbital_gradient": 1e-08,
+      "FCI": 1e-13,
+      "ah_conv_tol": 1e-16,
+      "ah_lindep": 1e-20
+    },
+    "overlap": "complete four-electron determinants, including inactive-core and core-active cross terms",
+    "seed_selector": "occupied-valence-locked-projector-v1",
+    "runtime_versions": {
+      "pyscf": "2.13.1",
+      "numpy": "2.3.5",
+      "scipy": "1.17.1"
+    },
+    "source_provenance": {
+      "s0": {
+        "filename": "LiH_S0_SA4_qualification.py",
+        "sha256": "8276ae0590895caca30c5e58178c3863a953236bfa80f4453a275fa69b626f40"
+      },
+      "s1": {
+        "filename": "LiH_S1_physical_field_locator.py",
+        "sha256": "99aac258eb91729650f000012fd05bc2f21c290fd1f187ab9a0ef2c76cc56c3a"
+      },
+      "s3": {
+        "filename": "LiH_S3_fixed_window_basis_robustness.py",
+        "sha256": "be0fd18bd69006074fe9a1a7a5ec0401acff53c1efd54ce6f655d105b85c09a8"
+      },
+      "ov": {
+        "filename": "lih_complete_overlap.py",
+        "sha256": "54def04ea3559f57e3651f38e1f1333eb4d872711e6120eadc31682573b28c98"
+      }
+    }
+  }
+}

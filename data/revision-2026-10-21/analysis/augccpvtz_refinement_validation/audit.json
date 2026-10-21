@@ -1,0 +1,440 @@
+{
+  "status": "QUALIFIED_VERIFIED",
+  "original_decision": {
+    "status": "QUALIFIED",
+    "reason": "Two successive local refinements and complete opposed histories passed; inspect inherited and original-n16 comparisons in checks.",
+    "basis": "aug-cc-pvtz",
+    "checks": {
+      "inherited_global_mesh_converged": true,
+      "inherited_nested_loops_qualified": true,
+      "inherited_nested_mesh_converged": true,
+      "supplemental_finest_loop_qualified": true,
+      "adjacent_refinement_levels_stable": true,
+      "C_consistent_with_original_n16": true,
+      "D_mu_consistent_with_original_n16": true,
+      "opposed_histories_qualified_on_final_mesh": true
+    },
+    "local_refinement_factor": 16,
+    "number_of_edges": 154,
+    "C": 0.0003191653837014273,
+    "D_mu": 0.0006300611946496533,
+    "delta_mu_au": 0.01509458016614645,
+    "eta": 0.9997918305550153,
+    "leakage": 0.00040458883948302216,
+    "assignment_margin": 0.37613122170923985,
+    "same_composed_assignment": true,
+    "route1_permutation": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "route2_permutation": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "comparison_to_original_n16": {
+      "C": {
+        "difference": 3.899304766769897e-09,
+        "tolerance": 3.191653837014273e-07,
+        "pass": true
+      },
+      "D_mu": {
+        "difference": 1.2418366384368308e-08,
+        "tolerance": 6.300611946496533e-07,
+        "pass": true
+      }
+    },
+    "parent_status_preserved": "REVIEW_REQUIRED",
+    "parent_fingerprint": "a9c63b81faf21ad3e8e6b85318a4b783ac3b89177850d713d3b293e8fa547f62",
+    "supplement_fingerprint": "43ca4621c5ed4641443d58fbb09e946d923c016d3fd3735e633ec37948fa1ef8",
+    "thresholds": {
+      "eta_min": 0.98,
+      "leakage_max": 0.01,
+      "assignment_margin_min": 0.1,
+      "max_orbital_gradient": 1e-06,
+      "min_excluded_A1_gap_Eh": 0.01,
+      "max_spin_square": 1e-07,
+      "max_mo_orth_error": 1e-09,
+      "max_probe_energy_error_Eh": 1e-08,
+      "max_algebra_error": 1e-09,
+      "history_max_average_energy_error_Eh": 1e-08,
+      "history_min_eta": 0.9999,
+      "history_max_leakage": 1e-06,
+      "history_max_C_difference": 1e-08,
+      "history_max_D_mu_difference": 1e-08,
+      "mesh_C_relative_tolerance": 0.001,
+      "mesh_C_absolute_tolerance": 1e-08,
+      "mesh_D_mu_relative_tolerance": 0.001,
+      "mesh_D_mu_absolute_tolerance": 1e-08
+    },
+    "scope": "Finite-mesh singlet A1 SA4-CASSCF(2e,5o) transport. Dipole quantities compare transported matrix representations, not different physical endpoint dipoles. Fifth-root isolation is within singlet A1 only."
+  },
+  "integrity": {
+    "wavefunctions": 644,
+    "group_counts": {
+      "baseline": 64,
+      "candidates": 180,
+      "histories": 310,
+      "solutions": 90
+    },
+    "all_hashes_match": true,
+    "all_code_and_plan_hashes_match": true,
+    "baseline_matches_original_manifest": true,
+    "selected_candidate_arrays_match": true,
+    "selected_routes": {
+      "one_step": 35,
+      "newton": 55
+    }
+  },
+  "wavefunction_quality": {
+    "max_gradient": 8.884925369045948e-08,
+    "min_excluded_singlet_A1_gap_Eh": 0.07131806068377511,
+    "max_probe_consistency_error_Eh": 1.1723955140041653e-13,
+    "max_abs_S2": 1.619766789935898e-14,
+    "max_mo_orthonormality_error": 1.0081528881664264e-13,
+    "all_selected_and_history_checks_pass": true
+  },
+  "solver_invalid_candidates": [],
+  "loop_recomputation": [
+    {
+      "factor": 1,
+      "recomputation_errors": {
+        "C": 0.0,
+        "D_mu": 0.0,
+        "eta": 0.0,
+        "leakage": 0.0,
+        "assignment_margin": 0.0,
+        "max_M": 0.0
+      }
+    },
+    {
+      "factor": 2,
+      "recomputation_errors": {
+        "C": 0.0,
+        "D_mu": 0.0,
+        "eta": 0.0,
+        "leakage": 0.0,
+        "assignment_margin": 0.0,
+        "max_M": 0.0
+      }
+    },
+    {
+      "factor": 4,
+      "recomputation_errors": {
+        "C": 0.0,
+        "D_mu": 0.0,
+        "eta": 0.0,
+        "leakage": 0.0,
+        "assignment_margin": 0.0,
+        "max_M": 0.0
+      }
+    },
+    {
+      "factor": 8,
+      "recomputation_errors": {
+        "C": 0.0,
+        "D_mu": 0.0,
+        "eta": 0.0,
+        "leakage": 0.0,
+        "assignment_margin": 0.0,
+        "max_M": 0.0
+      }
+    },
+    {
+      "factor": 16,
+      "recomputation_errors": {
+        "C": 2.667137344314341e-17,
+        "D_mu": 6.245004513516506e-17,
+        "eta": 0.0,
+        "leakage": 0.0,
+        "assignment_margin": 0.0,
+        "max_M": 6.661338147750939e-16
+      }
+    }
+  ],
+  "recomputed_mesh_comparisons": [
+    {
+      "coarse_factor": 1,
+      "fine_factor": 2,
+      "checks": {
+        "both_levels_qualified": false,
+        "C_converged": true,
+        "D_mu_converged": true,
+        "edge_assignment_composition_stable": false,
+        "both_routes_same_assignment_both_levels": false
+      },
+      "pass": false,
+      "C": {
+        "difference": 3.002526164112493e-09,
+        "tolerance": 3.1916448692282464e-07,
+        "pass": true
+      },
+      "D_mu": {
+        "difference": 9.468608356795818e-09,
+        "tolerance": 6.300582448916257e-07,
+        "pass": true
+      },
+      "changed_edge_permutations": [
+        {
+          "a": [
+            5.81875,
+            0.0115
+          ],
+          "b": [
+            5.809375,
+            0.0115
+          ],
+          "coarse_permutation": [
+            0,
+            1,
+            3,
+            2
+          ],
+          "composed_child_permutation": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "coarse_factor": 2,
+      "fine_factor": 4,
+      "checks": {
+        "both_levels_qualified": false,
+        "C_converged": true,
+        "D_mu_converged": true,
+        "edge_assignment_composition_stable": false,
+        "both_routes_same_assignment_both_levels": false
+      },
+      "pass": false,
+      "C": {
+        "difference": 7.22799358939593e-10,
+        "tolerance": 3.191652097221836e-07,
+        "pass": true
+      },
+      "D_mu": {
+        "difference": 2.320972690840299e-09,
+        "tolerance": 6.300605658643166e-07,
+        "pass": true
+      },
+      "changed_edge_permutations": [
+        {
+          "a": [
+            5.95,
+            0.0111875
+          ],
+          "b": [
+            5.95,
+            0.01121875
+          ],
+          "coarse_permutation": [
+            0,
+            1,
+            3,
+            2
+          ],
+          "composed_child_permutation": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "coarse_factor": 4,
+      "fine_factor": 8,
+      "checks": {
+        "both_levels_qualified": false,
+        "C_converged": true,
+        "D_mu_converged": true,
+        "edge_assignment_composition_stable": true,
+        "both_routes_same_assignment_both_levels": true
+      },
+      "pass": false,
+      "C": {
+        "difference": 1.8970046898342946e-10,
+        "tolerance": 3.1916539942265256e-07,
+        "pass": true
+      },
+      "D_mu": {
+        "difference": 6.508842717188254e-10,
+        "tolerance": 6.300612167485883e-07,
+        "pass": true
+      },
+      "changed_edge_permutations": []
+    },
+    {
+      "coarse_factor": 8,
+      "fine_factor": 16,
+      "checks": {
+        "both_levels_qualified": true,
+        "C_converged": true,
+        "D_mu_converged": true,
+        "edge_assignment_composition_stable": true,
+        "both_routes_same_assignment_both_levels": true
+      },
+      "pass": true,
+      "C": {
+        "difference": 1.5721251936991892e-11,
+        "tolerance": 3.191653837014006e-07,
+        "pass": true
+      },
+      "D_mu": {
+        "difference": 2.2098997436680035e-11,
+        "tolerance": 6.300611946495909e-07,
+        "pass": true
+      },
+      "changed_edge_permutations": []
+    }
+  ],
+  "all_154_edges_embedded_full_determinant_max_error": 4.440892098500626e-16,
+  "histories": [
+    {
+      "history": "forward",
+      "C": 0.0003191647440085075,
+      "D_mu": 0.0006300593371644629,
+      "recomputation_errors": {
+        "C": 6.516055056637882e-17,
+        "D_mu": 4.96564594998361e-17,
+        "assignment_margin": 0.0
+      },
+      "checks": {
+        "loop_qualified": true,
+        "C_reproducibility": true,
+        "D_mu_reproducibility": true,
+        "same_assignment_as_direct": true
+      },
+      "history_pass": true,
+      "max_average_energy_difference_Eh": 1.3677947663381929e-13,
+      "min_same_point_eta": 0.9999999999982299,
+      "max_same_point_leakage": 1.1830536550405668e-12,
+      "max_matched_root_energy_difference_Eh_diagnostic_only": 9.704780001840163e-08,
+      "C_difference_from_direct": 6.396928931115715e-10,
+      "D_mu_difference_from_direct": 1.857485127949171e-09,
+      "minimum_assignment_margin": 0.37615094141367067,
+      "parent_chain_verified_points": 155,
+      "closure": {
+        "eta": 0.9999999999994258,
+        "leakage": 3.51163542688937e-13,
+        "average_energy_difference_Eh": 2.7533531010703882e-14,
+        "matched_root_energy_max_difference_Eh": 6.9723089524131865e-09,
+        "active_orbital_sigma_min": 0.9999999999999056,
+        "active_orbital_leakage": 1.1124434706744069e-13,
+        "T": [
+          [
+            0.9999999999999953,
+            -9.819111550384984e-08,
+            -3.0112204105558573e-08,
+            1.2490035741874607e-08
+          ],
+          [
+            9.819111788879819e-08,
+            0.9999999999999928,
+            6.457152303351169e-08,
+            -2.4529317207117376e-08
+          ],
+          [
+            -3.0112197742980533e-08,
+            6.457152607237067e-08,
+            -0.9999999999999972,
+            -2.206171828088452e-09
+          ],
+          [
+            -1.2490033481593654e-08,
+            2.4529318470802485e-08,
+            -2.206170123425664e-09,
+            0.9999999999999996
+          ]
+        ]
+      }
+    },
+    {
+      "history": "reverse",
+      "C": 0.0003191656599919791,
+      "D_mu": 0.0006300618921898413,
+      "recomputation_errors": {
+        "C": 1.1872013788716274e-17,
+        "D_mu": 1.0050554138940626e-16,
+        "assignment_margin": 0.0
+      },
+      "checks": {
+        "loop_qualified": true,
+        "C_reproducibility": true,
+        "D_mu_reproducibility": true,
+        "same_assignment_as_direct": true
+      },
+      "history_pass": true,
+      "max_average_energy_difference_Eh": 1.1723955140041653e-13,
+      "min_same_point_eta": 0.9999999999967053,
+      "max_same_point_leakage": 2.6059154834001674e-12,
+      "max_matched_root_energy_difference_Eh_diagnostic_only": 9.508489462461966e-08,
+      "C_difference_from_direct": 2.7629057846928137e-10,
+      "D_mu_difference_from_direct": 6.975402504954056e-10,
+      "minimum_assignment_margin": 0.37615526038883396,
+      "parent_chain_verified_points": 155,
+      "closure": {
+        "eta": 0.9999999999998078,
+        "leakage": 1.1324274851176597e-13,
+        "average_energy_difference_Eh": 1.509903313490213e-14,
+        "matched_root_energy_max_difference_Eh": 3.831444495006053e-09,
+        "active_orbital_sigma_min": 0.9999999999999242,
+        "active_orbital_leakage": 7.105427357601002e-14,
+        "T": [
+          [
+            0.9999999999999989,
+            3.9675369358935325e-08,
+            -2.0510739432108227e-08,
+            -2.4532019419486176e-09
+          ],
+          [
+            3.967536966701286e-08,
+            -0.9999999999999989,
+            1.735564141793856e-08,
+            -1.2496944868191701e-08
+          ],
+          [
+            2.0510738682784113e-08,
+            1.735564218685699e-08,
+            0.9999999999999998,
+            -1.1646937639853717e-09
+          ],
+          [
+            -2.4532024291909798e-09,
+            1.2496944961334149e-08,
+            -1.164693998450673e-09,
+            -0.9999999999999999
+          ]
+        ]
+      }
+    }
+  ],
+  "final_checks_independently_reassembled": {
+    "inherited_global_mesh_converged": true,
+    "inherited_nested_loops_qualified": true,
+    "inherited_nested_mesh_converged": true,
+    "supplemental_finest_loop_qualified": true,
+    "adjacent_refinement_levels_stable": true,
+    "C_consistent_with_original_n16": true,
+    "D_mu_consistent_with_original_n16": true,
+    "opposed_histories_qualified_on_final_mesh": true
+  },
+  "audit_runtime": {
+    "pyscf": "2.13.1",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  },
+  "production_runtime": {
+    "pyscf": "2.13.1",
+    "numpy": "2.3.5",
+    "scipy": "1.17.1"
+  },
+  "scope": "Same singlet A1 SA4-CASSCF(2e,5o) model. No new quantum-chemistry optimization. Nested-loop checks inherit the checksum-verified original evidence; new loops and both histories recomputed from raw wavefunctions."
+}

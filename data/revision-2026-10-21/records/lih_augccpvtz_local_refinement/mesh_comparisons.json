@@ -1,0 +1,140 @@
+[
+  {
+    "coarse_factor": 1,
+    "fine_factor": 2,
+    "checks": {
+      "both_levels_qualified": false,
+      "C_converged": true,
+      "D_mu_converged": true,
+      "edge_assignment_composition_stable": false,
+      "both_routes_same_assignment_both_levels": false
+    },
+    "pass": false,
+    "C": {
+      "difference": 3.002526164112493e-09,
+      "tolerance": 3.1916448692282464e-07,
+      "pass": true
+    },
+    "D_mu": {
+      "difference": 9.468608356795818e-09,
+      "tolerance": 6.300582448916257e-07,
+      "pass": true
+    },
+    "changed_edge_permutations": [
+      {
+        "a": [
+          5.81875,
+          0.0115
+        ],
+        "b": [
+          5.809375,
+          0.0115
+        ],
+        "coarse_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "composed_child_permutation": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "coarse_factor": 2,
+    "fine_factor": 4,
+    "checks": {
+      "both_levels_qualified": false,
+      "C_converged": true,
+      "D_mu_converged": true,
+      "edge_assignment_composition_stable": false,
+      "both_routes_same_assignment_both_levels": false
+    },
+    "pass": false,
+    "C": {
+      "difference": 7.22799358939593e-10,
+      "tolerance": 3.191652097221836e-07,
+      "pass": true
+    },
+    "D_mu": {
+      "difference": 2.320972690840299e-09,
+      "tolerance": 6.300605658643166e-07,
+      "pass": true
+    },
+    "changed_edge_permutations": [
+      {
+        "a": [
+          5.95,
+          0.0111875
+        ],
+        "b": [
+          5.95,
+          0.01121875
+        ],
+        "coarse_permutation": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "composed_child_permutation": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "coarse_factor": 4,
+    "fine_factor": 8,
+    "checks": {
+      "both_levels_qualified": false,
+      "C_converged": true,
+      "D_mu_converged": true,
+      "edge_assignment_composition_stable": true,
+      "both_routes_same_assignment_both_levels": true
+    },
+    "pass": false,
+    "C": {
+      "difference": 1.8970046898342946e-10,
+      "tolerance": 3.1916539942265256e-07,
+      "pass": true
+    },
+    "D_mu": {
+      "difference": 6.508842717188254e-10,
+      "tolerance": 6.300612167485883e-07,
+      "pass": true
+    },
+    "changed_edge_permutations": []
+  },
+  {
+    "coarse_factor": 8,
+    "fine_factor": 16,
+    "checks": {
+      "both_levels_qualified": true,
+      "C_converged": true,
+      "D_mu_converged": true,
+      "edge_assignment_composition_stable": true,
+      "both_routes_same_assignment_both_levels": true
+    },
+    "pass": true,
+    "C": {
+      "difference": 1.572122526561845e-11,
+      "tolerance": 3.191653837014273e-07,
+      "pass": true
+    },
+    "D_mu": {
+      "difference": 2.20989349866349e-11,
+      "tolerance": 6.300611946496533e-07,
+      "pass": true
+    },
+    "changed_edge_permutations": []
+  }
+]

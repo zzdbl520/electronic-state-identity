@@ -1,0 +1,72 @@
+O3 Gate 4B: strict forced-Cs directional refinement
+17 geometries; 34 SA-CASSCF calculations; workdir=/mnt/O3/O3_gate4B/O3_gate4B_work_v5
+Thresholds: RHF=1.0e-12, FCI=1.0e-12, CASSCF=1.0e-10, orbital-gradient stabilization=1.0e-05, final=1.0e-05; stationary ceiling=1.0e-04
+RUN  center                       SA2: dr=+0.000000 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/center_SA2.log
+RUN  center                       SA3: dr=+0.000000 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/center_SA3.log
+RUN  dr_minus_h_0p010000          SA2: dr=-0.010000 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_minus_h_0p010000_SA2.log
+RUN  dr_minus_h_0p010000          SA3: dr=-0.010000 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_minus_h_0p010000_SA3.log
+RUN  dr_plus_h_0p010000           SA2: dr=+0.010000 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_plus_h_0p010000_SA2.log
+RUN  dr_plus_h_0p010000           SA3: dr=+0.010000 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_plus_h_0p010000_SA3.log
+RUN  dr_minus_h_0p005000          SA2: dr=-0.005000 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_minus_h_0p005000_SA2.log
+RUN  dr_minus_h_0p005000          SA3: dr=-0.005000 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_minus_h_0p005000_SA3.log
+RUN  dr_plus_h_0p005000           SA2: dr=+0.005000 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_plus_h_0p005000_SA2.log
+RUN  dr_plus_h_0p005000           SA3: dr=+0.005000 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_plus_h_0p005000_SA3.log
+RUN  dr_minus_h_0p002500          SA2: dr=-0.002500 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_minus_h_0p002500_SA2.log
+RUN  dr_minus_h_0p002500          SA3: dr=-0.002500 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_minus_h_0p002500_SA3.log
+RUN  dr_plus_h_0p002500           SA2: dr=+0.002500 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_plus_h_0p002500_SA2.log
+RUN  dr_plus_h_0p002500           SA3: dr=+0.002500 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_plus_h_0p002500_SA3.log
+RUN  dr_minus_h_0p001250          SA2: dr=-0.001250 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_minus_h_0p001250_SA2.log
+RUN  dr_minus_h_0p001250          SA3: dr=-0.001250 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_minus_h_0p001250_SA3.log
+RUN  dr_plus_h_0p001250           SA2: dr=+0.001250 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_plus_h_0p001250_SA2.log
+RUN  dr_plus_h_0p001250           SA3: dr=+0.001250 A, theta=119.700000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/dr_plus_h_0p001250_SA3.log
+RUN  theta_minus_h_0p200000       SA2: dr=+0.000000 A, theta=119.500000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_minus_h_0p200000_SA2.log
+RUN  theta_minus_h_0p200000       SA3: dr=+0.000000 A, theta=119.500000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_minus_h_0p200000_SA3.log
+RUN  theta_plus_h_0p200000        SA2: dr=+0.000000 A, theta=119.900000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_plus_h_0p200000_SA2.log
+RUN  theta_plus_h_0p200000        SA3: dr=+0.000000 A, theta=119.900000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_plus_h_0p200000_SA3.log
+RUN  theta_minus_h_0p100000       SA2: dr=+0.000000 A, theta=119.600000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_minus_h_0p100000_SA2.log
+RUN  theta_minus_h_0p100000       SA3: dr=+0.000000 A, theta=119.600000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_minus_h_0p100000_SA3.log
+RUN  theta_plus_h_0p100000        SA2: dr=+0.000000 A, theta=119.800000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_plus_h_0p100000_SA2.log
+RUN  theta_plus_h_0p100000        SA3: dr=+0.000000 A, theta=119.800000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_plus_h_0p100000_SA3.log
+RUN  theta_minus_h_0p050000       SA2: dr=+0.000000 A, theta=119.650000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_minus_h_0p050000_SA2.log
+RUN  theta_minus_h_0p050000       SA3: dr=+0.000000 A, theta=119.650000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_minus_h_0p050000_SA3.log
+RUN  theta_plus_h_0p050000        SA2: dr=+0.000000 A, theta=119.750000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_plus_h_0p050000_SA2.log
+RUN  theta_plus_h_0p050000        SA3: dr=+0.000000 A, theta=119.750000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_plus_h_0p050000_SA3.log
+RUN  theta_minus_h_0p025000       SA2: dr=+0.000000 A, theta=119.675000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_minus_h_0p025000_SA2.log
+RUN  theta_minus_h_0p025000       SA3: dr=+0.000000 A, theta=119.675000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_minus_h_0p025000_SA3.log
+RUN  theta_plus_h_0p025000        SA2: dr=+0.000000 A, theta=119.725000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_plus_h_0p025000_SA2.log
+RUN  theta_plus_h_0p025000        SA3: dr=+0.000000 A, theta=119.725000 deg
+output file: /mnt/O3/O3_gate4B/O3_gate4B_work_v5/logs/theta_plus_h_0p025000_SA3.log
+All 34 strict calculations are available.

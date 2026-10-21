@@ -1,0 +1,12 @@
+LiH / aug-cc-pVTZ: REVIEW_REQUIRED
+Completed: 202 independent points (2 optimizer routes each) + 2 x 65 history points.
+C (16 segments/side) = 3.191614843967e-04
+D_mu = 6.300487762833e-04
+Same composed assignment = True
+Main mesh |C16-C8| = 7.386564e-09
+log(C) vs log(area) slope = 1.0002437766170549
+Qualification checks: {"finest_loop_qualified": false, "main_mesh_converged": true, "opposed_histories_qualified": false, "nested_loops_qualified": true, "nested_mesh_converged": true}
+Coarse loops (1 and 2 segments/side) are diagnostic and may fail edge fidelity.
+This tests the retained singlet-A1 model; it does not establish isolation from every spin/symmetry sector.
+A tiny-loop curvature estimate requires inspecting both area scaling and its 4/8-segment differences.
+No old cc-pVTZ or aug-cc-pVDZ result is substituted for this calculation.

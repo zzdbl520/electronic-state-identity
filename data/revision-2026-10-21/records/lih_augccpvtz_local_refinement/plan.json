@@ -1,0 +1,73 @@
+{
+  "fingerprint": "43ca4621c5ed4641443d58fbb09e946d923c016d3fd3735e633ec37948fa1ef8",
+  "created_utc": "2026-10-13T09:03:57Z",
+  "plan": {
+    "version": "LiH-local-refinement-v1.0-20261013",
+    "parent_fingerprint": "a9c63b81faf21ad3e8e6b85318a4b783ac3b89177850d713d3b293e8fa547f62",
+    "parent_report_hashes": {
+      "plan.json": "3d8da8f73063332b08cae4cf3a39a73f6d210999869c5b3d7e446e40ea59162b",
+      "wavefunction_sha256.json": "0afaf2441f54f7ffe98ddc7b573529a5c7154d25d2c6f76d2a7d2e1f565b3816",
+      "loop_results.json": "ff1a95b807efae5a4c273e34bbd2a65717ee74602eefdaba9944ce8b1ce473e1",
+      "history_results.json": "8dd4c57209b5997665982877ccc0aebf695e1da2faedbc8a5b1e19b36838e094",
+      "LiH_augccpVTZ_decision.json": "9a0dca8ef2e3577d8ffae66051a8adb0c630940b5eee50ffcd700de3979cd72e",
+      "run_status.json": "4809931b5b465e9f25d1cf9ea520676e906c73839ddee7b22627f12e6e0bf11f",
+      "selftest.json": "00b520721d2343643dbb55350a4b111bbc4e809a68ec96770f495f762dbbc584",
+      "calculation_source.py": "15f834a365312b4271efa3643595f7ec0baa62d2704fca25148ed7fe47545df4"
+    },
+    "engine_sha256": "15f834a365312b4271efa3643595f7ec0baa62d2704fca25148ed7fe47545df4",
+    "driver_sha256": "0fb0676cebc3730db8c4b06298dce1d28569119e4278c6c273b6866dd8847882",
+    "runtime_versions": {
+      "pyscf": "2.13.1",
+      "numpy": "2.3.5",
+      "scipy": "1.17.1"
+    },
+    "base_segments_per_side": 16,
+    "refined_base_edges_zero_based": [
+      26,
+      27,
+      28,
+      45,
+      46,
+      47
+    ],
+    "refinement_factors": [
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "endpoint_R_Angstrom_F_au": [
+      5.95,
+      0.0115
+    ],
+    "thresholds": {
+      "eta_min": 0.98,
+      "leakage_max": 0.01,
+      "assignment_margin_min": 0.1,
+      "max_orbital_gradient": 1e-06,
+      "min_excluded_A1_gap_Eh": 0.01,
+      "max_spin_square": 1e-07,
+      "max_mo_orth_error": 1e-09,
+      "max_probe_energy_error_Eh": 1e-08,
+      "max_algebra_error": 1e-09,
+      "history_max_average_energy_error_Eh": 1e-08,
+      "history_min_eta": 0.9999,
+      "history_max_leakage": 1e-06,
+      "history_max_C_difference": 1e-08,
+      "history_max_D_mu_difference": 1e-08,
+      "mesh_C_relative_tolerance": 0.001,
+      "mesh_C_absolute_tolerance": 1e-08,
+      "mesh_D_mu_relative_tolerance": 0.001,
+      "mesh_D_mu_absolute_tolerance": 1e-08
+    },
+    "independent_rule": "Two fixed RHF-seeded optimizer routes; lowest solver-valid SA4 energy, retaining both candidates.",
+    "candidate_mesh_rule": "Both adjacent refinement levels qualified, both metrics mesh-converged, every coarse-edge permutation equals its composed child-edge permutation, same composed endpoint assignment on both routes.",
+    "history_rule": "Full fresh forward/reverse traversals on each candidate fine mesh; no reuse of old history orbitals except the common independent starting seed.",
+    "history_failure_rule": "Further refine only for an assignment-only failure; stop for numerical history, wavefunction, fidelity or algebra failure.",
+    "inherited_checks": "Original global 8-to-16 mesh comparison and all four nested-loop tests are inherited after integrity verification; compare supplemental final metrics to original n=16 as well.",
+    "maximum_independent_new_points": 378,
+    "no_signal_selection": "Mesh selection uses qualification and numerical stability, never the size or sign of nonclosure."
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "protocol_version": "CPDC-CCPVTZ-CENTRAL-GAP-LANDSCAPE-v1.0",
+  "protocol_id": "CPDC-CCPVTZ-CENTRAL-GAP-LANDSCAPE-20260920",
+  "preregistered_date": "2026-09-20",
+  "scientific_target": "Phase-blind determination of whether a scalar lowest-state loop around the D5h conical intersection can cross each of the five symmetry-related spokes with the pre-existing 2e-4 Eh internal-gap safety margin.",
+  "antecedent": {
+    "required_protocol_id": "CPDC-CCPVTZ-RELAXED-MULTIRING-20260920",
+    "required_status": "STOP_BOUNDED_LOOP_GEOMETRY_FAILURE",
+    "required_failed_loop": "central_inner",
+    "required_phase_inspected": false,
+    "required_phase_product_evaluated": false,
+    "required_topology_decision_absent": true,
+    "interpretation": "The previous run stopped before phase exposure because the circular central loop had a reproducible approximately 1.14e-5 Eh minimum gap on five 72-degree-related spokes while all point-quality checks passed."
+  },
+  "locked_model": {
+    "molecule": "C5H5+",
+    "electronic_sector": "lowest singlet manifold only",
+    "absolute_ground_state_claimed": false,
+    "basis": "cc-pvtz",
+    "pyscf_version_exact": "2.13.1",
+    "production_engine": "byte-identical CPDC-SCI-CCPVTZ-LIFT-v1.0 SA2 kernel",
+    "production_engine_sha256": "7ff5d5dab945128e6031e61e2510d836ffd42d0a5e1f86078ef72e9b0ddcd325",
+    "ncas": 5,
+    "nelecas": 4,
+    "nroots": 2,
+    "state_average_weights": [0.5, 0.5],
+    "point_seed": "the same frozen cc-pVTZ D5h SA2 center for every point",
+    "adjacent_point_seeding": false
+  },
+  "surfaces": {
+    "anchor_definition": "The D5h center and five frozen relaxed secondary-CI replica geometries from PASS_CCPVTZ_SECONDARY_CI_LIFT.",
+    "fourier_frequencies": [0, 1, 2, -2, -1],
+    "cone_v1": "DeltaR(r,theta)=r sum_m c_m exp(i m theta)",
+    "smooth_quadratic": "DeltaR(r,theta)=r sum_|m|=1 c_m exp(i m theta)+r^2[c_0+sum_|m|=2 c_m exp(i m theta)]",
+    "shared_center": true,
+    "both_match_all_five_anchors_at_r_equals_1": true,
+    "smooth_surface_has_well_defined_linear_center_tangent": true
+  },
+  "screen_grid": {
+    "surface_kinds": ["cone_v1", "smooth_quadratic"],
+    "directions_degrees": [0.0, 36.0],
+    "direction_roles": {
+      "0.0": "spoke from the center toward a secondary CI",
+      "36.0": "bisector between adjacent secondary-CI spokes"
+    },
+    "radii": [0.1, 0.2, 0.3, 0.4, 0.45, 0.5, 0.6, 0.7, 0.8, 0.9],
+    "total_logical_points": 40,
+    "phase_or_signed_overlap_allowed": false
+  },
+  "thresholds": {
+    "maximum_final_orbital_gradient": 0.0001,
+    "maximum_spin_square_error": 1e-06,
+    "maximum_mo_orthonormality_error": 1e-08,
+    "maximum_casci_reproduction_error_Eh": 1e-07,
+    "minimum_active_reference_sigma": 0.9,
+    "minimum_third_singlet_gap_Eh": 0.002,
+    "maximum_average_energy_above_center_Eh": 0.03,
+    "minimum_CC_bond_angstrom": 1.2,
+    "maximum_CC_bond_angstrom": 1.7,
+    "minimum_CH_bond_angstrom": 0.9,
+    "maximum_CH_bond_angstrom": 1.25,
+    "maximum_planarity_error_angstrom": 1e-10,
+    "target_internal_loop_gap_Eh": 0.0002,
+    "maximum_independent_gap_reproduction_error_Eh": 5e-07
+  },
+  "decision_rules": {
+    "STOP_SCREEN_WAVEFUNCTION_FAILURE": "At least one of the 40 points fails a locked electronic or geometry quality gate.",
+    "STOP_V1_REPRODUCTION_FAILURE": "The independently recalculated cone-v1 r=0.45 controls do not reproduce the frozen antecedent points within the declared tolerance.",
+    "PROMOTE_SMOOTH_SURFACE_TO_ANGULAR_QUALIFICATION": "The smooth surface, but not the cone surface, has a sampled spoke point with gap at least 2e-4 Eh; authorize a separate full-angle loop qualification without phase.",
+    "PROMOTE_CONE_SURFACE_TO_ANGULAR_QUALIFICATION": "The cone surface, but not the smooth surface, has a sampled spoke point with gap at least 2e-4 Eh; authorize a separate full-angle loop qualification without phase.",
+    "PROMOTE_BOTH_SURFACES_TO_ANGULAR_ARBITRATION": "Both surfaces cross the sampled spoke target; compare full angular maximin loops before selecting either surface.",
+    "REFINE_SPOKE_MAXIMUM_OR_PIVOT_PROJECTOR": "Neither sampled spoke reaches 2e-4 Eh; do not run a scalar phase. Refine the phase-blind spoke maximum or pivot to rank-2 projector topology."
+  },
+  "publication_policy": {
+    "phase_inspected": false,
+    "manuscript_claim_authorized": false,
+    "authorized_scope": "selection of the next phase-blind central-loop qualification or projector-topology protocol only",
+    "forbidden": [
+      "evaluating any scalar Berry or Wilson product in this screen",
+      "lowering the 2e-4 Eh target merely because the previous circle failed",
+      "interpreting a sampled maximum as a continuous mathematical upper bound",
+      "editing or deleting the antecedent STOP decision"
+    ]
+  }
+}

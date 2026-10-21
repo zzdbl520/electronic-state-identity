@@ -24,3 +24,10 @@ nohup.out
 
 # Keep the small archived stdout records committed under reference/.
 !systems/**/reference/*.stdout
+
+# Wavefunctions are stored in checked archive parts and extracted locally.
+validation_rerun/
+rerun_*/
+
+# Locally reassembled O3 numerical archive; checked parts are committed.
+/data/revision-2026-10-21/records/O3/raw_return_archive/O3_gate4B_v5.2_numerical.tar.gz

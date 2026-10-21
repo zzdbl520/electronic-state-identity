@@ -1,0 +1,67 @@
+{
+  "gate": "BeH2 B1 A1 stationary-branch support map",
+  "status": "ANALYZED",
+  "solution_count": 128,
+  "branch_comparison_count": 64,
+  "continuity_edge_count": 124,
+  "protocol_comparison_count": 64,
+  "merger_test": {
+    "active_angle_max_rad": 0.01,
+    "state_leakage": 0.0001,
+    "rdm1_procrustes_fro": 0.01,
+    "noon_rms": 0.005,
+    "energy_used": false
+  },
+  "by_protocol": {
+    "SA3": {
+      "lambda_points_compared": 32,
+      "distinct_solution_points": 30,
+      "same_solution_points": 2,
+      "energy_crossing_brackets_bohr": [
+        [
+          2.52,
+          2.53
+        ]
+      ],
+      "merger_transition_brackets_bohr": [
+        [
+          2.5,
+          2.51
+        ],
+        [
+          2.52,
+          2.53
+        ]
+      ],
+      "signed_energy_difference_range_Eh": [
+        -3.425859031658263e-05,
+        0.01507824598845886
+      ]
+    },
+    "SA4": {
+      "lambda_points_compared": 32,
+      "distinct_solution_points": 32,
+      "same_solution_points": 0,
+      "energy_crossing_brackets_bohr": [],
+      "merger_transition_brackets_bohr": [],
+      "signed_energy_difference_range_Eh": [
+        0.004150362630737092,
+        0.013075627247156163
+      ]
+    }
+  },
+  "continuity_quality": {
+    "minimum_state_sigma": 0.6304343797688642,
+    "maximum_state_leakage": 0.20619430512688497
+  },
+  "protocol_quality": {
+    "upper": {
+      "minimum_sigma": 0.8285079525096977,
+      "maximum_leakage": 0.15369205418738519
+    },
+    "lower": {
+      "minimum_sigma": 0.6127615148424036,
+      "maximum_leakage": 0.2213486114934753
+    }
+  }
+}

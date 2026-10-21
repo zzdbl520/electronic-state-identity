@@ -1,0 +1,20 @@
+{
+  "hashes_checked": 531,
+  "loop_replays": 18,
+  "maximum_C_replay_error": 0.0,
+  "maximum_D_mu_replay_error": 0.0,
+  "basis_results": {
+    "augccpvdz": {
+      "direct_loops": 11,
+      "history_loops": 2,
+      "all_pass": true
+    },
+    "ccpvtz": {
+      "direct_loops": 3,
+      "history_loops": 2,
+      "all_pass": true
+    }
+  },
+  "independent_embedded_fci_element_error": 2.220446049250313e-16,
+  "status": "PASS"
+}

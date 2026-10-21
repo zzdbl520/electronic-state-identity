@@ -1,117 +1,166 @@
 #!/usr/bin/env python3
-"""Audit the decision records used by the manuscript-level claims."""
+"""Audit the October revision records and imported file integrity (NumPy only).
 
+This does not optimize CASSCF or reconstruct AO overlaps. For independent
+raw-wave-function reconstruction use the validators in the data directory.
+"""
 from __future__ import annotations
-
+import hashlib
 import json
 from pathlib import Path
-from typing import Any
-
+import numpy as np
 
 REPOSITORY = Path(__file__).resolve().parents[1]
+DATA = REPOSITORY / 'data/revision-2026-10-21'
 
+def load(relative):
+    return json.loads((DATA / relative).read_text(encoding='utf-8'))
 
-def load(relative: str) -> dict[str, Any]:
-    path = REPOSITORY / relative
-    with path.open(encoding="utf-8") as handle:
-        return json.load(handle)
-
-
-def require(condition: bool, message: str) -> None:
+def require(condition, message):
     if not condition:
         raise AssertionError(message)
 
+def close(a, b, message, atol=1e-12, rtol=1e-9):
+    require(np.allclose(a, b, atol=atol, rtol=rtol), message)
 
-def verify_lih() -> None:
-    pvdz = load("systems/lih/reference/aug-cc-pVDZ/LiH_S2_decision.json")
-    pvtz = load("systems/lih/reference/cc-pVTZ/LiH_S3_decision.json")
-    require(pvdz["status"] == "PUBLICATION_DEMONSTRATION_READY", "LiH S2 status changed")
-    checks = pvdz["decision_checks"]
-    for key in (
-        "all_history_wavefunctions_stationary",
-        "direct_vs_two_opposed_histories_same_solution",
-        "conventional_composed_assignment_same",
-        "nonzero_continuous_holonomy",
-        "observable_dipole_consequence",
-    ):
-        require(checks[key] is True, f"LiH check failed: {key}")
-    direct = pvdz["selected_window_results"]["direct"]
-    require(direct["same_composed_assignment"] is True, "LiH assignments no longer agree")
-    require(direct["C_qp"] > 0.0, "LiH route nonclosure vanished")
-    require(direct["dipole_path_difference_au"] > 0.0, "LiH dipole consequence vanished")
-    require(pvtz["status"] == "BASIS_ROBUSTNESS_CONFIRMED", "LiH cc-pVTZ status changed")
-    pvtz_checks = pvtz["decision_checks"]
-    for key in (
-        "all_wavefunctions_stationary",
-        "numerical_gauge_invariance",
-        "all_elementary_grid_edges_strict",
-        "conventional_composed_assignment_reproduced",
-        "nonzero_continuous_holonomy_reproduced",
-        "observable_dipole_consequence_reproduced",
-    ):
-        require(pvtz_checks[key] is True, f"LiH cc-pVTZ check failed: {key}")
-    pvtz_window = pvtz["fixed_window_result"]
-    require(pvtz_window["same_composed_assignment"] is True, "LiH cc-pVTZ assignments differ")
-    require(pvtz_window["C_qp"] > 0.0, "LiH cc-pVTZ route nonclosure vanished")
-
-
-def verify_beh2() -> None:
-    result = load("systems/beh2/reference/G0C_forensic_summary.json")
-    require(result["status"] == "REVIEW_REQUIRED", "BeH2 review status must be preserved")
-    require(
-        result["input_decisions"]["g0b_status"] == "CONFIRMED_CONSTRAINT_INDUCED",
-        "BeH2 unconstrained comparison changed",
-    )
-    checks = result["decision_checks"]
-    require(checks["legacy_event_present"] is True, "BeH2 legacy event missing")
-    require(checks["both_clean_models_single_solution"] is True, "BeH2 clean controls failed")
-    require(checks["all_stride1_upper_edges_locally_valid"] is False, "BeH2 limitation disappeared")
-    require(checks["main_figure_candidate"] is False, "BeH2 record was over-promoted")
-
-
-def verify_cyclopentadienyl_cation() -> None:
-    base = "systems/cyclopentadienyl-cation/reference"
-    projector = load(f"{base}/CPDC_ccpVTZ_rank2_projector_v1_decision.json")
-    opposed = load(f"{base}/CPDC_ccpVTZ_rank2_opposed_history_v1_decision.json")
-    require(projector["status"] == "PASS_RANK2_PROJECTOR_QUALIFICATION", "CP+ projector status changed")
-    require(projector["individual_root_assignment_used"] is False, "CP+ used root assignment")
-    require(
-        projector["SA3_wedge_arbitration"]["status"] == "PASS_SA3_WEDGE_ARBITRATION",
-        "CP+ SA3 external-isolation gate changed",
-    )
-    for mesh in projector["projector_meshes"]:
-        require(mesh["all_points_pass"] is True, "CP+ point-quality gate failed")
-        require(mesh["all_projector_edges_pass"] is True, "CP+ edge-fidelity gate failed")
-        require(mesh["gauge_pass"] is True, "CP+ U(2)-gauge audit failed")
-        require(mesh["individual_root_assignment_used"] is False, "CP+ mesh used root assignment")
-    convergence = projector["mesh_40_80_convergence"]["eigenphase_set_difference_rad"]
-    require(convergence < 1.0e-5, "CP+ 40/80 mesh convergence changed")
-    require(
-        opposed["status"] == "PASS_RANK2_OPPOSED_HISTORY_REPLICATION",
-        "CP+ opposed-history status changed",
-    )
-    for key in (
-        "quality_pass",
-        "cross_history_reproduction_pass",
-        "reference_reproduction_pass",
-        "seed_rank_pass",
-        "result_authorizes_inclusion_as_rank2_manifold_evidence",
-    ):
-        require(opposed[key] is True, f"CP+ check failed: {key}")
-    require(opposed["individual_root_assignment_used"] is False, "CP+ used root assignment")
+def verify_lih():
+    s = load('analysis/augccpvtz_summary.json')
+    p = s['production']
+    loops = load('analysis/augccpvtz_refinement_validation/recomputed_loops.json')
+    final = max(loops, key=lambda r: r['number_of_edges'])
+    require(p['number_of_edges'] == final['number_of_edges'] == 154, 'Final mesh changed')
+    for field in ['C', 'D_mu', 'eta', 'leakage', 'assignment_margin']:
+        close(p[field], final[field], 'Summary/source mismatch: '+field)
+    require(p['qualified'] and all(p['checks'].values()), 'Final LiH gates fail')
+    require(p['route1_permutation'] == p['route2_permutation'] == list(range(4)),
+            'Final endpoint assignments are not both identity')
+    a, b = np.array(p['route_R_then_F']), np.array(p['route_F_then_R'])
+    close(np.linalg.norm(a-b)/4, p['C'], 'Transport matrices do not reproduce C')
+    close(p['C'], 3.191653837014006e-4, 'Published C changed')
+    close(p['D_mu'], 6.300611946495908e-4, 'Published D_mu changed')
+    d = p['delta_dipole_in_start_frame']
+    close(np.linalg.norm(np.array(d['real'])+1j*np.array(d['imag'])),
+          p['delta_mu_au'], 'Transported dipole norm mismatch')
+    require(not s['local_boundary'][0]['qualified'], 'Rejected uniform boundary lost')
+    require(s['local_boundary'][0]['assignment_margin'] < 0.1,
+            'Uniform-boundary failure qualification lost')
+    require(s['complete_100_fidelity_pass'] == 0, 'Original-rectangle limitation lost')
+    require(len(s['stride_distribution']) == 16, 'Incomplete locator stride groups')
+    require(sum(r['count'] for r in s['stride_distribution']) == 100, 'Incomplete locator')
+    nested = s['nested']
+    require(len(nested) == 4 and all(r['qualified'] for r in nested), 'Nested-loop gates fail')
+    slope = np.polyfit(np.log([r['area'] for r in nested]),
+                       np.log([r['C8'] for r in nested]), 1)[0]
+    close(slope, s['nested_fit']['log_log_slope'], 'Area-scaling slope mismatch')
+    require(len(s['histories']) == 2 and all(h['history_pass'] for h in s['histories']),
+            'Final opposed-history checks fail')
+    audit = load('analysis/augccpvtz_refinement_validation/audit.json')
+    require(audit['status'] == 'QUALIFIED_VERIFIED', 'Refinement audit status changed')
+    require(all(audit['final_checks_independently_reassembled'].values()),
+            'Refinement audit has failed checks')
+    require(load('analysis/augccpvtz_production_validation/audit.json')['status'] ==
+            'REVIEW_REQUIRED', 'Original production failure lost')
+    for basis in ['augccpvdz', 'ccpvtz']:
+        r = load(f'records/lih_revision_{basis}/revision_results.json')
+        require(all(x['fidelity_pass'] and x['assignment_pass'] and x['all_converged']
+                    and x['same_assignment'] for x in r['loops'] + r['histories']),
+                basis+' loop/history failed')
+        require(len(r['histories']) == 2, basis+' history missing')
 
 
-def main() -> None:
-    verifiers = {
-        "LiH": verify_lih,
-        "BeH2": verify_beh2,
-        "cyclopentadienyl cation": verify_cyclopentadienyl_cation,
-    }
-    for label, verifier in verifiers.items():
-        verifier()
-        print(f"PASS  {label}")
-    print("REFERENCE_AUDIT=PASS")
+def verify_beh2():
+    r = load('records/beh2_model_comparison/G0C_forensic_summary.json')
+    require(r['status'] == 'REVIEW_REQUIRED', 'BeH2 qualification lost')
+    require(r['decision_checks']['all_stride1_upper_edges_locally_valid'] is False,
+            'BeH2 failure must remain explicit')
+    require(r['decision_checks']['main_figure_candidate'] is False,
+            'BeH2 failed plaquettes promoted')
 
 
-if __name__ == "__main__":
+def verify_cyclopentadienyl_cation():
+    s = load('analysis/cpdc_summary.json')
+    require(s['status'] == 'RETAINED_RANK2_MANIFOLD_EVIDENCE', 'CPDC scope changed')
+    require(s['independent_SA3_minimum_pair_sigma'] > 0.9998, 'External pair fidelity fails')
+    require(s['independent_SA3_minimum_third_gap_Eh'] > 0.0277, 'External gap fails')
+    phases = {r['sequence']: r['positive_phase_rad'] for r in s['histories']}
+    diff = max(abs(phases[k]-phases['Reference']) for k in ['clockwise', 'counterclockwise'])
+    close(diff, s['maximum_reference_history_phase_difference_rad'], 'CPDC history arithmetic')
+    mesh = {r['npoints']: r['positive_phase_rad'] for r in s['mesh']}
+    require(diff > abs(mesh[80]-mesh[40]), 'CPDC initialization sensitivity hidden')
+    require(s['arithmetic_checks']['phase_comparisons_pass'], 'CPDC record arithmetic fails')
+    for path, expected in s['source_sha256'].items():
+        require(hashlib.sha256((DATA/path).read_bytes()).hexdigest() == expected,
+                'CPDC source changed: '+path)
+
+
+def verify_historical_controls():
+    h = load('records/H3/H3_local_refinement_decision.json')
+    # Historical stdout contains the decision JSON followed by further output.
+    o, _ = json.JSONDecoder().raw_decode(
+        (DATA/'records/O3/O3_weighted_SA2_pilot_record.txt').read_text().lstrip())
+    require(h['status'] == 'STOP_POINTWISE_REFINEMENT_FAILURE', 'H3 failure hidden')
+    require(o['status'] == 'STOP_EDGE_FIDELITY_FAILURE', 'O3 failure hidden')
+    require(o['manuscript_claim_authorized'] is False, 'Failed O3 promoted')
+    for path in ['records/H3/source_data/ring_profile.csv',
+                 'records/O3/source_data/gate4A/O3_gate4A_calculations.csv',
+                 'records/O3/source_data/gate4B/O3_gate4B_plaquettes.csv']:
+        require((DATA/path).stat().st_size > 0, 'Missing historical table: '+path)
+
+
+def verify_integrity():
+    provenance = load('SOURCE_PROVENANCE.json')
+    require(provenance['source_archive_checksums_verified'], 'Source archive not verified')
+    imported_npz = set()
+    for item in provenance['files']:
+        path = DATA / item['path']
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        require(digest == item['sha256'], 'Imported file changed: '+item['path'])
+        if item['path'].startswith('records/'):
+            require(digest == item['source_sha256'], 'Raw record changed: '+item['path'])
+        if path.suffix == '.npz':
+            imported_npz.add(path.relative_to(DATA).as_posix())
+    actual_npz = {p.relative_to(DATA).as_posix() for p in (DATA/'records').rglob('*.npz')}
+    require(imported_npz == actual_npz and len(actual_npz) == 1936,
+            'Incomplete LiH NPZ deposit')
+    for name, count in [('lih_augccpvtz_production',736), ('lih_augccpvtz_local_refinement',644)]:
+        manifest = load(f'records/{name}/wavefunction_sha256.json')
+        require(len(manifest) == count, name+' manifest count changed')
+        for path, expected in manifest.items():
+            actual = hashlib.sha256((DATA/'records'/name/path).read_bytes()).hexdigest()
+            require(actual == expected, 'Original NPZ checksum mismatch: '+name+'/'+path)
+    # Historical archive containers exclude rendered figures; retained numerical bytes are unchanged.
+    import io
+    import tarfile
+    repacked = load('NUMERICAL_ARCHIVES.json')['archives']
+    for archive in repacked:
+        if 'parts' in archive:
+            chunks = []
+            for part in archive['parts']:
+                chunk = (DATA / part['path']).read_bytes()
+                require(len(chunk) == part['bytes'] and
+                        hashlib.sha256(chunk).hexdigest() == part['sha256'],
+                        'Numerical archive part changed: ' + part['path'])
+                chunks.append(chunk)
+            content = b''.join(chunks)
+        else:
+            content = (DATA / archive['numerical_archive_path']).read_bytes()
+        require(hashlib.sha256(content).hexdigest() == archive['numerical_archive_sha256'],
+                'Numerical archive checksum mismatch')
+        with tarfile.open(fileobj=io.BytesIO(content), mode='r:gz') as tar:
+            actual = {m.name: hashlib.sha256(tar.extractfile(m).read()).hexdigest()
+                      for m in tar if m.isfile()}
+        require(actual == {m['path']: m['sha256'] for m in archive['included_members']},
+                'Repacked numerical members changed')
+    print(f'PASS  {len(provenance["files"])} imported files; {len(actual_npz)} LiH NPZ files')
+
+
+def main():
+    for name, func in [('LiH current revision',verify_lih), ('BeH2 limitations',verify_beh2),
+                       ('C5H5+ record arithmetic and sensitivity',verify_cyclopentadienyl_cation),
+                       ('H3/O3 historical controls',verify_historical_controls)]:
+        func(); print('PASS  '+name)
+    verify_integrity()
+    print('REFERENCE_AUDIT=PASS (record/hash audit; no new CASSCF calculations)')
+
+if __name__ == '__main__':
     main()

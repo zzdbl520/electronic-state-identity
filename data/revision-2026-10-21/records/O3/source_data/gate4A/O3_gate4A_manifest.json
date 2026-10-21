@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "system": "O3",
+  "purpose": "Gate 4A mixed nuclear-variational nonclosure pilot",
+  "forced_symmetry": "Cs",
+  "basis": "cc-pvtz",
+  "active_space": [
+    18,
+    12
+  ],
+  "r_sum_A": 2.7288,
+  "theta0_deg": 119.7,
+  "delta_r_step_A": 0.01,
+  "theta_step_deg": 0.2,
+  "points": [
+    {
+      "tag": "center",
+      "delta_r": 0.0,
+      "theta": 119.7
+    },
+    {
+      "tag": "dr_minus",
+      "delta_r": -0.01,
+      "theta": 119.7
+    },
+    {
+      "tag": "dr_plus",
+      "delta_r": 0.01,
+      "theta": 119.7
+    },
+    {
+      "tag": "theta_minus",
+      "delta_r": 0.0,
+      "theta": 119.5
+    },
+    {
+      "tag": "theta_plus",
+      "delta_r": 0.0,
+      "theta": 119.9
+    }
+  ],
+  "protocols": {
+    "SA2": 2,
+    "SA3": 3
+  }
+}

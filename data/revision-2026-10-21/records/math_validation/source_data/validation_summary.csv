@@ -1,0 +1,11 @@
+test,status,quantitative_outcome
+identity plaquette,PASS,"C=0, eta_edge=1, lambda_edge=0"
+phase and root permutation,PASS,independent phases and root relabeling leave C=0
+general pure gauge,PASS,arbitrary U(4) corner frames close exactly
+nonzero-curvature gauge invariance,PASS,C=0.09003882; K paths transform endpoint-covariantly and W by similarity
+leakage without curvature,PASS,C=0 despite lambda_edge=0.28; leakage is a separate diagnostic
+rank-loss warning,PASS,eta_edge=1.0e-14 flags ill-conditioned transport
+orientation reversal,PASS,orientation reversal maps W to W^dagger and leaves scalar C unchanged
+many-electron overlap contraction,PASS,direct Fock-space error=1.48e-16; naive CI-dot-product error=0.569
+continuous-limit scaling,PASS,"slope(h,h)=1.998929, slope(h,p0)=0.999914, coefficient ratio=0.99998698"
+random bounds and formula equivalence,PASS,"200 random plaquettes: max C=0.89378772, max formula error=2.22e-16"

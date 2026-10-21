@@ -1,0 +1,19 @@
+{
+  "script_version": "CPDC-CCPVTZ-RANK2-OPPOSED-HISTORY-v1.0",
+  "protocol_id": "CPDC-CCPVTZ-RANK2-OPPOSED-HISTORY-20260920",
+  "created_unix": 1789906426.0091822,
+  "python_version": "3.11.15",
+  "numpy_version": "2.3.5",
+  "pyscf_version": "2.13.1",
+  "authorization_sha256": "c599b391cb22c3c34085ca32b4f7e4cf36ddcb5fbe11801f67fdc3fed3f47fbc",
+  "component_hashes": {
+    "CPDC_ccpVTZ_rank2_opposed_history_v1.py": "409ea7680c70d02e54b899b33688f51260fdeadeeb8b9135e44f0271e3e00fc7",
+    "CPDC_ccpVTZ_rank2_opposed_history_protocol_v1.json": "66096bddfca85d367fad751f372734f2fc042f14fc8908628e0f3e3cafaeba9b",
+    "CPDC_ccpVTZ_rank2_projector_v1.py": "710b1628f8cc78bf80f2ed5b721e980d5c560cc0d7e9709ec84e24f610f9e01a",
+    "CPDC_ccpVTZ_relaxed_multiring_v1.py": "ca724ea4f56428f84043b6fd28f442811f9dfb5107039bad5b325c9264cb2942",
+    "cpdc_lift_engine.py": "7ff5d5dab945128e6031e61e2510d836ffd42d0a5e1f86078ef72e9b0ddcd325",
+    "cpdc_overlap.py": "f3800d28751ac623bc7c75b8a5ea50d1786754b42ece9e5ca14be6c18b91a429"
+  },
+  "scalar_phase_evaluated": false,
+  "individual_root_assignment_used": false
+}

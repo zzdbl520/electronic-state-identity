@@ -1,0 +1,12 @@
+
+===== launch 2026-09-20T12:13:33Z mode=qualify =====
+root=${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work
+source_root=${CPDC_ARCHIVE_ROOT}/CPDC_secondary_CI_ccpVTZ_lift_v1_work
+loop_root=${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work
+screen_root=${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_central_gap_landscape_v1_work
+rank2_root=${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work
+
+CPDC RANK-2 OPPOSED-HISTORY AUTHORIZATION
+Status: PASS_OPPOSED_HISTORY_AUTHORIZATION
+Decision file: ${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work/CPDC_ccpVTZ_rank2_opposed_history_authorization_v1.json
+CPDC_OPPOSED_HISTORY_SOURCE=PASS_OPPOSED_HISTORY_AUTHORIZATION

@@ -1,0 +1,661 @@
+{
+  "script_version": "CPDC-CCPVTZ-RANK2-OPPOSED-HISTORY-v1.0",
+  "protocol_id": "CPDC-CCPVTZ-RANK2-OPPOSED-HISTORY-20260920",
+  "root": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_opposed_history_v1_work",
+  "source_root": "${CPDC_ARCHIVE_ROOT}/CPDC_secondary_CI_ccpVTZ_lift_v1_work",
+  "loop_root": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work",
+  "screen_root": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_central_gap_landscape_v1_work",
+  "rank2_root": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work",
+  "status": "PASS_OPPOSED_HISTORY_AUTHORIZATION",
+  "scalar_phase_evaluated": false,
+  "signed_single_state_overlap_recorded": false,
+  "individual_root_assignment_used": false,
+  "manuscript_claim_authorized": false,
+  "checks": {
+    "rank2_authorization_passed": true,
+    "rank2_decision_passed": true,
+    "rank2_phase_not_evaluated": true,
+    "rank2_signed_single_state_overlap_absent": true,
+    "rank2_individual_assignment_absent": true,
+    "rank2_CI_count_not_claimed": true,
+    "rank2_80_mesh_complete": true,
+    "rank2_80_points_pass": true,
+    "rank2_80_edges_pass": true,
+    "rank2_80_invariance_pass": true,
+    "rank2_mesh_convergence_pass": true,
+    "five_independent_SA3_references_pass": true,
+    "scalar_topology_decision_absent": true,
+    "reference_point_artifacts_intact": true,
+    "reference_SA3_artifacts_intact": true
+  },
+  "rank2_authorization_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/CPDC_ccpVTZ_rank2_projector_authorization_v1.json",
+  "rank2_authorization_sha256": "c19b401c517fef6310acd6b0a1513706ce67559a25b26e32611eb72650bbc6c1",
+  "rank2_decision_file": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/CPDC_ccpVTZ_rank2_projector_v1_decision.json",
+  "rank2_decision_sha256": "cb211a5a09bca0dcbb4de234d3a088ea83387356715ae403940f1eb96443bfc8",
+  "reference_point_integrity": [
+    {
+      "index": 0,
+      "angle_degrees": 0.0,
+      "geometry_hash": "f494f79cefb3fdd542d3a82dcb88b6e8d62a1e626dcd1ac534713eabf67c7be8",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_f494f79cefb3fdd542d3a82dcb88b6e8d62a1e626dcd1ac534713eabf67c7be8/solution.npz",
+      "sha256": "b811f5514a7f59a40bbe9c2f642a2766da3c33e06102d4418f888c00e56eda21"
+    },
+    {
+      "index": 1,
+      "angle_degrees": 4.5,
+      "geometry_hash": "91ca405152b3bd6cc105c3c9f488f3eda1d97c1ef1a6e6a774e3e59c35356f50",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_91ca405152b3bd6cc105c3c9f488f3eda1d97c1ef1a6e6a774e3e59c35356f50/solution.npz",
+      "sha256": "b46035a597423c83abe9f8ac2aa5b1802a1ef6f5bd115888b8ca9827cdefb25f"
+    },
+    {
+      "index": 2,
+      "angle_degrees": 9.0,
+      "geometry_hash": "560afb283fb0b41976a88a7bb4107e1424785158e0684ed6d015fb1a3f1e65b0",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_560afb283fb0b41976a88a7bb4107e1424785158e0684ed6d015fb1a3f1e65b0/solution.npz",
+      "sha256": "1f911d3fe99e7d6c0e540112ceb70fcf2a61c75b87a5d51ef429fc4613fb78f6"
+    },
+    {
+      "index": 3,
+      "angle_degrees": 13.5,
+      "geometry_hash": "641ce3692697d673d0d6bc245d58452560fc7c0e68556752de4cbb2b8d7954ec",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_641ce3692697d673d0d6bc245d58452560fc7c0e68556752de4cbb2b8d7954ec/solution.npz",
+      "sha256": "ba2764e67c76fd0133f7fc06ce8c73e9344dc81e5e1dec66e1ff13c7faba2e35"
+    },
+    {
+      "index": 4,
+      "angle_degrees": 18.0,
+      "geometry_hash": "c630f6e061b82f923eed0eff3ad70c72ae40e7351e3b02a8cdd291140b4008be",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_c630f6e061b82f923eed0eff3ad70c72ae40e7351e3b02a8cdd291140b4008be/solution.npz",
+      "sha256": "58d8d4e25ad57ba630780c20ca18c02f137bd2e8ef9ee0319d116728b8f37152"
+    },
+    {
+      "index": 5,
+      "angle_degrees": 22.5,
+      "geometry_hash": "e9d2957e6bcee8a689eeb479ae0d5ff344134c22fd61a282f39f5838fd8e9412",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_e9d2957e6bcee8a689eeb479ae0d5ff344134c22fd61a282f39f5838fd8e9412/solution.npz",
+      "sha256": "92a71d8c4cb6d44a12860ae81561563a5357d18ff284c33eb7b118d8278e34da"
+    },
+    {
+      "index": 6,
+      "angle_degrees": 27.0,
+      "geometry_hash": "ea8e2e6cd622d769f2efe90690c949916caf4d33e80e1098323528b229392745",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_ea8e2e6cd622d769f2efe90690c949916caf4d33e80e1098323528b229392745/solution.npz",
+      "sha256": "854395b0913a697e2c713939dcb513c296e25d9a3d1a8793217b235c1882a822"
+    },
+    {
+      "index": 7,
+      "angle_degrees": 31.5,
+      "geometry_hash": "0df1f2d21067448213a4903d087f8420a464ae92f4b4fecb5c9406f1fdc042ac",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_0df1f2d21067448213a4903d087f8420a464ae92f4b4fecb5c9406f1fdc042ac/solution.npz",
+      "sha256": "e40c8fe2d5d68f5a897aec0d9501e6e322a6c3aaf5476845e75957c4ed4cc51f"
+    },
+    {
+      "index": 8,
+      "angle_degrees": 36.0,
+      "geometry_hash": "629d74d1b9a4b88d89d3d2103aa7fe779bc52a4d68476c22c390e8cb98c5b30e",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_629d74d1b9a4b88d89d3d2103aa7fe779bc52a4d68476c22c390e8cb98c5b30e/solution.npz",
+      "sha256": "b3d808fdaccfe415a9a2701d0d3629b1360db201686becf9cd15f021797ea72a"
+    },
+    {
+      "index": 9,
+      "angle_degrees": 40.5,
+      "geometry_hash": "7bce6594248c1439cc11291a8b8c110c8c6fde8588f251c5b63ebc6644f49781",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_7bce6594248c1439cc11291a8b8c110c8c6fde8588f251c5b63ebc6644f49781/solution.npz",
+      "sha256": "bb4720abfcc5e77b8515f33343e472adc29c979a8b6dcdff14d2484e829634ac"
+    },
+    {
+      "index": 10,
+      "angle_degrees": 45.0,
+      "geometry_hash": "414e3a102ad4d3e2ba7bd970cd0f4e8feb3946a27a3700063f0b03820dd52a49",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_414e3a102ad4d3e2ba7bd970cd0f4e8feb3946a27a3700063f0b03820dd52a49/solution.npz",
+      "sha256": "9d48b709b602513e57006c59986ebd3cd540c106d79631c657aab1b13b893067"
+    },
+    {
+      "index": 11,
+      "angle_degrees": 49.5,
+      "geometry_hash": "57e3856d82f36a1b97747d5620f06e908fa6b810054c9c7b2d9d23a3dd7d2aa2",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_57e3856d82f36a1b97747d5620f06e908fa6b810054c9c7b2d9d23a3dd7d2aa2/solution.npz",
+      "sha256": "ff560f40c3bf0e6b633eb2052b94581e2706dc84b135e4580e16c560b207d371"
+    },
+    {
+      "index": 12,
+      "angle_degrees": 54.0,
+      "geometry_hash": "f0442e0160c4396c2f96155a003626ecbe9e61e18ff604518d25c47602f7cf68",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_f0442e0160c4396c2f96155a003626ecbe9e61e18ff604518d25c47602f7cf68/solution.npz",
+      "sha256": "75aa74dd6cf4291148974060598b567499acf19a259f4c00ca44b19bbd973df9"
+    },
+    {
+      "index": 13,
+      "angle_degrees": 58.5,
+      "geometry_hash": "8d3cf6b1a39e41beebeee70a64aa7ebda93969c09ea2d237bad515b4b5e99b1c",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_8d3cf6b1a39e41beebeee70a64aa7ebda93969c09ea2d237bad515b4b5e99b1c/solution.npz",
+      "sha256": "69c7e8a0595dd34066e8e310987f81030d76d415e3c0990d36e80a65d08141fc"
+    },
+    {
+      "index": 14,
+      "angle_degrees": 63.0,
+      "geometry_hash": "abee03139d99977b9edaeb75abcb5a233529c8c4a0c01b1965e485d6b821a2d7",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_abee03139d99977b9edaeb75abcb5a233529c8c4a0c01b1965e485d6b821a2d7/solution.npz",
+      "sha256": "4202ebbdd84323f0e5ec7c17e39b6fddc5b1323b91dc62765616c9d441c3b038"
+    },
+    {
+      "index": 15,
+      "angle_degrees": 67.5,
+      "geometry_hash": "8e1e74d58ad0f39db521dbc6a9cd0b770073d63a86af70161c0179277c5262fb",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_8e1e74d58ad0f39db521dbc6a9cd0b770073d63a86af70161c0179277c5262fb/solution.npz",
+      "sha256": "e2b6f0bd1ad782ba8a26788fea9db30447a2711f0f878d66f20157ccf4295bcb"
+    },
+    {
+      "index": 16,
+      "angle_degrees": 72.0,
+      "geometry_hash": "08bf87eef473a8401d8e1c142a3c38f0bb06980732de0132512f06c0b653cbd2",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_08bf87eef473a8401d8e1c142a3c38f0bb06980732de0132512f06c0b653cbd2/solution.npz",
+      "sha256": "6bbe60f0c4606fe2197367e8bf08331d788568c3b5bdd3f5e96ad1990514af3a"
+    },
+    {
+      "index": 17,
+      "angle_degrees": 76.5,
+      "geometry_hash": "5f213ca8382adc04d9c6a01b3ad6079f76f8048fab64da384a1517969f2c5322",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_5f213ca8382adc04d9c6a01b3ad6079f76f8048fab64da384a1517969f2c5322/solution.npz",
+      "sha256": "662ebc3bff9e1828c04bdeb96134e7fe9a8171e675d38274291c2a4ff1842c8a"
+    },
+    {
+      "index": 18,
+      "angle_degrees": 81.0,
+      "geometry_hash": "f8fb683d72f6379e309d0f130b302c1f3bdb24f3645b374e62801aff03c63e74",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_f8fb683d72f6379e309d0f130b302c1f3bdb24f3645b374e62801aff03c63e74/solution.npz",
+      "sha256": "fca8c75eff636bf0a6d3038945175153151cc6731c784dd085dddcf14eaf18f5"
+    },
+    {
+      "index": 19,
+      "angle_degrees": 85.5,
+      "geometry_hash": "09fcb451996fb2c10b9fb7ea215e701e196b8d87f4f48d7bf1f433e217b41618",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_09fcb451996fb2c10b9fb7ea215e701e196b8d87f4f48d7bf1f433e217b41618/solution.npz",
+      "sha256": "cdc48f5665390dc58682299b761069c2da1ed7a2659737cee12bf4f96f9a1633"
+    },
+    {
+      "index": 20,
+      "angle_degrees": 90.0,
+      "geometry_hash": "e709540e1ce13ace3350563036c886382986cd3a67efd336c520b6cc04c2a4ac",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_e709540e1ce13ace3350563036c886382986cd3a67efd336c520b6cc04c2a4ac/solution.npz",
+      "sha256": "a4f3ec7b3ead5d73a2afba9b7123e1ff249c9f954b91c4e10f68d5ef2f442c02"
+    },
+    {
+      "index": 21,
+      "angle_degrees": 94.5,
+      "geometry_hash": "b886b330f91a195847f30d076b60b2499da7ab534d7100eb86eb5c2b1012182d",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_b886b330f91a195847f30d076b60b2499da7ab534d7100eb86eb5c2b1012182d/solution.npz",
+      "sha256": "ae94f1c055d4bce620311530ff888dc07a4a91a09b0dbde9d751c926a746ceaa"
+    },
+    {
+      "index": 22,
+      "angle_degrees": 99.0,
+      "geometry_hash": "982af2185a37fc7fed53cd520c3605861e6347c5477ee73d480f9b1fec3a82cc",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_982af2185a37fc7fed53cd520c3605861e6347c5477ee73d480f9b1fec3a82cc/solution.npz",
+      "sha256": "c26f0ce2ea88f6c8e47353576ba111e15f71cab2467f64b5db664134b340f961"
+    },
+    {
+      "index": 23,
+      "angle_degrees": 103.5,
+      "geometry_hash": "b47ab92ebc29d7001be42381373ac1ed0d9cd3d25e015a8f3b4f7b28725ad46a",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_b47ab92ebc29d7001be42381373ac1ed0d9cd3d25e015a8f3b4f7b28725ad46a/solution.npz",
+      "sha256": "9bb0453ba44aa5b875a55c50893de2af6c7f2520fb47449930a94ed876549ac8"
+    },
+    {
+      "index": 24,
+      "angle_degrees": 108.0,
+      "geometry_hash": "205325e86dce616f8bd73c5e93342c94a492487e24dabd54cae909c3a9ca0522",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_205325e86dce616f8bd73c5e93342c94a492487e24dabd54cae909c3a9ca0522/solution.npz",
+      "sha256": "cd3fbc6a8836db938ad8618a7ad8f7743c90ae24c172203af4f021e2779bf40a"
+    },
+    {
+      "index": 25,
+      "angle_degrees": 112.5,
+      "geometry_hash": "040596e7c5efae2ea4e3a360bc767acc65e4828553e243e4045e60934997fe8c",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_040596e7c5efae2ea4e3a360bc767acc65e4828553e243e4045e60934997fe8c/solution.npz",
+      "sha256": "b3dee8de12147019af1763450e3811ed2f3e3d89dabaa7f8570ca4234d5ff420"
+    },
+    {
+      "index": 26,
+      "angle_degrees": 117.0,
+      "geometry_hash": "167bd938c4b2dcdde4bb593d5126aa850c13b0beb81b61293ae07d5a464bf357",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_167bd938c4b2dcdde4bb593d5126aa850c13b0beb81b61293ae07d5a464bf357/solution.npz",
+      "sha256": "97332965c6067d2989cdc750e14b9e208a2b262886b95c86a7ed1ae48f492a48"
+    },
+    {
+      "index": 27,
+      "angle_degrees": 121.5,
+      "geometry_hash": "96e53e9076ddc0ff7d94ad5299c8be7c3e8d809406cc204cfd1750dc8a6780a1",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_96e53e9076ddc0ff7d94ad5299c8be7c3e8d809406cc204cfd1750dc8a6780a1/solution.npz",
+      "sha256": "36630b3686a1581dbcd620b89455b45cc02b0da877c90570fc4f539feddee458"
+    },
+    {
+      "index": 28,
+      "angle_degrees": 126.0,
+      "geometry_hash": "6aced34e9aa092cf99832735884914a0f57a1a5d79649ece417a507ca41b88ed",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_6aced34e9aa092cf99832735884914a0f57a1a5d79649ece417a507ca41b88ed/solution.npz",
+      "sha256": "779b86e4a7d39452eaa6137304347bcdade5a491e309a41f2802fa3eda6fe88a"
+    },
+    {
+      "index": 29,
+      "angle_degrees": 130.5,
+      "geometry_hash": "fe3293fdd1f05558d4e342260e93136927741f8c18f87bf512933fb80160cc5e",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_fe3293fdd1f05558d4e342260e93136927741f8c18f87bf512933fb80160cc5e/solution.npz",
+      "sha256": "e69a269b7bbef670c31b05a421ef1f67e04ddd7094f13053390421aaf2c17068"
+    },
+    {
+      "index": 30,
+      "angle_degrees": 135.0,
+      "geometry_hash": "91d65a95e8bfbe3c8d2fbb9cdadf71066fc4488a558cc424eed188fae528b490",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_91d65a95e8bfbe3c8d2fbb9cdadf71066fc4488a558cc424eed188fae528b490/solution.npz",
+      "sha256": "1c0feb19e91921c1cb0813e3a4a1dc5c03779a2917c8667bd426e5807d462ace"
+    },
+    {
+      "index": 31,
+      "angle_degrees": 139.5,
+      "geometry_hash": "2ef635a2cbe7ca1c2fb4ac9146e7ca68c2e60d1a5143a34a0ddd6e17fcdb4d1d",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_2ef635a2cbe7ca1c2fb4ac9146e7ca68c2e60d1a5143a34a0ddd6e17fcdb4d1d/solution.npz",
+      "sha256": "1150e6dcd207331220e4833e0f7ca94ba6eaf369a9b895efd6df99e0559ca3ea"
+    },
+    {
+      "index": 32,
+      "angle_degrees": 144.0,
+      "geometry_hash": "d51a85397ec3aa92fd14f8b24d668ff4d4e9811654263e29f04f84f2f7ad838d",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_d51a85397ec3aa92fd14f8b24d668ff4d4e9811654263e29f04f84f2f7ad838d/solution.npz",
+      "sha256": "e113547694eac8207527cb6fe968e40b4cbd1504e0b1dd235b342ecbcea47847"
+    },
+    {
+      "index": 33,
+      "angle_degrees": 148.5,
+      "geometry_hash": "d779229ef5069fc1bfc2a717be2a2a67c6ba8f2ade94d4fef413580278196d09",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_d779229ef5069fc1bfc2a717be2a2a67c6ba8f2ade94d4fef413580278196d09/solution.npz",
+      "sha256": "2dd5815ef8470b3c818381d7c5c11ded32f4573b6f223c5547dc4b978dc9754f"
+    },
+    {
+      "index": 34,
+      "angle_degrees": 153.0,
+      "geometry_hash": "37a50912a13a7b0d18a09369dae6fcb31ad3445dec5965e67572202f13b5c58c",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_37a50912a13a7b0d18a09369dae6fcb31ad3445dec5965e67572202f13b5c58c/solution.npz",
+      "sha256": "740dcc4be8363e77e0ec2748f81428efc51ed73b99ebcbe3470b7586327b31d8"
+    },
+    {
+      "index": 35,
+      "angle_degrees": 157.5,
+      "geometry_hash": "2ba88320334c9ef03a22f5dbe909ad420178d87f9a862d3244560cb75d1d3fef",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_2ba88320334c9ef03a22f5dbe909ad420178d87f9a862d3244560cb75d1d3fef/solution.npz",
+      "sha256": "b5653fa47471ec1de94386bd60ee532d0d177239c3ff93e0f9a285b1b5c33d2c"
+    },
+    {
+      "index": 36,
+      "angle_degrees": 162.0,
+      "geometry_hash": "fb29afb10e0f4ad3a09d60f78b8f3aa144f7519f50c7d8fa55e8d25d3fb4b758",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_fb29afb10e0f4ad3a09d60f78b8f3aa144f7519f50c7d8fa55e8d25d3fb4b758/solution.npz",
+      "sha256": "1b1f30c22cf3d03a42bc31d3b554acaa438b7762cb16f369ad77d343eed96176"
+    },
+    {
+      "index": 37,
+      "angle_degrees": 166.5,
+      "geometry_hash": "cc86634bfeb6c8824431704dbb14672c24b9b7dab77bcad22ef45b1762b92a4f",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_cc86634bfeb6c8824431704dbb14672c24b9b7dab77bcad22ef45b1762b92a4f/solution.npz",
+      "sha256": "9a1dcd13df2a2d3f26f9bb17f8064c139bee71c7d5033b3a390add5e4c5538cf"
+    },
+    {
+      "index": 38,
+      "angle_degrees": 171.0,
+      "geometry_hash": "a56f58b227f4e2ac1ed273e1d2c83eaec149be1215b3e53dffc5e10fd95abeae",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_a56f58b227f4e2ac1ed273e1d2c83eaec149be1215b3e53dffc5e10fd95abeae/solution.npz",
+      "sha256": "d3c453ad28e049f2b6c5cd20b758c692f0e1ee8a18256aa764b56eef4d5df0d6"
+    },
+    {
+      "index": 39,
+      "angle_degrees": 175.5,
+      "geometry_hash": "c9f6a483a134baff29bd3c200c7ecbe40bbdd1aee4cf8bec08302fd5b4c9b7a0",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_c9f6a483a134baff29bd3c200c7ecbe40bbdd1aee4cf8bec08302fd5b4c9b7a0/solution.npz",
+      "sha256": "56ab6698baec909c726808dad066e423ec66050c7ecc704174cb76733be37038"
+    },
+    {
+      "index": 40,
+      "angle_degrees": 180.0,
+      "geometry_hash": "0a21cc7be089962f40451ee5771126f8abb304b97eeea98e6b6d2f228477ece5",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_0a21cc7be089962f40451ee5771126f8abb304b97eeea98e6b6d2f228477ece5/solution.npz",
+      "sha256": "340f58707cacf5bd013840d95d75c68ff5e8148dfa8ecbd73e73733a040a3fb8"
+    },
+    {
+      "index": 41,
+      "angle_degrees": 184.5,
+      "geometry_hash": "3c77993f74d0d295ecdc84dc6620d2110a824ae38c6ccadfd101b5223fc48fe7",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_3c77993f74d0d295ecdc84dc6620d2110a824ae38c6ccadfd101b5223fc48fe7/solution.npz",
+      "sha256": "cdcb42cbc7610d0f13254b041270a5a7fa6263d224d5547f57a84b6757abfa55"
+    },
+    {
+      "index": 42,
+      "angle_degrees": 189.0,
+      "geometry_hash": "01e0a0942e4805402e5e532237a161d4f820979f7cd9a165ea2f14883db58701",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_01e0a0942e4805402e5e532237a161d4f820979f7cd9a165ea2f14883db58701/solution.npz",
+      "sha256": "d52d6c6ede22bb01af75428a82a237a1fc032fac5acbb3ab1b9560b87c8c1d17"
+    },
+    {
+      "index": 43,
+      "angle_degrees": 193.5,
+      "geometry_hash": "2d8448ab60a84a182eb902416a15085df93f6d884982824b1365f80add73dcd0",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_2d8448ab60a84a182eb902416a15085df93f6d884982824b1365f80add73dcd0/solution.npz",
+      "sha256": "06225f33acffbe46671c59f760000e450210e053c1f787a10915830bc4cb046f"
+    },
+    {
+      "index": 44,
+      "angle_degrees": 198.0,
+      "geometry_hash": "69ad370575109c04c205471e709aff86ef4e4f60591dfa439c599e808a144a69",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_69ad370575109c04c205471e709aff86ef4e4f60591dfa439c599e808a144a69/solution.npz",
+      "sha256": "aabdd92c2b3f34a7b5b07ae1651ef7e6ed4699700cb13c409227cc3422a7b493"
+    },
+    {
+      "index": 45,
+      "angle_degrees": 202.5,
+      "geometry_hash": "3590485bd27e5707e1fce163119659850969a77aaf0b3b3854067548cb6cc273",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_3590485bd27e5707e1fce163119659850969a77aaf0b3b3854067548cb6cc273/solution.npz",
+      "sha256": "671ded1b71548cd40d6cb0aaefb2cfc396428f27be5af07a698d2a679e94b363"
+    },
+    {
+      "index": 46,
+      "angle_degrees": 207.0,
+      "geometry_hash": "a987b76029f8de448a95f51ab69334a8e853974c064a49a0b0dd269373a60351",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_a987b76029f8de448a95f51ab69334a8e853974c064a49a0b0dd269373a60351/solution.npz",
+      "sha256": "dd3798f1b82c41dcca9ea49fcce0e44056fc2aae488da2f38e2feba23c7b07e6"
+    },
+    {
+      "index": 47,
+      "angle_degrees": 211.5,
+      "geometry_hash": "6e109356d44a2cb9ceff1aae210720ecb3b7e4adbc08dcd34d561f9ebc093986",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_6e109356d44a2cb9ceff1aae210720ecb3b7e4adbc08dcd34d561f9ebc093986/solution.npz",
+      "sha256": "df4ebd5c1efbd52cd807f7839e169f071be349317cc3308e8668f73d27dd18a1"
+    },
+    {
+      "index": 48,
+      "angle_degrees": 216.0,
+      "geometry_hash": "6780b463677ee3a7783089dfe727e3fd0d7a3118b642425242fc752aacc2fd45",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_6780b463677ee3a7783089dfe727e3fd0d7a3118b642425242fc752aacc2fd45/solution.npz",
+      "sha256": "2aa6d8e05e8b36ae26ee8adb1d3f9c2946583464495fd5449469fdc9201c2295"
+    },
+    {
+      "index": 49,
+      "angle_degrees": 220.5,
+      "geometry_hash": "4da2da856b4d639435dab93b56edf156d788b00b764e9cd38b664834097b8117",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_4da2da856b4d639435dab93b56edf156d788b00b764e9cd38b664834097b8117/solution.npz",
+      "sha256": "d33ccf69eeb711eb894060d660ba420ba12fe92d8581bba329c52938aa8fdd9c"
+    },
+    {
+      "index": 50,
+      "angle_degrees": 225.0,
+      "geometry_hash": "64319433fcdcce457bf6428823780731cde779f5ff50110a66c9fa36d0897dc6",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_64319433fcdcce457bf6428823780731cde779f5ff50110a66c9fa36d0897dc6/solution.npz",
+      "sha256": "9477f554f2f96b35b540698bf01c56fe3553103b094cd5018283052497132251"
+    },
+    {
+      "index": 51,
+      "angle_degrees": 229.5,
+      "geometry_hash": "69d4f7eac8f5d1624160ead4d9e04fe04708d4f24ab11befd07588e81ec7689e",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_69d4f7eac8f5d1624160ead4d9e04fe04708d4f24ab11befd07588e81ec7689e/solution.npz",
+      "sha256": "25d749ad1d6147156b2bceb70bd6a838c32cdc425d3002657ea0f0ae1c791d1e"
+    },
+    {
+      "index": 52,
+      "angle_degrees": 234.0,
+      "geometry_hash": "e248d38c1e8a4d1cb65b98959411f537ac839007664627575e74416fe2e28787",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_e248d38c1e8a4d1cb65b98959411f537ac839007664627575e74416fe2e28787/solution.npz",
+      "sha256": "5ea3c83de0bb2472e7959f1b423a5996b253f78c15a97ea065e8b3ff9ad3743b"
+    },
+    {
+      "index": 53,
+      "angle_degrees": 238.5,
+      "geometry_hash": "dcf99157b4ab74d3eb518b64dcab976002b0851a26cfdf05f70805ae57e917ca",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_dcf99157b4ab74d3eb518b64dcab976002b0851a26cfdf05f70805ae57e917ca/solution.npz",
+      "sha256": "69036b89ee7a50064af8ec1ada55ca2f57980774b8e9c324f91428ad1168d1fa"
+    },
+    {
+      "index": 54,
+      "angle_degrees": 243.0,
+      "geometry_hash": "fc7b147e1fcef38fe4535c18607a2cee1da1322fcdc88282106f5b0784715576",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_fc7b147e1fcef38fe4535c18607a2cee1da1322fcdc88282106f5b0784715576/solution.npz",
+      "sha256": "e63dcf7de7236cc581b923512747bfeae53ad90e0fec139f15cb48516d5b2438"
+    },
+    {
+      "index": 55,
+      "angle_degrees": 247.5,
+      "geometry_hash": "6f141dce90e16f9c3b95301615b1c7a1e9f05541002f9b6493e4b58cb574e34d",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_6f141dce90e16f9c3b95301615b1c7a1e9f05541002f9b6493e4b58cb574e34d/solution.npz",
+      "sha256": "573819712808b7584e9ea0410678467f5caf3dc94352d79e33fa575701be249a"
+    },
+    {
+      "index": 56,
+      "angle_degrees": 252.0,
+      "geometry_hash": "9317cda365a32608b23496520e377124e4e18406d61968cdb528baf1d314e0db",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_9317cda365a32608b23496520e377124e4e18406d61968cdb528baf1d314e0db/solution.npz",
+      "sha256": "49b6ba4c5038e02e4abeab040735ac92144ad3d070cf853f734ead292b982635"
+    },
+    {
+      "index": 57,
+      "angle_degrees": 256.5,
+      "geometry_hash": "09436af620a6989a33f110d8bd9baa71c773ea6412c357a4636e15063d534dc7",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_09436af620a6989a33f110d8bd9baa71c773ea6412c357a4636e15063d534dc7/solution.npz",
+      "sha256": "8b1da196488e361ee972d454bcff7bfd5599d8eb9d11c4d39251dee50f4b7525"
+    },
+    {
+      "index": 58,
+      "angle_degrees": 261.0,
+      "geometry_hash": "05a7320afce92cba6ff657a186d974795cfd3ae4560073c773ca094e9e9b05e5",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_05a7320afce92cba6ff657a186d974795cfd3ae4560073c773ca094e9e9b05e5/solution.npz",
+      "sha256": "2ab269411bda3675a41a135de46b3e361817f6a326d8e6e8e3559fe37eafe444"
+    },
+    {
+      "index": 59,
+      "angle_degrees": 265.5,
+      "geometry_hash": "4c554f33a54737e724bc4cab07ca542802f4811aa69ce6b3e40822ad3cd88425",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_4c554f33a54737e724bc4cab07ca542802f4811aa69ce6b3e40822ad3cd88425/solution.npz",
+      "sha256": "f433406cd2a19eb2c4fd0c3a24389c075b707a22c15d6530dfea08c4e5d199c7"
+    },
+    {
+      "index": 60,
+      "angle_degrees": 270.0,
+      "geometry_hash": "e077ea2b96adf8740cb321171d73cf4abfd53a8ed9f8d34bc37b4b77d817912f",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_e077ea2b96adf8740cb321171d73cf4abfd53a8ed9f8d34bc37b4b77d817912f/solution.npz",
+      "sha256": "55ff343ed887dbb56ec2537896496f12a539d24aca2904813e542406e3f521d5"
+    },
+    {
+      "index": 61,
+      "angle_degrees": 274.5,
+      "geometry_hash": "850d191e74bc155b3407e29696c1bd31f0bcd9a75a062088b6ca19e58c8161f2",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_850d191e74bc155b3407e29696c1bd31f0bcd9a75a062088b6ca19e58c8161f2/solution.npz",
+      "sha256": "540594e07b3fed7ca8f344d77313bcb879e110312402c6fc9f2e86db0f61bb39"
+    },
+    {
+      "index": 62,
+      "angle_degrees": 279.0,
+      "geometry_hash": "873fb4dda915d4103c4763ea9800e36b313e2987b3b7522cd3cae73cee620ac6",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_873fb4dda915d4103c4763ea9800e36b313e2987b3b7522cd3cae73cee620ac6/solution.npz",
+      "sha256": "2db434f0616fc6b20b70860c5dfd2905d54265dca25af5783f965c5e2893baca"
+    },
+    {
+      "index": 63,
+      "angle_degrees": 283.5,
+      "geometry_hash": "e09c462bddd73c703800d45c81baaa4f913fde653b00eaf7f7d220fc6080dc05",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_e09c462bddd73c703800d45c81baaa4f913fde653b00eaf7f7d220fc6080dc05/solution.npz",
+      "sha256": "e7fc3f1108bf7abd9bca02bd65d291b0f1b1ce3c4efb2381d2680f7e195ccb58"
+    },
+    {
+      "index": 64,
+      "angle_degrees": 288.0,
+      "geometry_hash": "9b8fad34017de1069610246ac10ec95ac80e06e6e773bba50d7a7794aa749dbb",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_9b8fad34017de1069610246ac10ec95ac80e06e6e773bba50d7a7794aa749dbb/solution.npz",
+      "sha256": "8317899e6304d15e6139dae3a3f7cc01e7e8a19c22b6e569f50eca827e6b5442"
+    },
+    {
+      "index": 65,
+      "angle_degrees": 292.5,
+      "geometry_hash": "8312a9bd642cabaf48897ab91f3d8d1dad68433257a3f3261aa9c95af7a94cd2",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_8312a9bd642cabaf48897ab91f3d8d1dad68433257a3f3261aa9c95af7a94cd2/solution.npz",
+      "sha256": "769e564f3e861fab37b707eccefe091a1f0327276f49b55b74fdf02436a5ed1d"
+    },
+    {
+      "index": 66,
+      "angle_degrees": 297.0,
+      "geometry_hash": "57b5bfcc12e2fc7a0d62faa35a4fc0560a90c505e6a9608aa097fc67483f18cc",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_57b5bfcc12e2fc7a0d62faa35a4fc0560a90c505e6a9608aa097fc67483f18cc/solution.npz",
+      "sha256": "7e4eaebab9c8f676a5b6df6aed726419beab43e7ac845d4355ec2400fa4f0292"
+    },
+    {
+      "index": 67,
+      "angle_degrees": 301.5,
+      "geometry_hash": "fc20c53ef82f6dc81eaf1e19fc2b8c5a5e25569a720b755f6084ca471ae986d5",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_fc20c53ef82f6dc81eaf1e19fc2b8c5a5e25569a720b755f6084ca471ae986d5/solution.npz",
+      "sha256": "9a7f4a0c9df7990d222dbc2f735bde86d42e53d9581d7bb4c28a8b541fdc5661"
+    },
+    {
+      "index": 68,
+      "angle_degrees": 306.0,
+      "geometry_hash": "e55babfac109c73a6119cae48f06097668f35e906cabd9a4f5429bae3fec70c2",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_e55babfac109c73a6119cae48f06097668f35e906cabd9a4f5429bae3fec70c2/solution.npz",
+      "sha256": "87f6dc34f2e86a0b62e398a15ca361f651507d6fc2402e3a9e8e62214b200224"
+    },
+    {
+      "index": 69,
+      "angle_degrees": 310.5,
+      "geometry_hash": "c71b334ec8dcd68948b234bfdca887ac1362001ea3985c8d52b6bb0dd03da32a",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_c71b334ec8dcd68948b234bfdca887ac1362001ea3985c8d52b6bb0dd03da32a/solution.npz",
+      "sha256": "b05db1d23ebb5ab87709fcaf4fa8b46abdde5f15f2859c9412a9381c1fb5219a"
+    },
+    {
+      "index": 70,
+      "angle_degrees": 315.0,
+      "geometry_hash": "134498dcaf66c047ec5d4543bdb1e852b99dd1dfb5217587fb3640a386a0d604",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_134498dcaf66c047ec5d4543bdb1e852b99dd1dfb5217587fb3640a386a0d604/solution.npz",
+      "sha256": "2c73f3fa368fa974b5fadab26f77c25223609e169962cdb52a1cc0a7e36b8b15"
+    },
+    {
+      "index": 71,
+      "angle_degrees": 319.5,
+      "geometry_hash": "c212c0e96265303f7eb3a953d7fa0baf05e02300b615f9d194f6ead5bf295727",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_c212c0e96265303f7eb3a953d7fa0baf05e02300b615f9d194f6ead5bf295727/solution.npz",
+      "sha256": "ba002345f6037f3a9968135308a6ad66366f275148b5a5843b525e1526381041"
+    },
+    {
+      "index": 72,
+      "angle_degrees": 324.0,
+      "geometry_hash": "4df3c10ac58d6cd23b61c14ed65646090eac9fbe715a0dcad4557ccd50d7f0c9",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_4df3c10ac58d6cd23b61c14ed65646090eac9fbe715a0dcad4557ccd50d7f0c9/solution.npz",
+      "sha256": "330f72155e768ff6edbdcea89a3c892b572ceb262f82c02d5168eb3ab2e78e4f"
+    },
+    {
+      "index": 73,
+      "angle_degrees": 328.5,
+      "geometry_hash": "d1e43d5c1c593f56d27c1bf99b71dc8f47ae7229154f4c58ed80f8abdc571787",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_d1e43d5c1c593f56d27c1bf99b71dc8f47ae7229154f4c58ed80f8abdc571787/solution.npz",
+      "sha256": "e20bbd64002632166a8ae4fc1bd0c1369ba387a8e4e5e8cf8c4cfb76ffaf814a"
+    },
+    {
+      "index": 74,
+      "angle_degrees": 333.0,
+      "geometry_hash": "c2b6cf3976d7c002554eb97dea1a6ca8e2e945c037ca7c5c4733045f134fa5a0",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_c2b6cf3976d7c002554eb97dea1a6ca8e2e945c037ca7c5c4733045f134fa5a0/solution.npz",
+      "sha256": "7261744c85faa952b47444fc09e82634a40c72ea29b7bd32a830b89fe60ad60b"
+    },
+    {
+      "index": 75,
+      "angle_degrees": 337.5,
+      "geometry_hash": "c9d08f117cb54132b2d76de2d02dcfb035e39b96a41b8fd3a018db5ccdd5053d",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_c9d08f117cb54132b2d76de2d02dcfb035e39b96a41b8fd3a018db5ccdd5053d/solution.npz",
+      "sha256": "3abaf7e5f55a0efa5d5f98ba19af0170e17a670db3fa82e76b0c509c6dd78df3"
+    },
+    {
+      "index": 76,
+      "angle_degrees": 342.0,
+      "geometry_hash": "20744c0955acf9ad7fcfa3733ec7fe0a22d1b52faebcf9853d50469645279baf",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_20744c0955acf9ad7fcfa3733ec7fe0a22d1b52faebcf9853d50469645279baf/solution.npz",
+      "sha256": "4e27a7401383b15cb21efd7a09899be230335872f119b7f69334b56f92f49d72"
+    },
+    {
+      "index": 77,
+      "angle_degrees": 346.5,
+      "geometry_hash": "5e266010eb341e19795b2330a3ae314e63a8489d044d849d02d98e7f71133203",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_5e266010eb341e19795b2330a3ae314e63a8489d044d849d02d98e7f71133203/solution.npz",
+      "sha256": "c846c3cd4661f016633145599a20bcdc3c6a2c265ad742ad796b941bdef8deb7"
+    },
+    {
+      "index": 78,
+      "angle_degrees": 351.0,
+      "geometry_hash": "d4bceb9be43d57671fcf28371b356d63e9f4c8246784cbe2c1d87b8f0a9c7eec",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_d4bceb9be43d57671fcf28371b356d63e9f4c8246784cbe2c1d87b8f0a9c7eec/solution.npz",
+      "sha256": "228a291f8c4c8057fd9ef7694428bc481325a07c5825221c90e6039224ccc6b2"
+    },
+    {
+      "index": 79,
+      "angle_degrees": 355.5,
+      "geometry_hash": "27879854c2aae1a1d788c1453a8d85e1b1675005eac8310ae380e04d2cd69ed7",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_relaxed_multiring_v1_work/points/point_27879854c2aae1a1d788c1453a8d85e1b1675005eac8310ae380e04d2cd69ed7/solution.npz",
+      "sha256": "4c825ecb2402b64e57061c548203fffdefcccd2b0f050213d225da1596a8cfdd"
+    }
+  ],
+  "reference_SA3_integrity": [
+    {
+      "index": 0,
+      "reference_index": 0,
+      "angle_degrees": 0.0,
+      "geometry_hash": "f494f79cefb3fdd542d3a82dcb88b6e8d62a1e626dcd1ac534713eabf67c7be8",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_000.0_deg/solution.npz",
+      "sha256": "7f9bb9863cfb50dbad51681553da6ddb3385f6a916f09b70b278d605322b5727"
+    },
+    {
+      "index": 2,
+      "reference_index": 1,
+      "angle_degrees": 9.0,
+      "geometry_hash": "560afb283fb0b41976a88a7bb4107e1424785158e0684ed6d015fb1a3f1e65b0",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_009.0_deg/solution.npz",
+      "sha256": "4ba2d58947c32ced877f3592605835336409502a1d5ea8f4affa22e0f85e87ae"
+    },
+    {
+      "index": 4,
+      "reference_index": 2,
+      "angle_degrees": 18.0,
+      "geometry_hash": "c630f6e061b82f923eed0eff3ad70c72ae40e7351e3b02a8cdd291140b4008be",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_018.0_deg/solution.npz",
+      "sha256": "4f462a76fe4522e50c7e59981ff4d1226179d543a5eecff40f1ae3d0db924278"
+    },
+    {
+      "index": 6,
+      "reference_index": 3,
+      "angle_degrees": 27.0,
+      "geometry_hash": "ea8e2e6cd622d769f2efe90690c949916caf4d33e80e1098323528b229392745",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_027.0_deg/solution.npz",
+      "sha256": "80a7616f8dcc22a2ed472b37e8dc88817574a15241b945eded7da594870d6cb2"
+    },
+    {
+      "index": 8,
+      "reference_index": 4,
+      "angle_degrees": 36.0,
+      "geometry_hash": "629d74d1b9a4b88d89d3d2103aa7fe779bc52a4d68476c22c390e8cb98c5b30e",
+      "path": "${CPDC_ARCHIVE_ROOT}/CPDC_ccpVTZ_rank2_projector_v1_work/sa3_spots/theta_036.0_deg/solution.npz",
+      "sha256": "2870e6a094828624d6a21cb42b1410bd9e8647818a3d32328754e80b9614cd95"
+    }
+  ],
+  "reference_Wilson_invariants": {
+    "trace": {
+      "real": 1.9999993287087285,
+      "imag": 0.0
+    },
+    "determinant": {
+      "real": 0.9999999999999928,
+      "imag": 0.0
+    },
+    "eigenphases_rad": [
+      -0.0008193236856914844,
+      0.0008193236856915122
+    ],
+    "unitarity_error": 8.881784197001252e-15
+  },
+  "reference_mesh_convergence": {
+    "coarse_npoints": 40,
+    "fine_npoints": 80,
+    "eigenphase_set_difference_rad": 9.641284466778703e-06,
+    "trace_difference": 1.5705714950797756e-08,
+    "determinant_difference": 5.773159728050814e-15
+  }
+}

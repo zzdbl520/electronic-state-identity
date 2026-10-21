@@ -1,0 +1,400 @@
+BeH2 B0 stationary-solution reconnaissance
+{
+  "coordinate": {
+    "unit": "Bohr",
+    "Be": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "H1": [
+      "lambda",
+      "+(2.540-0.46*lambda)",
+      0.0
+    ],
+    "H2": [
+      "lambda",
+      "-(2.540-0.46*lambda)",
+      0.0
+    ]
+  },
+  "basis": "cc-pVTZ",
+  "active_space": {
+    "electrons": 6,
+    "orbitals": 6
+  },
+  "freeze_core": true,
+  "targets_bohr": [
+    2.6235,
+    2.624,
+    2.62425,
+    2.6245,
+    2.625
+  ],
+  "irreps": [
+    "A1",
+    "B2"
+  ],
+  "protocols": [
+    "SA3",
+    "SA4"
+  ],
+  "sources": [
+    "common_sa2",
+    "left",
+    "rhf",
+    "right"
+  ],
+  "left_anchor_bohr": 2.616,
+  "right_anchor_bohr": 2.627,
+  "branch_step_bohr": 0.0005,
+  "threads": 64,
+  "memory_mb": 100000
+}
+
+LEFT branch A1 SA3: 20 points
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p61600000.log
+  RUN   A1 SA3 left lambda=2.61600000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p61650000.log
+  RUN   A1 SA3 left lambda=2.61650000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p61700000.log
+  RUN   A1 SA3 left lambda=2.61700000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p61750000.log
+  RUN   A1 SA3 left lambda=2.61750000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p61800000.log
+  RUN   A1 SA3 left lambda=2.61800000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p61850000.log
+  RUN   A1 SA3 left lambda=2.61850000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p61900000.log
+  RUN   A1 SA3 left lambda=2.61900000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p61950000.log
+  RUN   A1 SA3 left lambda=2.61950000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p62000000.log
+  RUN   A1 SA3 left lambda=2.62000000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p62050000.log
+  RUN   A1 SA3 left lambda=2.62050000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p62100000.log
+  RUN   A1 SA3 left lambda=2.62100000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p62150000.log
+  RUN   A1 SA3 left lambda=2.62150000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p62200000.log
+  RUN   A1 SA3 left lambda=2.62200000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p62250000.log
+  RUN   A1 SA3 left lambda=2.62250000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p62300000.log
+  RUN   A1 SA3 left lambda=2.62300000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p62350000.log
+  RUN   A1 SA3 left lambda=2.62350000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p62400000.log
+  RUN   A1 SA3 left lambda=2.62400000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p62425000.log
+  RUN   A1 SA3 left lambda=2.62425000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p62450000.log
+  RUN   A1 SA3 left lambda=2.62450000
+output file: BeH2_B0_work/logs/A1/SA3/left/lambda_2p62500000.log
+  RUN   A1 SA3 left lambda=2.62500000
+
+RIGHT branch A1 SA3: 9 points
+output file: BeH2_B0_work/logs/A1/SA3/right/lambda_2p62700000.log
+  RUN   A1 SA3 right lambda=2.62700000
+output file: BeH2_B0_work/logs/A1/SA3/right/lambda_2p62650000.log
+  RUN   A1 SA3 right lambda=2.62650000
+output file: BeH2_B0_work/logs/A1/SA3/right/lambda_2p62600000.log
+  RUN   A1 SA3 right lambda=2.62600000
+output file: BeH2_B0_work/logs/A1/SA3/right/lambda_2p62550000.log
+  RUN   A1 SA3 right lambda=2.62550000
+output file: BeH2_B0_work/logs/A1/SA3/right/lambda_2p62500000.log
+  RUN   A1 SA3 right lambda=2.62500000
+output file: BeH2_B0_work/logs/A1/SA3/right/lambda_2p62450000.log
+  RUN   A1 SA3 right lambda=2.62450000
+output file: BeH2_B0_work/logs/A1/SA3/right/lambda_2p62425000.log
+  RUN   A1 SA3 right lambda=2.62425000
+output file: BeH2_B0_work/logs/A1/SA3/right/lambda_2p62400000.log
+  RUN   A1 SA3 right lambda=2.62400000
+output file: BeH2_B0_work/logs/A1/SA3/right/lambda_2p62350000.log
+  RUN   A1 SA3 right lambda=2.62350000
+
+LEFT branch A1 SA4: 20 points
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p61600000.log
+  RUN   A1 SA4 left lambda=2.61600000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p61650000.log
+  RUN   A1 SA4 left lambda=2.61650000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p61700000.log
+  RUN   A1 SA4 left lambda=2.61700000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p61750000.log
+  RUN   A1 SA4 left lambda=2.61750000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p61800000.log
+  RUN   A1 SA4 left lambda=2.61800000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p61850000.log
+  RUN   A1 SA4 left lambda=2.61850000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p61900000.log
+  RUN   A1 SA4 left lambda=2.61900000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p61950000.log
+  RUN   A1 SA4 left lambda=2.61950000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p62000000.log
+  RUN   A1 SA4 left lambda=2.62000000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p62050000.log
+  RUN   A1 SA4 left lambda=2.62050000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p62100000.log
+  RUN   A1 SA4 left lambda=2.62100000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p62150000.log
+  RUN   A1 SA4 left lambda=2.62150000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p62200000.log
+  RUN   A1 SA4 left lambda=2.62200000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p62250000.log
+  RUN   A1 SA4 left lambda=2.62250000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p62300000.log
+  RUN   A1 SA4 left lambda=2.62300000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p62350000.log
+  RUN   A1 SA4 left lambda=2.62350000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p62400000.log
+  RUN   A1 SA4 left lambda=2.62400000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p62425000.log
+  RUN   A1 SA4 left lambda=2.62425000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p62450000.log
+  RUN   A1 SA4 left lambda=2.62450000
+output file: BeH2_B0_work/logs/A1/SA4/left/lambda_2p62500000.log
+  RUN   A1 SA4 left lambda=2.62500000
+
+RIGHT branch A1 SA4: 9 points
+output file: BeH2_B0_work/logs/A1/SA4/right/lambda_2p62700000.log
+  RUN   A1 SA4 right lambda=2.62700000
+output file: BeH2_B0_work/logs/A1/SA4/right/lambda_2p62650000.log
+  RUN   A1 SA4 right lambda=2.62650000
+output file: BeH2_B0_work/logs/A1/SA4/right/lambda_2p62600000.log
+  RUN   A1 SA4 right lambda=2.62600000
+output file: BeH2_B0_work/logs/A1/SA4/right/lambda_2p62550000.log
+  RUN   A1 SA4 right lambda=2.62550000
+output file: BeH2_B0_work/logs/A1/SA4/right/lambda_2p62500000.log
+  RUN   A1 SA4 right lambda=2.62500000
+output file: BeH2_B0_work/logs/A1/SA4/right/lambda_2p62450000.log
+  RUN   A1 SA4 right lambda=2.62450000
+output file: BeH2_B0_work/logs/A1/SA4/right/lambda_2p62425000.log
+  RUN   A1 SA4 right lambda=2.62425000
+output file: BeH2_B0_work/logs/A1/SA4/right/lambda_2p62400000.log
+  RUN   A1 SA4 right lambda=2.62400000
+output file: BeH2_B0_work/logs/A1/SA4/right/lambda_2p62350000.log
+  RUN   A1 SA4 right lambda=2.62350000
+
+LEFT branch B2 SA3: 20 points
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p61600000.log
+  RUN   B2 SA3 left lambda=2.61600000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p61650000.log
+  RUN   B2 SA3 left lambda=2.61650000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p61700000.log
+  RUN   B2 SA3 left lambda=2.61700000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p61750000.log
+  RUN   B2 SA3 left lambda=2.61750000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p61800000.log
+  RUN   B2 SA3 left lambda=2.61800000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p61850000.log
+  RUN   B2 SA3 left lambda=2.61850000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p61900000.log
+  RUN   B2 SA3 left lambda=2.61900000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p61950000.log
+  RUN   B2 SA3 left lambda=2.61950000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p62000000.log
+  RUN   B2 SA3 left lambda=2.62000000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p62050000.log
+  RUN   B2 SA3 left lambda=2.62050000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p62100000.log
+  RUN   B2 SA3 left lambda=2.62100000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p62150000.log
+  RUN   B2 SA3 left lambda=2.62150000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p62200000.log
+  RUN   B2 SA3 left lambda=2.62200000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p62250000.log
+  RUN   B2 SA3 left lambda=2.62250000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p62300000.log
+  RUN   B2 SA3 left lambda=2.62300000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p62350000.log
+  RUN   B2 SA3 left lambda=2.62350000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p62400000.log
+  RUN   B2 SA3 left lambda=2.62400000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p62425000.log
+  RUN   B2 SA3 left lambda=2.62425000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p62450000.log
+  RUN   B2 SA3 left lambda=2.62450000
+output file: BeH2_B0_work/logs/B2/SA3/left/lambda_2p62500000.log
+  RUN   B2 SA3 left lambda=2.62500000
+
+RIGHT branch B2 SA3: 9 points
+output file: BeH2_B0_work/logs/B2/SA3/right/lambda_2p62700000.log
+  RUN   B2 SA3 right lambda=2.62700000
+output file: BeH2_B0_work/logs/B2/SA3/right/lambda_2p62650000.log
+  RUN   B2 SA3 right lambda=2.62650000
+output file: BeH2_B0_work/logs/B2/SA3/right/lambda_2p62600000.log
+  RUN   B2 SA3 right lambda=2.62600000
+output file: BeH2_B0_work/logs/B2/SA3/right/lambda_2p62550000.log
+  RUN   B2 SA3 right lambda=2.62550000
+output file: BeH2_B0_work/logs/B2/SA3/right/lambda_2p62500000.log
+  RUN   B2 SA3 right lambda=2.62500000
+output file: BeH2_B0_work/logs/B2/SA3/right/lambda_2p62450000.log
+  RUN   B2 SA3 right lambda=2.62450000
+output file: BeH2_B0_work/logs/B2/SA3/right/lambda_2p62425000.log
+  RUN   B2 SA3 right lambda=2.62425000
+output file: BeH2_B0_work/logs/B2/SA3/right/lambda_2p62400000.log
+  RUN   B2 SA3 right lambda=2.62400000
+output file: BeH2_B0_work/logs/B2/SA3/right/lambda_2p62350000.log
+  RUN   B2 SA3 right lambda=2.62350000
+
+LEFT branch B2 SA4: 20 points
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p61600000.log
+  RUN   B2 SA4 left lambda=2.61600000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p61650000.log
+  RUN   B2 SA4 left lambda=2.61650000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p61700000.log
+  RUN   B2 SA4 left lambda=2.61700000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p61750000.log
+  RUN   B2 SA4 left lambda=2.61750000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p61800000.log
+  RUN   B2 SA4 left lambda=2.61800000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p61850000.log
+  RUN   B2 SA4 left lambda=2.61850000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p61900000.log
+  RUN   B2 SA4 left lambda=2.61900000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p61950000.log
+  RUN   B2 SA4 left lambda=2.61950000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p62000000.log
+  RUN   B2 SA4 left lambda=2.62000000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p62050000.log
+  RUN   B2 SA4 left lambda=2.62050000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p62100000.log
+  RUN   B2 SA4 left lambda=2.62100000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p62150000.log
+  RUN   B2 SA4 left lambda=2.62150000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p62200000.log
+  RUN   B2 SA4 left lambda=2.62200000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p62250000.log
+  RUN   B2 SA4 left lambda=2.62250000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p62300000.log
+  RUN   B2 SA4 left lambda=2.62300000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p62350000.log
+  RUN   B2 SA4 left lambda=2.62350000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p62400000.log
+  RUN   B2 SA4 left lambda=2.62400000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p62425000.log
+  RUN   B2 SA4 left lambda=2.62425000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p62450000.log
+  RUN   B2 SA4 left lambda=2.62450000
+output file: BeH2_B0_work/logs/B2/SA4/left/lambda_2p62500000.log
+  RUN   B2 SA4 left lambda=2.62500000
+
+RIGHT branch B2 SA4: 9 points
+output file: BeH2_B0_work/logs/B2/SA4/right/lambda_2p62700000.log
+  RUN   B2 SA4 right lambda=2.62700000
+output file: BeH2_B0_work/logs/B2/SA4/right/lambda_2p62650000.log
+  RUN   B2 SA4 right lambda=2.62650000
+output file: BeH2_B0_work/logs/B2/SA4/right/lambda_2p62600000.log
+  RUN   B2 SA4 right lambda=2.62600000
+output file: BeH2_B0_work/logs/B2/SA4/right/lambda_2p62550000.log
+  RUN   B2 SA4 right lambda=2.62550000
+output file: BeH2_B0_work/logs/B2/SA4/right/lambda_2p62500000.log
+  RUN   B2 SA4 right lambda=2.62500000
+output file: BeH2_B0_work/logs/B2/SA4/right/lambda_2p62450000.log
+  RUN   B2 SA4 right lambda=2.62450000
+output file: BeH2_B0_work/logs/B2/SA4/right/lambda_2p62425000.log
+  RUN   B2 SA4 right lambda=2.62425000
+output file: BeH2_B0_work/logs/B2/SA4/right/lambda_2p62400000.log
+  RUN   B2 SA4 right lambda=2.62400000
+output file: BeH2_B0_work/logs/B2/SA4/right/lambda_2p62350000.log
+  RUN   B2 SA4 right lambda=2.62350000
+
+COMMON-SA2 seed lambda=2.62350000
+output file: BeH2_B0_work/logs/common_sa2_seeds/lambda_2p62350000.log
+output file: BeH2_B0_work/logs/A1/SA3/common_sa2/lambda_2p62350000.log
+  RUN   A1 SA3 common_sa2 lambda=2.62350000
+output file: BeH2_B0_work/logs/A1/SA3/rhf/lambda_2p62350000.log
+  RUN   A1 SA3 rhf lambda=2.62350000
+output file: BeH2_B0_work/logs/A1/SA4/common_sa2/lambda_2p62350000.log
+  RUN   A1 SA4 common_sa2 lambda=2.62350000
+output file: BeH2_B0_work/logs/A1/SA4/rhf/lambda_2p62350000.log
+  RUN   A1 SA4 rhf lambda=2.62350000
+output file: BeH2_B0_work/logs/B2/SA3/common_sa2/lambda_2p62350000.log
+  RUN   B2 SA3 common_sa2 lambda=2.62350000
+output file: BeH2_B0_work/logs/B2/SA3/rhf/lambda_2p62350000.log
+  RUN   B2 SA3 rhf lambda=2.62350000
+output file: BeH2_B0_work/logs/B2/SA4/common_sa2/lambda_2p62350000.log
+  RUN   B2 SA4 common_sa2 lambda=2.62350000
+output file: BeH2_B0_work/logs/B2/SA4/rhf/lambda_2p62350000.log
+  RUN   B2 SA4 rhf lambda=2.62350000
+
+COMMON-SA2 seed lambda=2.62400000
+output file: BeH2_B0_work/logs/common_sa2_seeds/lambda_2p62400000.log
+output file: BeH2_B0_work/logs/A1/SA3/common_sa2/lambda_2p62400000.log
+  RUN   A1 SA3 common_sa2 lambda=2.62400000
+output file: BeH2_B0_work/logs/A1/SA3/rhf/lambda_2p62400000.log
+  RUN   A1 SA3 rhf lambda=2.62400000
+output file: BeH2_B0_work/logs/A1/SA4/common_sa2/lambda_2p62400000.log
+  RUN   A1 SA4 common_sa2 lambda=2.62400000
+output file: BeH2_B0_work/logs/A1/SA4/rhf/lambda_2p62400000.log
+  RUN   A1 SA4 rhf lambda=2.62400000
+output file: BeH2_B0_work/logs/B2/SA3/common_sa2/lambda_2p62400000.log
+  RUN   B2 SA3 common_sa2 lambda=2.62400000
+output file: BeH2_B0_work/logs/B2/SA3/rhf/lambda_2p62400000.log
+  RUN   B2 SA3 rhf lambda=2.62400000
+output file: BeH2_B0_work/logs/B2/SA4/common_sa2/lambda_2p62400000.log
+  RUN   B2 SA4 common_sa2 lambda=2.62400000
+output file: BeH2_B0_work/logs/B2/SA4/rhf/lambda_2p62400000.log
+  RUN   B2 SA4 rhf lambda=2.62400000
+
+COMMON-SA2 seed lambda=2.62425000
+output file: BeH2_B0_work/logs/common_sa2_seeds/lambda_2p62425000.log
+output file: BeH2_B0_work/logs/A1/SA3/common_sa2/lambda_2p62425000.log
+  RUN   A1 SA3 common_sa2 lambda=2.62425000
+output file: BeH2_B0_work/logs/A1/SA3/rhf/lambda_2p62425000.log
+  RUN   A1 SA3 rhf lambda=2.62425000
+output file: BeH2_B0_work/logs/A1/SA4/common_sa2/lambda_2p62425000.log
+  RUN   A1 SA4 common_sa2 lambda=2.62425000
+output file: BeH2_B0_work/logs/A1/SA4/rhf/lambda_2p62425000.log
+  RUN   A1 SA4 rhf lambda=2.62425000
+output file: BeH2_B0_work/logs/B2/SA3/common_sa2/lambda_2p62425000.log
+  RUN   B2 SA3 common_sa2 lambda=2.62425000
+output file: BeH2_B0_work/logs/B2/SA3/rhf/lambda_2p62425000.log
+  RUN   B2 SA3 rhf lambda=2.62425000
+output file: BeH2_B0_work/logs/B2/SA4/common_sa2/lambda_2p62425000.log
+  RUN   B2 SA4 common_sa2 lambda=2.62425000
+output file: BeH2_B0_work/logs/B2/SA4/rhf/lambda_2p62425000.log
+  RUN   B2 SA4 rhf lambda=2.62425000
+
+COMMON-SA2 seed lambda=2.62450000
+output file: BeH2_B0_work/logs/common_sa2_seeds/lambda_2p62450000.log
+output file: BeH2_B0_work/logs/A1/SA3/common_sa2/lambda_2p62450000.log
+  RUN   A1 SA3 common_sa2 lambda=2.62450000
+output file: BeH2_B0_work/logs/A1/SA3/rhf/lambda_2p62450000.log
+  RUN   A1 SA3 rhf lambda=2.62450000
+output file: BeH2_B0_work/logs/A1/SA4/common_sa2/lambda_2p62450000.log
+  RUN   A1 SA4 common_sa2 lambda=2.62450000
+output file: BeH2_B0_work/logs/A1/SA4/rhf/lambda_2p62450000.log
+  RUN   A1 SA4 rhf lambda=2.62450000
+output file: BeH2_B0_work/logs/B2/SA3/common_sa2/lambda_2p62450000.log
+  RUN   B2 SA3 common_sa2 lambda=2.62450000
+output file: BeH2_B0_work/logs/B2/SA3/rhf/lambda_2p62450000.log
+  RUN   B2 SA3 rhf lambda=2.62450000
+output file: BeH2_B0_work/logs/B2/SA4/common_sa2/lambda_2p62450000.log
+  RUN   B2 SA4 common_sa2 lambda=2.62450000
+output file: BeH2_B0_work/logs/B2/SA4/rhf/lambda_2p62450000.log
+  RUN   B2 SA4 rhf lambda=2.62450000
+
+COMMON-SA2 seed lambda=2.62500000
+output file: BeH2_B0_work/logs/common_sa2_seeds/lambda_2p62500000.log
+output file: BeH2_B0_work/logs/A1/SA3/common_sa2/lambda_2p62500000.log
+  RUN   A1 SA3 common_sa2 lambda=2.62500000
+output file: BeH2_B0_work/logs/A1/SA3/rhf/lambda_2p62500000.log
+  RUN   A1 SA3 rhf lambda=2.62500000
+output file: BeH2_B0_work/logs/A1/SA4/common_sa2/lambda_2p62500000.log
+  RUN   A1 SA4 common_sa2 lambda=2.62500000
+output file: BeH2_B0_work/logs/A1/SA4/rhf/lambda_2p62500000.log
+  RUN   A1 SA4 rhf lambda=2.62500000
+output file: BeH2_B0_work/logs/B2/SA3/common_sa2/lambda_2p62500000.log
+  RUN   B2 SA3 common_sa2 lambda=2.62500000
+output file: BeH2_B0_work/logs/B2/SA3/rhf/lambda_2p62500000.log
+  RUN   B2 SA3 rhf lambda=2.62500000
+output file: BeH2_B0_work/logs/B2/SA4/common_sa2/lambda_2p62500000.log
+  RUN   B2 SA4 common_sa2 lambda=2.62500000
+output file: BeH2_B0_work/logs/B2/SA4/rhf/lambda_2p62500000.log
+  RUN   B2 SA4 rhf lambda=2.62500000
+
+Completed solution files: 156
+Failure records         : 0
+Summary CSV             : BeH2_B0_work/B0_attempts.csv

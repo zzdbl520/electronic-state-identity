@@ -1,0 +1,6 @@
+comparison,phase_difference_rad
+20/40 mesh,4.121550608086475e-05
+40/80 mesh,9.641284466778703e-06
+clockwise_vs_reference,6.409434994327943e-05
+counterclockwise_vs_reference,6.415400457620114e-05
+clockwise_vs_counterclockwise,5.96546329217169e-08

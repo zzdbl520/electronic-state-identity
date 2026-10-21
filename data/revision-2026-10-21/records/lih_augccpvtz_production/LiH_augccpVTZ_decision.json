@@ -1,0 +1,64 @@
+{
+  "status": "REVIEW_REQUIRED",
+  "basis": "aug-cc-pvtz",
+  "checks": {
+    "finest_loop_qualified": false,
+    "main_mesh_converged": true,
+    "opposed_histories_qualified": false,
+    "nested_loops_qualified": true,
+    "nested_mesh_converged": true
+  },
+  "C": 0.0003191614843966605,
+  "D_mu": 0.0006300487762832689,
+  "delta_mu_au": 0.015094282655319704,
+  "same_composed_assignment": true,
+  "mesh_C_difference_8_to_16": 7.386563856935386e-09,
+  "mesh_D_mu_difference_8_to_16": 6.381591890125202e-09,
+  "log_C_vs_log_area_slope": 1.0002437766170549,
+  "nested_mesh_diagnostics": [
+    {
+      "scale": 0.5,
+      "C_difference": 1.740223070395455e-09,
+      "qualified": true
+    },
+    {
+      "scale": 0.25,
+      "C_difference": 2.0582337603610975e-10,
+      "qualified": true
+    },
+    {
+      "scale": 0.125,
+      "C_difference": 5.621222736755722e-11,
+      "qualified": true
+    },
+    {
+      "scale": 0.0625,
+      "C_difference": 9.511414907744647e-12,
+      "qualified": true
+    }
+  ],
+  "smallest_loop_curvature_norm_estimate_per_Angstrom_au": 8.474492140741996,
+  "minimum_nested_C": 1.2413806846790031e-06,
+  "interpretation": "Dipole difference compares matrix representations in a common starting frame; it is not a difference in the endpoint physical dipole. Isolation probe is for the fifth singlet A1 CASCI root only.",
+  "thresholds": {
+    "eta_min": 0.98,
+    "leakage_max": 0.01,
+    "assignment_margin_min": 0.1,
+    "max_orbital_gradient": 1e-06,
+    "min_excluded_A1_gap_Eh": 0.01,
+    "max_spin_square": 1e-07,
+    "max_mo_orth_error": 1e-09,
+    "max_probe_energy_error_Eh": 1e-08,
+    "max_algebra_error": 1e-09,
+    "history_max_average_energy_error_Eh": 1e-08,
+    "history_min_eta": 0.9999,
+    "history_max_leakage": 1e-06,
+    "history_max_C_difference": 1e-08,
+    "history_max_D_mu_difference": 1e-08,
+    "mesh_C_relative_tolerance": 0.001,
+    "mesh_C_absolute_tolerance": 1e-08,
+    "mesh_D_mu_relative_tolerance": 0.001,
+    "mesh_D_mu_absolute_tolerance": 1e-08
+  },
+  "plan_fingerprint": "a9c63b81faf21ad3e8e6b85318a4b783ac3b89177850d713d3b293e8fa547f62"
+}

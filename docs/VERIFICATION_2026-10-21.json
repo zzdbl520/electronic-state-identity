@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-21",
+  "scope": "Repository integration and offline replay; no new CASSCF optimizations",
+  "source_archive_manifest": "All 3305 listed source-package files verified before import",
+  "imported_source_files": 3206,
+  "lih_npz_files": 1936,
+  "transport_and_record_unittests": 7,
+  "workflow_selftests": 22,
+  "current_reference_audit": "PASS",
+  "earlier_basis_replay": {
+    "hashes_checked": 531,
+    "loop_replays": 18,
+    "maximum_C_replay_error": 0.0,
+    "maximum_D_mu_replay_error": 0.0,
+    "basis_results": {
+      "augccpvdz": {
+        "direct_loops": 11,
+        "history_loops": 2,
+        "all_pass": true
+      },
+      "ccpvtz": {
+        "direct_loops": 3,
+        "history_loops": 2,
+        "all_pass": true
+      }
+    },
+    "independent_embedded_fci_element_error": 1.1102230246251565e-16,
+    "status": "PASS"
+  },
+  "augccpvtz_replays": {
+    "production": {
+      "status": "REVIEW_REQUIRED",
+      "integrity": {
+        "wavefunction_count": 736,
+        "hash_mismatches": [],
+        "missing_or_unlisted_npz": [],
+        "source_sha256": "15f834a365312b4271efa3643595f7ec0baa62d2704fca25148ed7fe47545df4",
+        "source_matches_plan": true,
+        "plan_fingerprint_matches": true
+      },
+      "audit_sha256": "5d256e0cfea688948a85314847adc3705a51a3eff51bf029442d8082bdb69be1"
+    },
+    "refinement": {
+      "status": "QUALIFIED_VERIFIED",
+      "integrity": {
+        "wavefunctions": 644,
+        "group_counts": {
+          "baseline": 64,
+          "candidates": 180,
+          "histories": 310,
+          "solutions": 90
+        },
+        "all_hashes_match": true,
+        "all_code_and_plan_hashes_match": true,
+        "baseline_matches_original_manifest": true,
+        "selected_candidate_arrays_match": true,
+        "selected_routes": {
+          "one_step": 35,
+          "newton": 55
+        }
+      },
+      "audit_sha256": "fe185ea82634ed0b2592ceb1236bb606d73b06e4c7377a57c6d40c462bb8abe2",
+      "final_checks": {
+        "inherited_global_mesh_converged": true,
+        "inherited_nested_loops_qualified": true,
+        "inherited_nested_mesh_converged": true,
+        "supplemental_finest_loop_qualified": true,
+        "adjacent_refinement_levels_stable": true,
+        "C_consistent_with_original_n16": true,
+        "D_mu_consistent_with_original_n16": true,
+        "opposed_histories_qualified_on_final_mesh": true
+      }
+    }
+  },
+  "derived_summaries": "All three summaries regenerated and matched deposited JSON exactly",
+  "historical_limits": "See DATA_AVAILABILITY.md; original failures remain archived.",
+  "wavefunction_archive": {
+    "parts": 10,
+    "npz_files": 1936,
+    "fresh_destination_extraction": "PASS",
+    "validation": "Archive-part, assembled-archive and all per-file SHA-256 hashes verified"
+  },
+  "rendered_figures_uploaded": false,
+  "historical_archive_repacking": "PASS: all included members checked byte-for-byte; figures excluded",
+  "o3_archive_transfer": {
+    "parts": 6,
+    "archive_bytes": 22862725,
+    "reassembled_sha256": "3e86b410935e18184c90d9cce0bfa3b84c8a0ccc283b2360c1e7fa6795bf0132",
+    "byte_identity": "PASS"
+  }
+}

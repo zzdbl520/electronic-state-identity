@@ -1,0 +1,7 @@
+LiH / aug-cc-pVTZ local refinement: QUALIFIED
+Reason: Two successive local refinements and complete opposed histories passed; inspect inherited and original-n16 comparisons in checks.
+Local factor=16; edges=154
+C=3.191653837014e-04; D_mu=6.300611946497e-04
+eta=0.9997918306; leakage=4.045888e-04; margin=0.37613122
+Checks: {"inherited_global_mesh_converged": true, "inherited_nested_loops_qualified": true, "inherited_nested_mesh_converged": true, "supplemental_finest_loop_qualified": true, "adjacent_refinement_levels_stable": true, "C_consistent_with_original_n16": true, "D_mu_consistent_with_original_n16": true, "opposed_histories_qualified_on_final_mesh": true}
+Original result files and original REVIEW_REQUIRED decision are preserved.

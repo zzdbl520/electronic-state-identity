@@ -1,0 +1,22 @@
+{
+  "lih_augccpvtz_production": {
+    "npz_files": 736,
+    "hash_mismatches": [],
+    "group_counts": {
+      "candidates": 404,
+      "histories": 130,
+      "solutions": 202
+    }
+  },
+  "lih_augccpvtz_local_refinement": {
+    "npz_files": 644,
+    "hash_mismatches": [],
+    "group_counts": {
+      "baseline": 64,
+      "candidates": 180,
+      "histories": 310,
+      "solutions": 90
+    }
+  },
+  "all_npz_files_in_records": 1936
+}

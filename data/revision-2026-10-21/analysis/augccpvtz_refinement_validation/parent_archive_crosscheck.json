@@ -1,0 +1,13 @@
+{
+  "all_match": true,
+  "reports_match_previous_uploaded_original": {
+    "plan.json": true,
+    "wavefunction_sha256.json": true,
+    "loop_results.json": true,
+    "history_results.json": true,
+    "LiH_augccpVTZ_decision.json": true,
+    "run_status.json": true,
+    "selftest.json": true,
+    "calculation_source.py": true
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "gate": "BeH2 B2 fine SA3-fold and mixed-plaquette refinement",
+  "status": "ANALYZED",
+  "solution_count": 105,
+  "branch_comparison_count": 84,
+  "plaquette_count": 40,
+  "routes": {
+    "upper_down": {
+      "maximum_curvature": 0.0005930336205526332,
+      "maximum_curvature_interval_bohr": [
+        2.5215,
+        2.522
+      ],
+      "eta_at_maximum": 0.8979739317265896,
+      "minimum_eta": 0.8979739317265896,
+      "maximum_curvature_with_eta_ge_0p85": 0.0005930336205526332,
+      "conditioned_peak_interval_bohr": [
+        2.5215,
+        2.522
+      ]
+    },
+    "unique_up": {
+      "maximum_curvature": 0.00011340385048256936,
+      "maximum_curvature_interval_bohr": [
+        2.5295,
+        2.53
+      ],
+      "eta_at_maximum": 0.8931138792762875,
+      "minimum_eta": 0.8931138792762875,
+      "maximum_curvature_with_eta_ge_0p85": 0.00011340385048256936,
+      "conditioned_peak_interval_bohr": [
+        2.5295,
+        2.53
+      ]
+    }
+  },
+  "validation": {
+    "maximum_formula_error": 2.5343225781848666e-18,
+    "maximum_random_gauge_error": 7.581165106492274e-16,
+    "maximum_polar_unitarity_error": 2.5888616463013627e-15,
+    "maximum_reverse_overlap_error": 8.052160834740644e-15
+  }
+}

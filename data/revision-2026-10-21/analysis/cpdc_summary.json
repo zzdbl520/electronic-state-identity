@@ -1,0 +1,133 @@
+{
+  "status": "RETAINED_RANK2_MANIFOLD_EVIDENCE",
+  "source_statuses": [
+    "PASS_RANK2_PROJECTOR_QUALIFICATION",
+    "PASS_RANK2_OPPOSED_HISTORY",
+    "PASS_RANK2_OPPOSED_HISTORY_REPLICATION"
+  ],
+  "scientific_scope": "Near-degenerate lowest-singlet pair, external isolation, rank-2 fidelity and Wilson spectrum; no scalar Berry phase, CI count, absolute-ground-state or individual-root identity claim.",
+  "reproducibility_scope": "Record-level arithmetic, tables and figures can be regenerated. Cartesian geometry/surface coefficients and original orbital/CI arrays are unavailable; overlaps and Wilson products cannot be independently recomputed from these files.",
+  "internal_gap_range_Eh": [
+    1.1371414018412906e-05,
+    1.8045680320710744e-05
+  ],
+  "independent_SA3_minimum_third_gap_Eh": 0.027753557199076795,
+  "independent_SA3_minimum_pair_sigma": 0.9998952895018681,
+  "mesh": [
+    {
+      "npoints": 20,
+      "positive_phase_rad": 0.0007684668951439519,
+      "minimum_pair_sigma": 0.9991174857780137,
+      "maximum_pair_leakage": 0.0017355646766115118
+    },
+    {
+      "npoints": 40,
+      "positive_phase_rad": 0.0008096824012248167,
+      "minimum_pair_sigma": 0.9997741215177959,
+      "maximum_pair_leakage": 0.00044409969711800557
+    },
+    {
+      "npoints": 80,
+      "positive_phase_rad": 0.0008193236856915122,
+      "minimum_pair_sigma": 0.9999431957665654,
+      "maximum_pair_leakage": 0.00011167376154630482
+    }
+  ],
+  "independent_SA3": [
+    {
+      "angle_degrees": 0.0,
+      "internal_gap_Eh": 1.6181773389689624e-05,
+      "third_gap_Eh": 0.027753557199076795,
+      "sigma_min": 0.9999049425283272,
+      "leakage": 0.0001386200989532682,
+      "third_root_weight": 0.00010258957440082793
+    },
+    {
+      "angle_degrees": 9.0,
+      "internal_gap_Eh": 1.6183077775622223e-05,
+      "third_gap_Eh": 0.02775355817811942,
+      "sigma_min": 0.9999035888701072,
+      "leakage": 0.00013998961391714637,
+      "third_root_weight": 0.00010520169332255503
+    },
+    {
+      "angle_degrees": 18.0,
+      "internal_gap_Eh": 1.5838788328892406e-05,
+      "third_gap_Eh": 0.02775372999906267,
+      "sigma_min": 0.9999004453612569,
+      "leakage": 0.00014317421108434036,
+      "third_root_weight": 0.0001112831151421283
+    },
+    {
+      "angle_degrees": 27.0,
+      "internal_gap_Eh": 1.5593838611493993e-05,
+      "third_gap_Eh": 0.027753852932278278,
+      "sigma_min": 0.9998971335175683,
+      "leakage": 0.00014653850147805514,
+      "third_root_weight": 0.0001177087873671838
+    },
+    {
+      "angle_degrees": 36.0,
+      "internal_gap_Eh": 1.533892478278176e-05,
+      "third_gap_Eh": 0.027753983188262055,
+      "sigma_min": 0.9998952895018681,
+      "leakage": 0.0001484126521145157,
+      "third_root_weight": 0.00012130052272365422
+    }
+  ],
+  "histories": [
+    {
+      "sequence": "Reference",
+      "positive_phase_rad": 0.0008193236856915122,
+      "minimum_pair_sigma": 0.9999431957665654,
+      "maximum_pair_leakage": 0.00011167376154630482
+    },
+    {
+      "sequence": "clockwise",
+      "positive_phase_rad": 0.0008834180356347083,
+      "minimum_pair_sigma": 0.999943011178407,
+      "maximum_pair_leakage": 0.00011186238958882377
+    },
+    {
+      "sequence": "counterclockwise",
+      "positive_phase_rad": 0.0008834776902674635,
+      "minimum_pair_sigma": 0.9999430024589165,
+      "maximum_pair_leakage": 0.00011187112800370436
+    }
+  ],
+  "reference_levels": [
+    {
+      "comparison": "20/40 mesh",
+      "phase_difference_rad": 4.121550608086475e-05
+    },
+    {
+      "comparison": "40/80 mesh",
+      "phase_difference_rad": 9.641284466778703e-06
+    },
+    {
+      "comparison": "clockwise_vs_reference",
+      "phase_difference_rad": 6.409434994327943e-05
+    },
+    {
+      "comparison": "counterclockwise_vs_reference",
+      "phase_difference_rad": 6.415400457620114e-05
+    },
+    {
+      "comparison": "clockwise_vs_counterclockwise",
+      "phase_difference_rad": 5.96546329217169e-08
+    }
+  ],
+  "gauge_eigenphase_roundoff_rad": 2.4655841604492856e-15,
+  "maximum_reference_history_phase_difference_rad": 6.415400457620114e-05,
+  "arithmetic_checks": {
+    "pair_leakage_comparisons": 569,
+    "max_leakage_discrepancy": 0.0,
+    "max_spectrum_invariant_discrepancy": 7.216503035973075e-15,
+    "phase_comparisons_pass": true
+  },
+  "source_sha256": {
+    "records/CPDC/CPDC_ccpVTZ_rank2_history_v1_decision.json": "76ea85f0d35007e62b46f01363b9518de559d7026eab269c4a65c73dbcde80cb",
+    "records/CPDC/CPDC_ccpVTZ_rank2_opposed_history_v1_decision.json": "a27fa36521c3b1e5b0c2bd6b0f6021106c56c8a3373403988339dbb2e1f539a5",
+    "records/CPDC/CPDC_ccpVTZ_rank2_projector_v1_decision.json": "db83e3883dd7cffaca6ee395a2870b5644445d7fa373b0107d19053e2db74cd1"
+  }
+}

@@ -1,0 +1,314 @@
+BeH2 B2 fine SA3-fold refinement
+{
+  "gate": "BeH2 B2 fine SA3-fold and mixed-plaquette refinement",
+  "parent_b1_workdir": "/mnt/BeH2/BeH2_B0/BeH2_B1_work/BeH2_B1_work",
+  "coordinate": {
+    "unit": "Bohr",
+    "Be": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "H1": [
+      "lambda",
+      "+(2.540-0.46*lambda)",
+      0.0
+    ],
+    "H2": [
+      "lambda",
+      "-(2.540-0.46*lambda)",
+      0.0
+    ]
+  },
+  "basis": "cc-pVTZ",
+  "active_space": {
+    "electrons": 6,
+    "orbitals": 6
+  },
+  "freeze_core": true,
+  "irrep": "A1",
+  "lambda_min_bohr": 2.52,
+  "lambda_max_bohr": 2.53,
+  "step_bohr": 0.0005,
+  "grid_bohr": [
+    2.52,
+    2.5205,
+    2.521,
+    2.5215,
+    2.522,
+    2.5225,
+    2.523,
+    2.5235,
+    2.524,
+    2.5245,
+    2.525,
+    2.5255,
+    2.526,
+    2.5265,
+    2.527,
+    2.5275,
+    2.528,
+    2.5285,
+    2.529,
+    2.5295,
+    2.53
+  ],
+  "directions": [
+    {
+      "protocol": "SA3",
+      "source": "upper_down",
+      "seed": "B1 SA3 upper at 2.5300",
+      "direction": "descending"
+    },
+    {
+      "protocol": "SA3",
+      "source": "lower_down",
+      "seed": "B1 SA3 lower at 2.5300",
+      "direction": "descending"
+    },
+    {
+      "protocol": "SA3",
+      "source": "unique_up",
+      "seed": "B1 SA3 upper (unique solution) at 2.5200",
+      "direction": "ascending"
+    },
+    {
+      "protocol": "SA4",
+      "source": "upper_down",
+      "seed": "B1 SA4 upper at 2.5300",
+      "direction": "descending"
+    },
+    {
+      "protocol": "SA4",
+      "source": "upper_up",
+      "seed": "B1 SA4 upper at 2.5200",
+      "direction": "ascending"
+    }
+  ],
+  "threads": 64,
+  "memory_mb": 100000
+}
+
+A1 SA3 upper_down: 2.530000 -> 2.520000 (21 points)
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p53000000.log
+  RUN   A1 SA3 upper_down lambda=2.53000000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52950000.log
+  RUN   A1 SA3 upper_down lambda=2.52950000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52900000.log
+  RUN   A1 SA3 upper_down lambda=2.52900000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52850000.log
+  RUN   A1 SA3 upper_down lambda=2.52850000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52800000.log
+  RUN   A1 SA3 upper_down lambda=2.52800000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52750000.log
+  RUN   A1 SA3 upper_down lambda=2.52750000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52700000.log
+  RUN   A1 SA3 upper_down lambda=2.52700000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52650000.log
+  RUN   A1 SA3 upper_down lambda=2.52650000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52600000.log
+  RUN   A1 SA3 upper_down lambda=2.52600000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52550000.log
+  RUN   A1 SA3 upper_down lambda=2.52550000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52500000.log
+  RUN   A1 SA3 upper_down lambda=2.52500000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52450000.log
+  RUN   A1 SA3 upper_down lambda=2.52450000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52400000.log
+  RUN   A1 SA3 upper_down lambda=2.52400000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52350000.log
+  RUN   A1 SA3 upper_down lambda=2.52350000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52300000.log
+  RUN   A1 SA3 upper_down lambda=2.52300000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52250000.log
+  RUN   A1 SA3 upper_down lambda=2.52250000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52200000.log
+  RUN   A1 SA3 upper_down lambda=2.52200000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52150000.log
+  RUN   A1 SA3 upper_down lambda=2.52150000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52100000.log
+  RUN   A1 SA3 upper_down lambda=2.52100000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52050000.log
+  RUN   A1 SA3 upper_down lambda=2.52050000
+output file: BeH2_B2_work/logs/A1/SA3/upper_down/lambda_2p52000000.log
+  RUN   A1 SA3 upper_down lambda=2.52000000
+
+A1 SA3 lower_down: 2.530000 -> 2.520000 (21 points)
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p53000000.log
+  RUN   A1 SA3 lower_down lambda=2.53000000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52950000.log
+  RUN   A1 SA3 lower_down lambda=2.52950000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52900000.log
+  RUN   A1 SA3 lower_down lambda=2.52900000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52850000.log
+  RUN   A1 SA3 lower_down lambda=2.52850000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52800000.log
+  RUN   A1 SA3 lower_down lambda=2.52800000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52750000.log
+  RUN   A1 SA3 lower_down lambda=2.52750000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52700000.log
+  RUN   A1 SA3 lower_down lambda=2.52700000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52650000.log
+  RUN   A1 SA3 lower_down lambda=2.52650000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52600000.log
+  RUN   A1 SA3 lower_down lambda=2.52600000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52550000.log
+  RUN   A1 SA3 lower_down lambda=2.52550000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52500000.log
+  RUN   A1 SA3 lower_down lambda=2.52500000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52450000.log
+  RUN   A1 SA3 lower_down lambda=2.52450000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52400000.log
+  RUN   A1 SA3 lower_down lambda=2.52400000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52350000.log
+  RUN   A1 SA3 lower_down lambda=2.52350000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52300000.log
+  RUN   A1 SA3 lower_down lambda=2.52300000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52250000.log
+  RUN   A1 SA3 lower_down lambda=2.52250000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52200000.log
+  RUN   A1 SA3 lower_down lambda=2.52200000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52150000.log
+  RUN   A1 SA3 lower_down lambda=2.52150000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52100000.log
+  RUN   A1 SA3 lower_down lambda=2.52100000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52050000.log
+  RUN   A1 SA3 lower_down lambda=2.52050000
+output file: BeH2_B2_work/logs/A1/SA3/lower_down/lambda_2p52000000.log
+  RUN   A1 SA3 lower_down lambda=2.52000000
+
+A1 SA3 unique_up: 2.520000 -> 2.530000 (21 points)
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52000000.log
+  RUN   A1 SA3 unique_up lambda=2.52000000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52050000.log
+  RUN   A1 SA3 unique_up lambda=2.52050000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52100000.log
+  RUN   A1 SA3 unique_up lambda=2.52100000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52150000.log
+  RUN   A1 SA3 unique_up lambda=2.52150000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52200000.log
+  RUN   A1 SA3 unique_up lambda=2.52200000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52250000.log
+  RUN   A1 SA3 unique_up lambda=2.52250000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52300000.log
+  RUN   A1 SA3 unique_up lambda=2.52300000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52350000.log
+  RUN   A1 SA3 unique_up lambda=2.52350000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52400000.log
+  RUN   A1 SA3 unique_up lambda=2.52400000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52450000.log
+  RUN   A1 SA3 unique_up lambda=2.52450000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52500000.log
+  RUN   A1 SA3 unique_up lambda=2.52500000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52550000.log
+  RUN   A1 SA3 unique_up lambda=2.52550000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52600000.log
+  RUN   A1 SA3 unique_up lambda=2.52600000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52650000.log
+  RUN   A1 SA3 unique_up lambda=2.52650000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52700000.log
+  RUN   A1 SA3 unique_up lambda=2.52700000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52750000.log
+  RUN   A1 SA3 unique_up lambda=2.52750000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52800000.log
+  RUN   A1 SA3 unique_up lambda=2.52800000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52850000.log
+  RUN   A1 SA3 unique_up lambda=2.52850000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52900000.log
+  RUN   A1 SA3 unique_up lambda=2.52900000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p52950000.log
+  RUN   A1 SA3 unique_up lambda=2.52950000
+output file: BeH2_B2_work/logs/A1/SA3/unique_up/lambda_2p53000000.log
+  RUN   A1 SA3 unique_up lambda=2.53000000
+
+A1 SA4 upper_down: 2.530000 -> 2.520000 (21 points)
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p53000000.log
+  RUN   A1 SA4 upper_down lambda=2.53000000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52950000.log
+  RUN   A1 SA4 upper_down lambda=2.52950000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52900000.log
+  RUN   A1 SA4 upper_down lambda=2.52900000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52850000.log
+  RUN   A1 SA4 upper_down lambda=2.52850000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52800000.log
+  RUN   A1 SA4 upper_down lambda=2.52800000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52750000.log
+  RUN   A1 SA4 upper_down lambda=2.52750000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52700000.log
+  RUN   A1 SA4 upper_down lambda=2.52700000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52650000.log
+  RUN   A1 SA4 upper_down lambda=2.52650000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52600000.log
+  RUN   A1 SA4 upper_down lambda=2.52600000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52550000.log
+  RUN   A1 SA4 upper_down lambda=2.52550000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52500000.log
+  RUN   A1 SA4 upper_down lambda=2.52500000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52450000.log
+  RUN   A1 SA4 upper_down lambda=2.52450000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52400000.log
+  RUN   A1 SA4 upper_down lambda=2.52400000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52350000.log
+  RUN   A1 SA4 upper_down lambda=2.52350000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52300000.log
+  RUN   A1 SA4 upper_down lambda=2.52300000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52250000.log
+  RUN   A1 SA4 upper_down lambda=2.52250000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52200000.log
+  RUN   A1 SA4 upper_down lambda=2.52200000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52150000.log
+  RUN   A1 SA4 upper_down lambda=2.52150000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52100000.log
+  RUN   A1 SA4 upper_down lambda=2.52100000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52050000.log
+  RUN   A1 SA4 upper_down lambda=2.52050000
+output file: BeH2_B2_work/logs/A1/SA4/upper_down/lambda_2p52000000.log
+  RUN   A1 SA4 upper_down lambda=2.52000000
+
+A1 SA4 upper_up: 2.520000 -> 2.530000 (21 points)
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52000000.log
+  RUN   A1 SA4 upper_up lambda=2.52000000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52050000.log
+  RUN   A1 SA4 upper_up lambda=2.52050000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52100000.log
+  RUN   A1 SA4 upper_up lambda=2.52100000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52150000.log
+  RUN   A1 SA4 upper_up lambda=2.52150000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52200000.log
+  RUN   A1 SA4 upper_up lambda=2.52200000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52250000.log
+  RUN   A1 SA4 upper_up lambda=2.52250000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52300000.log
+  RUN   A1 SA4 upper_up lambda=2.52300000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52350000.log
+  RUN   A1 SA4 upper_up lambda=2.52350000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52400000.log
+  RUN   A1 SA4 upper_up lambda=2.52400000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52450000.log
+  RUN   A1 SA4 upper_up lambda=2.52450000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52500000.log
+  RUN   A1 SA4 upper_up lambda=2.52500000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52550000.log
+  RUN   A1 SA4 upper_up lambda=2.52550000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52600000.log
+  RUN   A1 SA4 upper_up lambda=2.52600000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52650000.log
+  RUN   A1 SA4 upper_up lambda=2.52650000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52700000.log
+  RUN   A1 SA4 upper_up lambda=2.52700000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52750000.log
+  RUN   A1 SA4 upper_up lambda=2.52750000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52800000.log
+  RUN   A1 SA4 upper_up lambda=2.52800000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52850000.log
+  RUN   A1 SA4 upper_up lambda=2.52850000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52900000.log
+  RUN   A1 SA4 upper_up lambda=2.52900000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p52950000.log
+  RUN   A1 SA4 upper_up lambda=2.52950000
+output file: BeH2_B2_work/logs/A1/SA4/upper_up/lambda_2p53000000.log
+  RUN   A1 SA4 upper_up lambda=2.53000000
+
+Completed solution files: 105
+Failure records         : 0
+Inventory               : BeH2_B2_work/B2_attempts.csv

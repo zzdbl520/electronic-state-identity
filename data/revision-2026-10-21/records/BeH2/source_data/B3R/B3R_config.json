@@ -1,0 +1,84 @@
+{
+  "gate": "BeH2 B3R projection-safe spinodal localization and scaling",
+  "parent_b2_workdir": "/mnt/BeH2/BeH2_B0/BeH2_B2_work/BeH2_B2_work",
+  "coordinate": {
+    "unit": "Bohr",
+    "Be": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "H1": [
+      "lambda",
+      "+(2.540-0.46*lambda)",
+      0.0
+    ],
+    "H2": [
+      "lambda",
+      "-(2.540-0.46*lambda)",
+      0.0
+    ]
+  },
+  "basis": "cc-pVTZ",
+  "active_space": {
+    "electrons": 6,
+    "orbitals": 6
+  },
+  "freeze_core": true,
+  "irrep": "A1",
+  "lambda_min_bohr": 2.5212,
+  "lambda_max_bohr": 2.5222,
+  "step_bohr": 5e-05,
+  "grid_bohr": [
+    2.5212,
+    2.52125,
+    2.5213,
+    2.52135,
+    2.5214,
+    2.52145,
+    2.5215,
+    2.52155,
+    2.5216,
+    2.52165,
+    2.5217,
+    2.52175,
+    2.5218,
+    2.52185,
+    2.5219,
+    2.52195,
+    2.522,
+    2.52205,
+    2.5221,
+    2.52215,
+    2.5222
+  ],
+  "analysis_grid_only": true,
+  "directions": [
+    {
+      "protocol": "SA3",
+      "source": "upper_down",
+      "seed_bohr": 2.5225,
+      "direction": "descending"
+    },
+    {
+      "protocol": "SA3",
+      "source": "unique_up",
+      "seed_bohr": 2.521,
+      "direction": "ascending"
+    },
+    {
+      "protocol": "SA4",
+      "source": "upper_down",
+      "seed_bohr": 2.5225,
+      "direction": "descending"
+    },
+    {
+      "protocol": "SA4",
+      "source": "upper_up",
+      "seed_bohr": 2.521,
+      "direction": "ascending"
+    }
+  ],
+  "threads": 64,
+  "memory_mb": 100000
+}

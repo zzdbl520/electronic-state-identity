@@ -1,0 +1,58 @@
+{
+  "format": "concatenated gzip-compressed tar, split at 4 MiB",
+  "archive_sha256": "d18b08fef7f42e3e5f5a955425665add1a074fccd4de3047ef51f2387504de0d",
+  "archive_bytes": 37838298,
+  "npz_files": 1936,
+  "parts": [
+    {
+      "name": "wavefunctions.tar.gz.part000",
+      "bytes": 4194304,
+      "sha256": "55cee8aa47d48f71a31816db559e941e0859404368a386e59372f7971e76149c"
+    },
+    {
+      "name": "wavefunctions.tar.gz.part001",
+      "bytes": 4194304,
+      "sha256": "00ebdfbe3942da5f26cff6358e5f3c1687f7198efcdadf0b944410a831842dc7"
+    },
+    {
+      "name": "wavefunctions.tar.gz.part002",
+      "bytes": 4194304,
+      "sha256": "138624f96178b6afca5d860b47cdc6cb982ad173c72d3666babfb0531acdc81b"
+    },
+    {
+      "name": "wavefunctions.tar.gz.part003",
+      "bytes": 4194304,
+      "sha256": "72c9b3f41493c6056f8c715dd3c6efcf0fdbeec934886ca14a7ff19cf9d9be1b"
+    },
+    {
+      "name": "wavefunctions.tar.gz.part004",
+      "bytes": 4194304,
+      "sha256": "089440e99407da95bdd2380e0b22c636e7e164d42431024dd7928f52ef9a280f"
+    },
+    {
+      "name": "wavefunctions.tar.gz.part005",
+      "bytes": 4194304,
+      "sha256": "fdc3a95622d0a1670f514871fa233aced80b681631a3eabde7b1646dec2b4199"
+    },
+    {
+      "name": "wavefunctions.tar.gz.part006",
+      "bytes": 4194304,
+      "sha256": "82c51809cb7b3f17ade2a3c3de84148aad77e06c5170d9d42161fa61c1d4a2f5"
+    },
+    {
+      "name": "wavefunctions.tar.gz.part007",
+      "bytes": 4194304,
+      "sha256": "a2963837e4d422634041874e6107e91f37e764ac8b18d020275673a16f99feab"
+    },
+    {
+      "name": "wavefunctions.tar.gz.part008",
+      "bytes": 4194304,
+      "sha256": "47ca59e589fee960b2194e46995ca7ca3ad4484bab974d66dfb5cac1169837a4"
+    },
+    {
+      "name": "wavefunctions.tar.gz.part009",
+      "bytes": 89562,
+      "sha256": "53d89118402485d5a505743882f722f5b9e087eeb997a04cdbf61638213541df"
+    }
+  ]
+}

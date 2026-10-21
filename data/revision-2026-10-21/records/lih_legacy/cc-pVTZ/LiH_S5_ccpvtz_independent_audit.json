@@ -1,0 +1,137 @@
+{
+  "gate": "LiH independent within-basis cc-pVTZ fixed-window reproduction",
+  "status": "PASS_CC_PVTZ_REPRODUCTION",
+  "passed": true,
+  "thresholds": {
+    "maximum_final_orbital_gradient": 0.0001,
+    "eta_edge_minimum": 0.98,
+    "maximum_edge_leakage": 0.01,
+    "minimum_normalized_assignment_margin": 0.1,
+    "minimum_C_qp": 0.0001,
+    "minimum_normalized_dipole_path_difference": 1e-05,
+    "minimum_excluded_root_gap_Eh": 0.01
+  },
+  "expected_window": {
+    "R_min_angstrom": 5.8,
+    "R_max_angstrom": 5.95,
+    "Fz_min_au": 0.0105,
+    "Fz_max_au": 0.0115
+  },
+  "checks": {
+    "basis_is_cc_pVTZ": {
+      "passed": true,
+      "value": "cc-pvtz",
+      "required": "cc-pVTZ (not aug-cc-pVTZ)"
+    },
+    "fixed_window_unchanged": {
+      "passed": true,
+      "value": {
+        "R0_angstrom": 5.8,
+        "R1_angstrom": 5.95,
+        "F0_au": 0.0105,
+        "F1_au": 0.0115
+      },
+      "required": {
+        "R_min_angstrom": 5.8,
+        "R_max_angstrom": 5.95,
+        "Fz_min_au": 0.0105,
+        "Fz_max_au": 0.0115
+      }
+    },
+    "S3_driver_gate": {
+      "passed": true,
+      "value": "BASIS_ROBUSTNESS_CONFIRMED",
+      "required": "BASIS_ROBUSTNESS_CONFIRMED"
+    },
+    "all_S3_decision_checks": {
+      "passed": true,
+      "value": {
+        "reference_decisions_locked_and_valid": true,
+        "model_semantics_exact": true,
+        "all_wavefunctions_stationary": true,
+        "first_excluded_A1_root_isolated": true,
+        "numerical_gauge_invariance": true,
+        "all_elementary_grid_edges_strict": true,
+        "all_four_fixed_boundary_edges_strict": true,
+        "fixed_window_near_degeneracy_reproduced": true,
+        "conventional_composed_assignment_reproduced": true,
+        "nonzero_continuous_holonomy_reproduced": true,
+        "observable_dipole_consequence_reproduced": true
+      },
+      "required": "all True"
+    },
+    "stationarity": {
+      "passed": true,
+      "value": 2.502002135473802e-07,
+      "required": "gradient <= 1.0e-04"
+    },
+    "edge_conditioning": {
+      "passed": true,
+      "value": 0.9994438123937984,
+      "required": "all edges eta >= 0.98"
+    },
+    "edge_leakage": {
+      "passed": true,
+      "value": 0.0008281129459990488,
+      "required": "all edges leakage <= 0.01"
+    },
+    "assignment_margin": {
+      "passed": true,
+      "value": 0.49688103362080216,
+      "required": "all edges margin >= 0.1"
+    },
+    "same_conventional_assignment": {
+      "passed": true,
+      "value": true,
+      "required": true
+    },
+    "nonzero_nonclosure": {
+      "passed": true,
+      "value": 0.00018470670651134146,
+      "required": ">= 1.0e-04"
+    },
+    "observable_consequence": {
+      "passed": true,
+      "value": 0.00046733228124162834,
+      "required": ">= 1.0e-05"
+    },
+    "excluded_root_gap": {
+      "passed": true,
+      "value": 0.10995295825715257,
+      "required": ">= 1.00e-02 Eh"
+    },
+    "target_pair_near_degeneracy": {
+      "passed": true,
+      "value": 0.006719833094681604,
+      "required": "<= 1.00e-2 Eh"
+    },
+    "opposed_history_driver_gate": {
+      "passed": true,
+      "value": "PUBLICATION_DEMONSTRATION_READY",
+      "required": "PUBLICATION_DEMONSTRATION_READY"
+    },
+    "all_history_decision_checks": {
+      "passed": true,
+      "value": {
+        "S1_candidate_window_found": true,
+        "all_history_wavefunctions_stationary": true,
+        "direct_vs_two_opposed_histories_same_solution": true,
+        "selected_window_candidate_under_all_histories": true,
+        "selected_window_C_qp_history_invariant": true,
+        "selected_window_dipole_consequence_history_invariant": true,
+        "conventional_composed_assignment_same": true,
+        "nonzero_continuous_holonomy": true,
+        "observable_dipole_consequence": true
+      },
+      "required": "all True"
+    }
+  },
+  "reported_S3_status": "BASIS_ROBUSTNESS_CONFIRMED",
+  "reported_history_status": "PUBLICATION_DEMONSTRATION_READY",
+  "interpretation_if_passed": "The LiH closed-loop signal is reproduced independently with cc-pVTZ on the same physical R-Fz window; the conclusion does not rely on a single basis.",
+  "scope": "This is a within-basis reproduction. Cross-basis wave-function overlaps are neither required nor interpreted.",
+  "source_S3_decision_file": "${LIH_ARCHIVE_ROOT}/LiH_S5_fixed_window_ccpvtz_work/LiH_S3_decision.json",
+  "source_history_decision_file": "${LIH_ARCHIVE_ROOT}/LiH_S5_fixed_window_ccpvtz_work/LiH_S2_decision.json",
+  "generated_driver": "${LIH_ARCHIVE_ROOT}/LiH_S5_fixed_window_ccpvtz_work/LiH_S5_fixed_window_ccpvtz_generated.py",
+  "generation_provenance": "${LIH_ARCHIVE_ROOT}/LiH_S5_fixed_window_ccpvtz_work/LiH_S5_generation_provenance.json"
+}

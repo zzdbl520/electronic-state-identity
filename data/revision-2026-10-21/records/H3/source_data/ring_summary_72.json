@@ -1,0 +1,196 @@
+{
+  "test": "H3 genuine-CI closed-ring negative control",
+  "status": "PILOT_PASS",
+  "note": "PILOT_PASS still requires 72- and 144-geometry step refinement before the molecular negative-control gate is final. Root permutations or exchange-preferred assignments are reported but do not veto a gauge-invariant two-state-subspace test.",
+  "versions": {
+    "python": "3.10.18",
+    "numpy": "2.2.6",
+    "pyscf": "2.10.0"
+  },
+  "parameters": {
+    "points": 72,
+    "casscf_calculations": 144,
+    "step_deg": 5.0,
+    "phi_origin_deg": 0.0,
+    "rho_angstrom": 0.01,
+    "circumradius_angstrom": 0.9,
+    "basis": "cc-pvtz",
+    "active_space": "CAS(3,3)",
+    "protocols": [
+      "equal-weight SA2",
+      "equal-weight SA3; lowest pair"
+    ]
+  },
+  "berry_phases": {
+    "SA2": [
+      {
+        "state_index": 0,
+        "phase_rad": 3.141592653589793,
+        "phase_over_pi": 1.0,
+        "pi_error_rad": 0.0,
+        "unit_product": {
+          "real": -1.0,
+          "imag": 0.0
+        },
+        "minimum_diagonal_overlap": 0.9990196506567788
+      },
+      {
+        "state_index": 1,
+        "phase_rad": 3.141592653589793,
+        "phase_over_pi": 1.0,
+        "pi_error_rad": 0.0,
+        "unit_product": {
+          "real": -1.0,
+          "imag": 0.0
+        },
+        "minimum_diagonal_overlap": 0.9990199077251994
+      }
+    ],
+    "SA3": [
+      {
+        "state_index": 0,
+        "phase_rad": 3.141592653589793,
+        "phase_over_pi": 1.0,
+        "pi_error_rad": 0.0,
+        "unit_product": {
+          "real": -1.0,
+          "imag": 0.0
+        },
+        "minimum_diagonal_overlap": 0.5216218457560413
+      },
+      {
+        "state_index": 1,
+        "phase_rad": 3.141592653589793,
+        "phase_over_pi": 1.0,
+        "pi_error_rad": 0.0,
+        "unit_product": {
+          "real": -1.0,
+          "imag": 0.0
+        },
+        "minimum_diagonal_overlap": 0.5270040394502195
+      }
+    ]
+  },
+  "nuclear_wilson_loops": {
+    "SA2": {
+      "matrix": {
+        "real": [
+          [
+            0.999999999118707,
+            4.1983169400596734e-05
+          ],
+          [
+            -4.198316940180322e-05,
+            0.9999999991187073
+          ]
+        ],
+        "imag": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      },
+      "eigenphases_rad": [
+        -4.198316941348835e-05,
+        4.198316941351611e-05
+      ],
+      "eigenphases_over_pi": [
+        -1.336365787764228e-05,
+        1.3363657877651114e-05
+      ],
+      "unitarity_error": 2.083532025757703e-15
+    },
+    "SA3": {
+      "matrix": {
+        "real": [
+          [
+            0.9999937772556652,
+            -0.0035278109279772187
+          ],
+          [
+            0.003527810927978847,
+            0.9999937772556649
+          ]
+        ],
+        "imag": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      },
+      "eigenphases_rad": [
+        -0.003527818245551395,
+        0.0035278182455515325
+      ],
+      "eigenphases_over_pi": [
+        -0.0011229394242185647,
+        0.0011229394242186085
+      ],
+      "unitarity_error": 5.910951832944233e-15
+    }
+  },
+  "adiabatic_assignment": {
+    "SA2": {
+      "minimum_identity_assignment_margin": 1.909567692835623,
+      "number_of_exchange_preferred_edges": 0
+    },
+    "SA3": {
+      "minimum_identity_assignment_margin": -0.6370255018099156,
+      "number_of_exchange_preferred_edges": 6
+    }
+  },
+  "mixed_curvature_profile": {
+    "maximum": 0.0004934316004921595,
+    "mean": 0.00011402643634197148,
+    "rms": 0.00021116228172238938,
+    "minimum": 2.2468393419058658e-08,
+    "maximum_per_radian": 0.005654309637317219,
+    "rms_per_radian": 0.0024197415070090792,
+    "peak_start_phi_deg": 235.0,
+    "peak_mid_phi_deg": 237.5,
+    "minimum_eta_edge": 0.9897992294924468,
+    "maximum_lambda_edge": 0.01477883095945165
+  },
+  "maximum_numerical_errors": {
+    "production_vs_direct_fock": 5.652818373324273e-15,
+    "reverse_overlap": 1.887442917383644e-15,
+    "reverse_transport": 6.419692232733387e-15,
+    "polar_unitarity": 1.4217848260886759e-15,
+    "ambient_gram_reconstruction": 6.2996420391454376e-15,
+    "direct_state_norm": 5.10702591327572e-15,
+    "frame_orthonormality": 1.1324755291359567e-15,
+    "spin_square": 3.2014391138091014e-12,
+    "curvature_formula": 1.2918099478575334e-17,
+    "gauge_invariance": 1.170992556392969e-15
+  },
+  "acceptance": {
+    "numerical_checks": {
+      "production_overlap": true,
+      "reverse_overlap": true,
+      "reverse_transport": true,
+      "polar_unitarity": true,
+      "ambient_gram": true,
+      "direct_state_norm": true,
+      "frame_orthonormality": true,
+      "spin": true,
+      "curvature_formula": true,
+      "gauge_invariance": true
+    },
+    "berry_pi_check": true,
+    "identity_assignment_diagnostic": false,
+    "identity_assignment_required_for_subspace_gate": false,
+    "pilot_curvature_check": true,
+    "pilot_eta_check": true,
+    "pilot_negative_control": true
+  }
+}

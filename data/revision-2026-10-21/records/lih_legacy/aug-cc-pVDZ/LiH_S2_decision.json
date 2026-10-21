@@ -1,0 +1,598 @@
+{
+  "gate": "LiH S2 opposed-history confirmation of physical R x Fz hotspot",
+  "status": "PUBLICATION_DEMONSTRATION_READY",
+  "manuscript_claim_authorized": true,
+  "script_version": "LiH-S2-physical-field-confirmation-v1.0",
+  "input_S1_status": "CANDIDATE_WINDOW_FOUND",
+  "fixed_selected_window": {
+    "R0_angstrom": 5.8,
+    "R1_angstrom": 5.95,
+    "F0_au": 0.0105,
+    "F1_au": 0.0115,
+    "selection_source": "unchanged LiH_S1_decision.json"
+  },
+  "thresholds": {
+    "history_maximum_average_energy_difference_Eh": 1e-08,
+    "history_minimum_state_subspace_sigma": 0.9999,
+    "history_maximum_state_subspace_leakage": 1e-06,
+    "history_minimum_active_orbital_sigma": 0.9999,
+    "history_maximum_active_orbital_leakage": 1e-06,
+    "maximum_final_orbital_gradient": 0.0001,
+    "maximum_spin_square": 1e-07,
+    "maximum_mo_orthonormality_error": 1e-09,
+    "maximum_probe_retained_energy_error_Eh": 1e-08,
+    "maximum_history_C_qp_difference": 1e-08,
+    "maximum_history_normalized_dipole_difference": 1e-08,
+    "eta_edge_minimum": 0.98,
+    "maximum_edge_leakage": 0.01,
+    "minimum_normalized_assignment_margin": 0.1,
+    "active_orbital_subspace_sigma_minimum": 0.9,
+    "active_orbital_subspace_leakage_maximum": 0.1,
+    "target_pair_maximum_gap_Eh": 0.01,
+    "minimum_C_qp": 0.0001,
+    "minimum_normalized_dipole_path_difference": 1e-05
+  },
+  "decision_checks": {
+    "S1_candidate_window_found": true,
+    "all_history_wavefunctions_stationary": true,
+    "direct_vs_two_opposed_histories_same_solution": true,
+    "selected_window_candidate_under_all_histories": true,
+    "selected_window_C_qp_history_invariant": true,
+    "selected_window_dipole_consequence_history_invariant": true,
+    "conventional_composed_assignment_same": true,
+    "nonzero_continuous_holonomy": true,
+    "observable_dipole_consequence": true
+  },
+  "counts": {
+    "grid_vertices": 25,
+    "opposed_histories": 2,
+    "history_wavefunctions": 50,
+    "history_controls": 50,
+    "failed_history_controls": 0
+  },
+  "maximum_final_orbital_gradient": 8.604399307876424e-08,
+  "maximum_state_S2": 7.270220426801481e-15,
+  "maximum_mo_orthonormality_error": 7.92045622424039e-15,
+  "maximum_probe_retained_energy_error_Eh": 1.1723955140041653e-13,
+  "maximum_history_average_energy_difference_Eh": 1.9888091173925204e-11,
+  "minimum_history_state_subspace_sigma": 0.999999999948861,
+  "maximum_history_state_subspace_leakage": 3.689870631262693e-11,
+  "minimum_history_active_orbital_sigma": 0.9999999984536645,
+  "maximum_history_active_orbital_leakage": 1.2383291059236967e-09,
+  "selected_window_results": {
+    "direct": {
+      "C_qp": 0.0003684704839730426,
+      "path_difference_F": 0.0014738819358921704,
+      "holonomy_phases_rad": [
+        -0.0009208837157812452,
+        -0.00048799306054275374,
+        0.0004879930605423715,
+        0.0009208837157812628
+      ],
+      "holonomy_max_abs_phase_rad": 0.0009208837157812628,
+      "route_R_then_F_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "route_F_then_R_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "same_composed_assignment": true,
+      "dipole_path_difference_au": 0.017418105449856648,
+      "dipole_path_difference_by_axis_au": [
+        0.0,
+        0.0,
+        0.017418105449856648
+      ],
+      "dipole_path_difference_normalized": 0.0007586174630409905,
+      "minimum_target_pair_gap_inside_window_Eh": 0.00023880413897359176,
+      "all_four_direct_edges_strict": true,
+      "candidate_window": true,
+      "edges": {
+        "AB": {
+          "edge": "AB:nuclear",
+          "state_subspace": {
+            "singular_values": [
+              0.9980445492103466,
+              0.9973822793123027,
+              0.9958557258548738,
+              0.9951452443050866
+            ],
+            "sigma_min": 0.9951452443050866,
+            "leakage": 0.006773245681085949,
+            "permutation": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 3.986355802839145,
+            "runner_up_score": 2.0066619904861045,
+            "margin": 1.9796938123530405,
+            "normalized_margin": 0.49492345308826013
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9998072930125853,
+              0.9982746284762346,
+              0.9975729458328944,
+              0.9972829316973452,
+              0.9972829316972616
+            ],
+            "sigma_min": 0.9972829316972616,
+            "leakage": 0.003906973802445535
+          }
+        },
+        "BD": {
+          "edge": "BD:physical_field",
+          "state_subspace": {
+            "singular_values": [
+              0.9999759793679815,
+              0.9998199890668281,
+              0.9982219294615423,
+              0.9974151105401
+            ],
+            "sigma_min": 0.9974151105401,
+            "leakage": 0.0022810267394524075,
+            "permutation": [
+              0,
+              1,
+              3,
+              2
+            ],
+            "score": 3.9946146113342333,
+            "runner_up_score": 2.0363814329517296,
+            "margin": 1.9582331783825038,
+            "normalized_margin": 0.48955829459562594
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9999988938968891,
+              0.9999988938966572,
+              0.9999899812940461,
+              0.9998595898842169,
+              0.9983319856564999
+            ],
+            "sigma_min": 0.9983319856564999,
+            "leakage": 0.0007277017307417699
+          }
+        },
+        "AC": {
+          "edge": "AC:physical_field",
+          "state_subspace": {
+            "singular_values": [
+              0.9999762836335891,
+              0.9998138458820108,
+              0.998123024753407,
+              0.9972560233481663
+            ],
+            "sigma_min": 0.9972560233481663,
+            "leakage": 0.0024126392764723947,
+            "permutation": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 3.9938974963117264,
+            "runner_up_score": 2.0541625638754604,
+            "margin": 1.939734932436266,
+            "normalized_margin": 0.4849337331090665
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9999986865963615,
+              0.9999986865963596,
+              0.999990101710123,
+              0.9998529274015543,
+              0.9982340494728486
+            ],
+            "sigma_min": 0.9982340494728486,
+            "leakage": 0.000769591226493227
+          }
+        },
+        "CD": {
+          "edge": "CD:nuclear",
+          "state_subspace": {
+            "singular_values": [
+              0.9981368265306648,
+              0.9973861709683527,
+              0.995906338048312,
+              0.9951491865099332
+            ],
+            "sigma_min": 0.9951491865099332,
+            "leakage": 0.006698090977050208,
+            "permutation": [
+              0,
+              1,
+              3,
+              2
+            ],
+            "score": 3.984351286041775,
+            "runner_up_score": 2.085949864867895,
+            "margin": 1.89840142117388,
+            "normalized_margin": 0.47460035529347
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9998100347342387,
+              0.9983256556666891,
+              0.9975749543769217,
+              0.9972810436462234,
+              0.9972810436411708
+            ],
+            "sigma_min": 0.9972810436411708,
+            "leakage": 0.003886206012031046
+          }
+        }
+      }
+    },
+    "forward_snake": {
+      "C_qp": 0.00036847518997768023,
+      "path_difference_F": 0.001473900759910721,
+      "holonomy_phases_rad": [
+        -0.0009208998441350326,
+        -0.00048799105192970013,
+        0.00048799105192953696,
+        0.000920899844135425
+      ],
+      "holonomy_max_abs_phase_rad": 0.000920899844135425,
+      "route_R_then_F_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "route_F_then_R_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "same_composed_assignment": true,
+      "dipole_path_difference_au": 0.01741818243022648,
+      "dipole_path_difference_by_axis_au": [
+        2.4599417421802013e-18,
+        2.7224389463725536e-18,
+        0.01741818243022648
+      ],
+      "dipole_path_difference_normalized": 0.0007586210872019046,
+      "minimum_target_pair_gap_inside_window_Eh": 0.00023879188035902388,
+      "all_four_direct_edges_strict": true,
+      "candidate_window": true,
+      "edges": {
+        "AB": {
+          "edge": "AB:nuclear",
+          "state_subspace": {
+            "singular_values": [
+              0.9980446951784203,
+              0.9973823042735348,
+              0.9958558245024872,
+              0.995145235455727
+            ],
+            "sigma_min": 0.995145235455727,
+            "leakage": 0.006773115675616226,
+            "permutation": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 3.9863560599760746,
+            "runner_up_score": 2.0066635375409674,
+            "margin": 1.9796925224351072,
+            "normalized_margin": 0.4949231306087768
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9998073233227384,
+              0.9982747327381815,
+              0.9975729411802216,
+              0.9972829520734777,
+              0.997282952072561
+            ],
+            "sigma_min": 0.997282952072561,
+            "leakage": 0.00390690564816476
+          }
+        },
+        "BD": {
+          "edge": "BD:physical_field",
+          "state_subspace": {
+            "singular_values": [
+              0.9999759795145314,
+              0.999819976317009,
+              0.9982218422264695,
+              0.9974149524299897
+            ],
+            "sigma_min": 0.9974149524299897,
+            "leakage": 0.002281155430621018,
+            "permutation": [
+              0,
+              1,
+              3,
+              2
+            ],
+            "score": 3.9946143686739064,
+            "runner_up_score": 2.0363806932076174,
+            "margin": 1.958233675466289,
+            "normalized_margin": 0.48955841886657225
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9999988940708677,
+              0.9999988940704646,
+              0.9999899810972085,
+              0.9998595760422181,
+              0.9983318945405423
+            ],
+            "sigma_min": 0.9983318945405423,
+            "leakage": 0.0007277435919721409
+          }
+        },
+        "AC": {
+          "edge": "AC:physical_field",
+          "state_subspace": {
+            "singular_values": [
+              0.9999762844828561,
+              0.9998138571985259,
+              0.9981231336099815,
+              0.9972561833574558
+            ],
+            "sigma_min": 0.9972561833574558,
+            "leakage": 0.0024124990833946924,
+            "permutation": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 3.993897784398219,
+            "runner_up_score": 2.0541620485430747,
+            "margin": 1.9397357358551441,
+            "normalized_margin": 0.48493393396378603
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9999986869563547,
+              0.9999986869563385,
+              0.9999901021239594,
+              0.999852938529136,
+              0.9982341567974229
+            ],
+            "sigma_min": 0.9982341567974229,
+            "leakage": 0.000769543468573608
+          }
+        },
+        "CD": {
+          "edge": "CD:nuclear",
+          "state_subspace": {
+            "singular_values": [
+              0.9981368094114702,
+              0.9973861732867512,
+              0.9959063425164848,
+              0.9951491881749948
+            ],
+            "sigma_min": 0.9951491881749948,
+            "leakage": 0.0066980953110969965,
+            "permutation": [
+              0,
+              1,
+              3,
+              2
+            ],
+            "score": 3.9843513246554925,
+            "runner_up_score": 2.085948889328701,
+            "margin": 1.8984024353267914,
+            "normalized_margin": 0.47460060883169786
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9998100360829599,
+              0.9983256583233543,
+              0.9975749547864285,
+              0.9972810885658334,
+              0.9972810885574966
+            ],
+            "sigma_min": 0.9972810885574966,
+            "leakage": 0.0038861684116815454
+          }
+        }
+      }
+    },
+    "reverse_snake": {
+      "C_qp": 0.0003684737357353875,
+      "path_difference_F": 0.00147389494294155,
+      "holonomy_phases_rad": [
+        -0.0009208956737026253,
+        -0.0004879901374292569,
+        0.00048799013742928214,
+        0.0009208956737018796
+      ],
+      "holonomy_max_abs_phase_rad": 0.0009208956737026253,
+      "route_R_then_F_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "route_F_then_R_permutation": [
+        0,
+        1,
+        3,
+        2
+      ],
+      "same_composed_assignment": true,
+      "dipole_path_difference_au": 0.017418162661477724,
+      "dipole_path_difference_by_axis_au": [
+        2.6496596718291265e-18,
+        1.9585399070044825e-18,
+        0.017418162661477724
+      ],
+      "dipole_path_difference_normalized": 0.0007586202060751418,
+      "minimum_target_pair_gap_inside_window_Eh": 0.00023878227805429475,
+      "all_four_direct_edges_strict": true,
+      "candidate_window": true,
+      "edges": {
+        "AB": {
+          "edge": "AB:nuclear",
+          "state_subspace": {
+            "singular_values": [
+              0.9980445993555676,
+              0.9973822928611147,
+              0.9958557630319146,
+              0.9951452516864129
+            ],
+            "sigma_min": 0.9951452516864129,
+            "leakage": 0.006773191716599847,
+            "permutation": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 3.9863559114932143,
+            "runner_up_score": 2.0066624839229243,
+            "margin": 1.97969342757029,
+            "normalized_margin": 0.4949233568925725
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9998073036938123,
+              0.9982746631538936,
+              0.9975729492996198,
+              0.9972829605911868,
+              0.9972829605881085
+            ],
+            "sigma_min": 0.9972829605881085,
+            "leakage": 0.0039069312492483466
+          }
+        },
+        "BD": {
+          "edge": "BD:physical_field",
+          "state_subspace": {
+            "singular_values": [
+              0.9999759797945245,
+              0.9998199786068076,
+              0.9982218396025235,
+              0.9974149635869305
+            ],
+            "sigma_min": 0.9974149635869305,
+            "leakage": 0.0022811498915248363,
+            "permutation": [
+              0,
+              1,
+              3,
+              2
+            ],
+            "score": 3.9946143803721923,
+            "runner_up_score": 2.0363807148586575,
+            "margin": 1.9582336655135348,
+            "normalized_margin": 0.4895584163783837
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9999988939598442,
+              0.9999988939598262,
+              0.9999899812652648,
+              0.999859578737711,
+              0.9983318932995922
+            ],
+            "sigma_min": 0.9983318932995922,
+            "leakage": 0.0007277430309212685
+          }
+        },
+        "AC": {
+          "edge": "AC:physical_field",
+          "state_subspace": {
+            "singular_values": [
+              0.9999762831163528,
+              0.9998138337445753,
+              0.9981229437209608,
+              0.9972559584830349
+            ],
+            "sigma_min": 0.9972559584830349,
+            "leakage": 0.0024127183864164348,
+            "permutation": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 3.9938973535154547,
+            "runner_up_score": 2.0541621526417044,
+            "margin": 1.9397352008737503,
+            "normalized_margin": 0.48493380021843757
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.999998686609279,
+              0.9999986866092737,
+              0.9999901013184508,
+              0.9998529172955383,
+              0.9982339693002553
+            ],
+            "sigma_min": 0.9982339693002553,
+            "leakage": 0.0007696274270434511
+          }
+        },
+        "CD": {
+          "edge": "CD:nuclear",
+          "state_subspace": {
+            "singular_values": [
+              0.9981368371724566,
+              0.9973861790372476,
+              0.9959063657455709,
+              0.9951491854498843
+            ],
+            "sigma_min": 0.9951491854498843,
+            "leakage": 0.006698068377681277,
+            "permutation": [
+              0,
+              1,
+              3,
+              2
+            ],
+            "score": 3.984351365416841,
+            "runner_up_score": 2.0859491763162556,
+            "margin": 1.8984021891005853,
+            "normalized_margin": 0.47460054727514633
+          },
+          "active_orbital_subspace": {
+            "singular_values": [
+              0.9998100436769973,
+              0.9983256842243287,
+              0.9975749534143474,
+              0.9972810887558174,
+              0.9972810887554672
+            ],
+            "sigma_min": 0.9972810887554672,
+            "leakage": 0.0038861554243421192
+          }
+        }
+      }
+    }
+  },
+  "selected_window_C_qp_history_abs_errors": {
+    "forward_snake": 4.7060046376272424e-09,
+    "reverse_snake": 3.2517623449056406e-09
+  },
+  "selected_window_normalized_dipole_history_abs_errors": {
+    "forward_snake": 3.6241609140813535e-09,
+    "reverse_snake": 2.743034151274186e-09
+  },
+  "failed_history_controls": [],
+  "nonstationary_wavefunctions": [],
+  "authorized_interpretation": "In the fixed LiH R x static-field window, all direct edges are faithful and conventional composed assignments agree, yet continuous subspace transport is path dependent and produces a gauge-invariant dipole consequence; the result is stationary and independent of two opposed optimization histories.",
+  "prohibited_interpretations": [
+    "a conical intersection proved solely by the avoided crossing",
+    "a state-label swap inferred solely from continuous holonomy",
+    "history independence inferred from energy alone",
+    "post-confirmation movement of the selected window",
+    "replacement of active-only overlap by scalar inactive-core division"
+  ]
+}

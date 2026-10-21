@@ -1,0 +1,95 @@
+{
+  "artifact": "CPDC cc-pVTZ rank-2 opposed-history replication v1",
+  "script_version": "CPDC-CCPVTZ-RANK2-OPPOSED-HISTORY-v1.0",
+  "protocol_id": "CPDC-CCPVTZ-RANK2-OPPOSED-HISTORY-20260920",
+  "build_date": "2026-09-20",
+  "validation_scope": "Static, mathematical, protocol-schema, fail-closed, restart-integrity, and packaging validation. No new PySCF production result is claimed in this build record.",
+  "frozen_antecedent": {
+    "required_status": "PASS_RANK2_PROJECTOR_QUALIFICATION",
+    "reported_40_80_eigenphase_difference_rad": 0.000009641,
+    "reported_40_80_trace_difference": 1.571e-08,
+    "reported_40_80_determinant_difference": 5.773e-15,
+    "eigenphase_margin_below_1e-3_threshold": 103.72367907893372
+  },
+  "production_inventory": {
+    "history_mesh_points": 80,
+    "opposed_history_directions": 2,
+    "new_nonanchor_SA2_calculations_per_direction": 79,
+    "new_closure_SA2_calculations_per_direction": 1,
+    "new_SA2_calculations_total": 160,
+    "new_history_seeded_SA3_calculations": 10,
+    "SA3_history_indices_80_mesh": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "SA3_angles_degrees": [
+      0.0,
+      9.0,
+      18.0,
+      27.0,
+      36.0
+    ],
+    "random_U2_gauge_seeds": [
+      20260920,
+      20260921,
+      20260922,
+      20260923,
+      20260924
+    ]
+  },
+  "tests": {
+    "python_compile": "PASS",
+    "main_selftest": "PASS",
+    "protocol_JSON_parse": "PASS",
+    "protocol_thresholds_match_executable": "PASS",
+    "launcher_bash_syntax": "PASS",
+    "launcher_executable_mode": "PASS_0755",
+    "opposed_history_orders_cover_79_nonanchor_vertices_each": "PASS",
+    "forty_to_eighty_mesh_SA3_mapping": "PASS_0_2_4_6_8",
+    "all_six_history_decision_branches": "PASS",
+    "synthetic_U2_corner_gauge_covariance": "PASS",
+    "synthetic_cyclic_start_invariance": "PASS",
+    "returned_p000_solution_included_in_each_history_Wilson_product": "PASS_STATIC_REVIEW",
+    "counterclockwise_history_reoriented_before_Wilson_comparison": "PASS_STATIC_REVIEW",
+    "authorization_locks_80_reference_points_and_5_SA3_references": "PASS_STATIC_REVIEW",
+    "history_restart_locks_immediate_seed_path_and_hash": "PASS_STATIC_REVIEW",
+    "SA3_stage_code_blocked_without_exact_history_pass": "PASS_STATIC_REVIEW",
+    "missing_antecedents_fail_closed_with_STOP_decision": "PASS",
+    "scalar_phase_not_evaluated": "PASS_STATIC_REVIEW",
+    "individual_root_assignment_not_used": "PASS_STATIC_REVIEW"
+  },
+  "numerical_selftest_metrics": {
+    "synthetic_gauge_max_error": 1.999858562689658e-15,
+    "synthetic_cyclic_max_error": 2.220446049250313e-16
+  },
+  "component_sha256_before_checksum_file": {
+    "CPDC_ccpVTZ_rank2_opposed_history_v1.py": "409ea7680c70d02e54b899b33688f51260fdeadeeb8b9135e44f0271e3e00fc7",
+    "CPDC_ccpVTZ_rank2_opposed_history_protocol_v1.json": "66096bddfca85d367fad751f372734f2fc042f14fc8908628e0f3e3cafaeba9b",
+    "CPDC_ccpVTZ_rank2_projector_v1.py": "710b1628f8cc78bf80f2ed5b721e980d5c560cc0d7e9709ec84e24f610f9e01a",
+    "CPDC_ccpVTZ_rank2_projector_protocol_v1.json": "3eb0a624f7264b5229f1ba592f148f801c4ccc7a04476031d7846aaf6082bfec",
+    "CPDC_ccpVTZ_relaxed_multiring_v1.py": "ca724ea4f56428f84043b6fd28f442811f9dfb5107039bad5b325c9264cb2942",
+    "CPDC_ccpVTZ_relaxed_multiring_protocol_v1.json": "0516881eb93a6ce099a0a50be11c593db0f71aba77653241a3b1695dc85eb3fb",
+    "CPDC_ccpVTZ_central_gap_landscape_v1.py": "b02c4ac8253fcf6a57bcaf3e5a2c3b69d8b68cc2b77ad6b809992d147cc29d49",
+    "CPDC_ccpVTZ_central_gap_landscape_protocol_v1.json": "0b46fea8ec12818b3f99922172e9a9d6ac2675a10c055a44f1b48704dcedc1e9",
+    "CPDC_frozen_ccpVTZ_lift_decision_20260920.json": "c3cae7536458898f05b51714991c4f5deeb6ffd7dc1e3861a036214682dc12da",
+    "cpdc_lift_engine.py": "7ff5d5dab945128e6031e61e2510d836ffd42d0a5e1f86078ef72e9b0ddcd325",
+    "cpdc_overlap.py": "f3800d28751ac623bc7c75b8a5ea50d1786754b42ece9e5ca14be6c18b91a429",
+    "run_CPDC_ccpVTZ_rank2_opposed_history_v1.sh": "84f7fe51f0aee6d116dac6df68fde4fcb54ea9ff37af32b3d7240149f13108ca",
+    "README_CPDC_ccpVTZ_rank2_opposed_history_v1.md": "14aa89d240b14341ae0699bbf2b2f351e5a5016a7203f60ae2f9f0678e136542"
+  },
+  "production_claim": false,
+  "required_runtime": {
+    "pyscf": "2.13.1 exactly",
+    "basis": "cc-pVTZ",
+    "history_default_parallel_chains": 2,
+    "history_default_threads_per_chain": 12,
+    "history_default_memory_mb_per_chain": 200000,
+    "SA3_default_threads_per_job": 6,
+    "SA3_default_memory_mb_per_job": 100000,
+    "SA3_default_max_parallel_jobs": 4
+  },
+  "claim_boundary": "A terminal pass supports history-independent identity of the isolated rank-2 P12 manifold only. It does not assign a scalar Berry phase or count internal conical intersections."
+}

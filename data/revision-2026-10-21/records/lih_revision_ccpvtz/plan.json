@@ -1,0 +1,36 @@
+{
+  "created_unix": 1791852690.5481243,
+  "basis": "cc-pvtz",
+  "center": [
+    5.875,
+    0.011
+  ],
+  "full_widths": [
+    0.15,
+    0.001
+  ],
+  "loop_scales_and_segments": [
+    [
+      1.0,
+      4
+    ],
+    [
+      1.0,
+      8
+    ],
+    [
+      1.0,
+      16
+    ]
+  ],
+  "thresholds": {
+    "eta_min": 0.98,
+    "leakage_max": 0.01,
+    "squared_assignment_margin_min": 0.1,
+    "max_orbital_gradient": 0.0001,
+    "min_excluded_gap": 0.01
+  },
+  "overlap": "complete four-electron determinant contraction",
+  "histories": true,
+  "source_solver_sha256": "1f159abad2e489f8e50638eb184812c7f4b51939bb8ec2603b3e81a07d9994a8"
+}

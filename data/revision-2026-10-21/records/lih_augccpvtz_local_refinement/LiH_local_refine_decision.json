@@ -1,0 +1,72 @@
+{
+  "status": "QUALIFIED",
+  "reason": "Two successive local refinements and complete opposed histories passed; inspect inherited and original-n16 comparisons in checks.",
+  "basis": "aug-cc-pvtz",
+  "checks": {
+    "inherited_global_mesh_converged": true,
+    "inherited_nested_loops_qualified": true,
+    "inherited_nested_mesh_converged": true,
+    "supplemental_finest_loop_qualified": true,
+    "adjacent_refinement_levels_stable": true,
+    "C_consistent_with_original_n16": true,
+    "D_mu_consistent_with_original_n16": true,
+    "opposed_histories_qualified_on_final_mesh": true
+  },
+  "local_refinement_factor": 16,
+  "number_of_edges": 154,
+  "C": 0.0003191653837014273,
+  "D_mu": 0.0006300611946496533,
+  "delta_mu_au": 0.01509458016614645,
+  "eta": 0.9997918305550153,
+  "leakage": 0.00040458883948302216,
+  "assignment_margin": 0.37613122170923985,
+  "same_composed_assignment": true,
+  "route1_permutation": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "route2_permutation": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "comparison_to_original_n16": {
+    "C": {
+      "difference": 3.899304766769897e-09,
+      "tolerance": 3.191653837014273e-07,
+      "pass": true
+    },
+    "D_mu": {
+      "difference": 1.2418366384368308e-08,
+      "tolerance": 6.300611946496533e-07,
+      "pass": true
+    }
+  },
+  "parent_status_preserved": "REVIEW_REQUIRED",
+  "parent_fingerprint": "a9c63b81faf21ad3e8e6b85318a4b783ac3b89177850d713d3b293e8fa547f62",
+  "supplement_fingerprint": "43ca4621c5ed4641443d58fbb09e946d923c016d3fd3735e633ec37948fa1ef8",
+  "thresholds": {
+    "eta_min": 0.98,
+    "leakage_max": 0.01,
+    "assignment_margin_min": 0.1,
+    "max_orbital_gradient": 1e-06,
+    "min_excluded_A1_gap_Eh": 0.01,
+    "max_spin_square": 1e-07,
+    "max_mo_orth_error": 1e-09,
+    "max_probe_energy_error_Eh": 1e-08,
+    "max_algebra_error": 1e-09,
+    "history_max_average_energy_error_Eh": 1e-08,
+    "history_min_eta": 0.9999,
+    "history_max_leakage": 1e-06,
+    "history_max_C_difference": 1e-08,
+    "history_max_D_mu_difference": 1e-08,
+    "mesh_C_relative_tolerance": 0.001,
+    "mesh_C_absolute_tolerance": 1e-08,
+    "mesh_D_mu_relative_tolerance": 0.001,
+    "mesh_D_mu_absolute_tolerance": 1e-08
+  },
+  "scope": "Finite-mesh singlet A1 SA4-CASSCF(2e,5o) transport. Dipole quantities compare transported matrix representations, not different physical endpoint dipoles. Fifth-root isolation is within singlet A1 only."
+}

@@ -1,0 +1,52 @@
+{
+  "coordinate": {
+    "unit": "Bohr",
+    "Be": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "H1": [
+      "lambda",
+      "+(2.540-0.46*lambda)",
+      0.0
+    ],
+    "H2": [
+      "lambda",
+      "-(2.540-0.46*lambda)",
+      0.0
+    ]
+  },
+  "basis": "cc-pVTZ",
+  "active_space": {
+    "electrons": 6,
+    "orbitals": 6
+  },
+  "freeze_core": true,
+  "targets_bohr": [
+    2.6235,
+    2.624,
+    2.62425,
+    2.6245,
+    2.625
+  ],
+  "irreps": [
+    "A1",
+    "B2"
+  ],
+  "protocols": [
+    "SA3",
+    "SA4"
+  ],
+  "sources": [
+    "common_sa2",
+    "left",
+    "rhf",
+    "right"
+  ],
+  "left_anchor_bohr": 2.616,
+  "right_anchor_bohr": 2.627,
+  "branch_step_bohr": 0.0005,
+  "threads": 64,
+  "memory_mb": 100000
+}

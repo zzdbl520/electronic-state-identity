@@ -1,0 +1,7 @@
+{
+  "script_version": "LiH-S1-physical-field-locator-v1.7",
+  "R_angstrom": 5.8,
+  "field_z_au": 0.0105,
+  "error": "FileNotFoundError(2, 'No such file or directory')",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/scratch/7aca32d37059/electronic-state-identity/systems/lih/workflow/LiH_S1_physical_field_locator.py\", line 326, in run_protocol\n    md = casscf_job(r, field, protocol, target)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/scratch/7aca32d37059/electronic-state-identity/systems/lih/workflow/LiH_S1_physical_field_locator.py\", line 138, in casscf_job\n    mf, field_metadata = run_rhf_field(mol, field_au)\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/scratch/7aca32d37059/electronic-state-identity/systems/lih/workflow/LiH_S1_physical_field_locator.py\", line 106, in run_rhf_field\n    mf.kernel()\n  File \"<string>\", line 2, in kernel\n  File \"/root/.local/lib/python3.12/site-packages/pyscf/scf/hf.py\", line 2073, in scf\n    self.dump_flags()\n  File \"/root/.local/lib/python3.12/site-packages/pyscf/scf/hf.py\", line 1845, in dump_flags\n    self.max_memory, lib.current_memory()[0])\n                     ^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.local/lib/python3.12/site-packages/pyscf/lib/misc.py\", line 119, in current_memory\n    with open(\"/proc/%s/statm\" % os.getpid()) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/proc/2/statm'\n"
+}

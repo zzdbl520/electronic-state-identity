@@ -1,0 +1,3 @@
+# Keep documentation/code portable; preserve every deposited data byte.
+* text=auto eol=lf
+data/revision-2026-10-21/** -text

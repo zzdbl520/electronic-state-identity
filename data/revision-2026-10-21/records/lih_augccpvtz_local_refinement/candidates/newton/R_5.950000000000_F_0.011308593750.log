@@ -1,0 +1,647 @@
+#INFO: **** input file is /scr/zdb/LiH_augccpVTZ_one_shot/LiH_augccpVTZ_one_shot/LiH_augccpVTZ_local_refine/refine_lih.py ****
+#!/usr/bin/env python3
+"""Supplemental local refinement of the audited LiH aug-cc-pVTZ run.
+
+Read-only source results; separate, fingerprinted supplemental checkpoints.
+Original quantum-chemistry solver and all numerical thresholds are unchanged.
+"""
+from __future__ import annotations
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import shutil
+import sys
+import time
+import traceback
+
+# The unmodified engine configures BLAS/OpenMP before importing NumPy.
+import lih_engine as e
+import numpy as np
+
+VERSION = 'LiH-local-refinement-v1.0-20261013'
+EXPECTED_ENGINE = '15f834a365312b4271efa3643595f7ec0baa62d2704fca25148ed7fe47545df4'
+EXPECTED_PARENT = 'a9c63b81faf21ad3e8e6b85318a4b783ac3b89177850d713d3b293e8fa547f62'
+FACTORS = (2, 4, 8, 16, 32, 64)
+# Source n=16 edge numbers, zero-based. Exchange edges plus immediate neighbours.
+LOCAL_EDGES = (26, 27, 28, 45, 46, 47)
+ENDPOINT = (5.95, .0115)
+REPORTS = ('plan.json', 'wavefunction_sha256.json', 'loop_results.json',
+           'history_results.json', 'LiH_augccpVTZ_decision.json', 'run_status.json',
+           'selftest.json', 'calculation_source.py')
+
+
+def read_json(path):
+    return json.loads(Path(path).read_text())
+
+
+def runtime():
+    return {'pyscf': __import__('pyscf').__version__, 'numpy': np.__version__,
+            'scipy': __import__('scipy').__version__}
+
+
+def refined_path(factor):
+    if factor not in (1, *FACTORS):
+        raise ValueError('Unsupported refinement factor')
+    base = e.coords(1., 16)
+    ps = []
+    for i, (a, b) in enumerate(zip(base[:-1], base[1:])):
+        n = factor if i in LOCAL_EDGES else 1
+        for k in range(n):
+            ps.append(tuple(round(a[j] + (b[j]-a[j])*k/n, 12) for j in range(2)))
+    ps.append(ps[0])
+    # This balanced refinement preserves the original opposite corner exactly.
+    # Never silently use half the edges as the physical endpoint on another mesh.
+    mid = ps.index(ENDPOINT)
+    if mid * 2 != len(ps)-1 or len(set(ps[:-1])) != len(ps)-1:
+        raise RuntimeError('Invalid mesh: duplicate vertex or incorrect route split')
+    if len(ps)-1 != 64 + 6*(factor-1):
+        raise RuntimeError('Unexpected edge count')
+    return ps
+
+
+def inspect_source(source):
+    """Verify the complete original archive before reusing any wavefunction."""
+    if not source.is_dir():
+        raise FileNotFoundError(f'Input must be an unpacked result directory: {source}')
+    plan = read_json(source/'plan.json')
+    if plan.get('fingerprint') != EXPECTED_PARENT:
+        raise RuntimeError('This supplement targets LiH_augccpVTZ_results_20261013_022058 only.')
+    calculated = hashlib.sha256(json.dumps(plan['plan'], sort_keys=True).encode()).hexdigest()
+    if calculated != plan['fingerprint']:
+        raise RuntimeError('Original plan fingerprint is invalid')
+    if e.sha256(source/'calculation_source.py') != EXPECTED_ENGINE:
+        raise RuntimeError('Original calculation source does not match the audited version')
+    if e.sha256(Path(e.__file__)) != EXPECTED_ENGINE:
+        raise RuntimeError('Bundled quantum-chemistry engine has been modified')
+    manifest = read_json(source/'wavefunction_sha256.json')
+    if len(manifest) != 736:
+        raise RuntimeError('Expected the complete 736-wavefunction archive')
+    for name, checksum in manifest.items():
+        rel = Path(name)
+        if rel.is_absolute() or '..' in rel.parts:
+            raise RuntimeError('Unsafe manifest path')
+        p = source/rel
+        if not p.is_file() or e.sha256(p) != checksum:
+            raise RuntimeError(f'Missing or changed original wavefunction: {p}')
+    if {str(p.relative_to(source)) for p in source.rglob('*.npz')} != set(manifest):
+        raise RuntimeError('Original directory contains unregistered wavefunctions')
+    reports = {name: e.sha256(source/name) for name in REPORTS}
+    decision = read_json(source/'LiH_augccpVTZ_decision.json')
+    old_status = read_json(source/'run_status.json')
+    if old_status.get('status') != 'COMPLETED' or decision.get('thresholds') != e.THRESHOLDS:
+        raise RuntimeError('Original run is incomplete or its thresholds differ')
+    sols = {}
+    for key in e.coords(1., 16)[:-1]:
+        s = e.load(e.outpath(source/'solutions', key))
+        if s['metadata'].get('run_fingerprint') != EXPECTED_PARENT or not all(e.state_checks(s).values()):
+            raise RuntimeError(f'Original boundary wavefunction is not qualified: {key}')
+        sols[key] = s
+    return {'plan': plan, 'manifest': manifest, 'report_hashes': reports,
+            'solutions': sols, 'decision': decision,
+            'runtime_matches_original': runtime() == plan['plan']['runtime_versions']}
+
+
+def make_plan(info):
+    return {
+        'version': VERSION, 'parent_fingerprint': EXPECTED_PARENT,
+        'parent_report_hashes': info['report_hashes'],
+        'engine_sha256': e.sha256(Path(e.__file__)),
+        'driver_sha256': e.sha256(Path(__file__)),
+        'runtime_versions': runtime(), 'base_segments_per_side': 16,
+        'refined_base_edges_zero_based': LOCAL_EDGES, 'refinement_factors': FACTORS,
+        'endpoint_R_Angstrom_F_au': ENDPOINT,
+        'thresholds': e.THRESHOLDS,
+        'independent_rule': 'Two fixed RHF-seeded optimizer routes; lowest solver-valid SA4 energy, retaining both candidates.',
+        'candidate_mesh_rule': 'Both adjacent refinement levels qualified, both metrics mesh-converged, every coarse-edge permutation equals its composed child-edge permutation, same composed endpoint assignment on both routes.',
+        'history_rule': 'Full fresh forward/reverse traversals on each candidate fine mesh; no reuse of old history orbitals except the common independent starting seed.',
+        'history_failure_rule': 'Further refine only for an assignment-only failure; stop for numerical history, wavefunction, fidelity or algebra failure.',
+        'inherited_checks': 'Original global 8-to-16 mesh comparison and all four nested-loop tests are inherited after integrity verification; compare supplemental final metrics to original n=16 as well.',
+        'maximum_independent_new_points': 6*(FACTORS[-1]-1),
+        'no_signal_selection': 'Mesh selection uses qualification and numerical stability, never the size or sign of nonclosure.',
+    }
+
+
+def register_plan(root, plan):
+    normalized = json.loads(json.dumps(plan))
+    fingerprint = hashlib.sha256(json.dumps(normalized, sort_keys=True).encode()).hexdigest()
+    target = root/'plan.json'
+    if target.exists():
+        previous = read_json(target)
+        if previous.get('fingerprint') != fingerprint or previous.get('plan') != normalized:
+            raise RuntimeError('Supplement source, runtime or plan differs from this work directory. Use a new --root; do not delete its plan.json.')
+    else:
+        if any(root.rglob('*.npz')):
+            raise RuntimeError('Unregistered NPZ files in supplemental --root; use a new directory')
+        e.write_json(target, {'fingerprint': fingerprint,
+                             'created_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+                             'plan': normalized})
+    e.RUN_FINGERPRINT = fingerprint
+
+
+def copy_verified(src, dest, checksum):
+    if dest.exists():
+        if e.sha256(dest) != checksum:
+            raise RuntimeError(f'Changed local snapshot: {dest}')
+    else:
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        temp = dest.with_suffix(dest.suffix+'.copy.tmp')
+        shutil.copyfile(src, temp)
+        if e.sha256(temp) != checksum:
+            raise RuntimeError(f'Input changed during copy: {src}')
+        os.replace(temp, dest)
+
+
+def freeze_baseline(source, root, info):
+    for name, checksum in info['report_hashes'].items():
+        copy_verified(source/name, root/'baseline'/name, checksum)
+    sols = {}
+    for key, state in info['solutions'].items():
+        rel = 'solutions/'+Path(state['path']).name
+        dest = root/'baseline'/rel
+        copy_verified(source/rel, dest, info['manifest'][rel])
+        sols[key] = e.load(dest)
+    return sols
+
+
+def analyze(ps, sols, factor):
+    split = ps.index(ENDPOINT)
+    if split*2 != len(ps)-1:
+        raise RuntimeError('Refusing a route split that is not the physical opposite corner')
+    r = e.analyze_loop(ps, sols, 1.)
+    r['segments_per_side'] = None  # Mesh is nonuniform; do not mislabel it.
+    r.update(base_segments_per_side=16, local_refinement_factor=factor,
+             number_of_edges=len(ps)-1, endpoint_index=split,
+             refined_base_edges_zero_based=list(LOCAL_EDGES))
+    return r
+
+
+def close_metric(fine, coarse, name):
+    diff = abs(fine[name]-coarse[name])
+    tol = max(e.THRESHOLDS[f'mesh_{name}_absolute_tolerance'],
+              e.THRESHOLDS[f'mesh_{name}_relative_tolerance']*abs(fine[name]))
+    return {'difference': diff, 'tolerance': tol, 'pass': diff <= tol}
+
+
+def mesh_comparison(coarse, fine):
+    oldps = [tuple(p) for p in coarse['vertices']]
+    newps = [tuple(p) for p in fine['vertices']]
+    positions = {p: i for i, p in enumerate(newps[:-1])}
+    changed = []
+    for i, (a, b) in enumerate(zip(oldps[:-1], oldps[1:])):
+        left = positions[a]
+        right = len(newps)-1 if i == len(oldps)-2 else positions[b]
+        if right <= left:
+            raise RuntimeError('Fine mesh is not an ordered refinement')
+        child_perm = e.compose([ed['squared_overlap_permutation'] for ed in fine['edges'][left:right]])
+        if child_perm != coarse['edges'][i]['squared_overlap_permutation']:
+            changed.append({'a': a, 'b': b,
+                            'coarse_permutation': coarse['edges'][i]['squared_overlap_permutation'],
+                            'composed_child_permutation': child_perm})
+    checks = {
+        'both_levels_qualified': coarse['qualified'] and fine['qualified'],
+        'C_converged': close_metric(fine, coarse, 'C')['pass'],
+        'D_mu_converged': close_metric(fine, coarse, 'D_mu')['pass'],
+        'edge_assignment_composition_stable': len(changed) == 0,
+        'both_routes_same_assignment_both_levels': coarse['same_assignment'] and fine['same_assignment'],
+    }
+    return {'coarse_factor': coarse['local_refinement_factor'],
+            'fine_factor': fine['local_refinement_factor'], 'checks': checks,
+            'pass': all(checks.values()), 'C': close_metric(fine, coarse, 'C'),
+            'D_mu': close_metric(fine, coarse, 'D_mu'), 'changed_edge_permutations': changed}
+
+
+def run_histories(root, ps, sols, direct, factor, analyze_only):
+    histories = []
+    for name, sequence in [('forward', ps), ('reverse', list(reversed(ps)))]:
+        hs = {}
+        previous = sols[sequence[0]]
+        label = f'refine_{factor:03d}_{name}'
+        directory = root/'histories'/f'factor_{factor:03d}'/name
+        for i, key in enumerate(sequence):
+            state = e.get_solution(directory/f'{i:04d}.npz', key, label,
+                                   previous=previous, analyze_only=analyze_only)
+            if i == len(sequence)-1:
+                closing = state
+            else:
+                hs[key] = state
+            previous = state
+            print(f'PROGRESS history factor={factor} {name} {i+1}/{len(sequence)}', flush=True)
+        h = analyze(ps, hs, factor)
+        comparisons = [{'vertex': key, **e.compare_states(sols[key], hs[key])} for key in ps[:-1]]
+        closure = e.compare_states(hs[ps[0]], closing)
+        h.update(history=name, closure=closure, direct_comparisons=comparisons,
+                 history_direct_max_delta_E=max(c['average_energy_difference_Eh'] for c in comparisons),
+                 history_direct_max_leakage=max(c['leakage'] for c in comparisons),
+                 C_difference_from_direct=abs(h['C']-direct['C']),
+                 D_mu_difference_from_direct=abs(h['D_mu']-direct['D_mu']))
+        align = comparisons[0]['T']
+        h['W_difference_after_start_frame_alignment'] = float(np.linalg.norm(direct['W']-align@h['W']@align.conj().T))
+        controls = {
+            'same_point_reproducibility': all(e.history_qualified(c) for c in comparisons),
+            'closure': e.history_qualified(closure),
+            'C_reproducibility': h['C_difference_from_direct'] <= e.THRESHOLDS['history_max_C_difference'],
+            'D_mu_reproducibility': h['D_mu_difference_from_direct'] <= e.THRESHOLDS['history_max_D_mu_difference'],
+            'same_composed_assignment_as_direct': h['route1_permutation'] == direct['route1_permutation']
+                and h['route2_permutation'] == direct['route2_permutation'],
+        }
+        h['history_checks'] = controls
+        h['history_pass'] = bool(h['qualified'] and all(controls.values()))
+        histories.append(h)
+        e.write_json(root/'analysis'/f'histories_factor_{factor:03d}.json', histories)
+        print(f'HISTORY factor={factor} {name} pass={h["history_pass"]}', flush=True)
+    return histories
+
+
+def write_summary(root, info, baseline, loops, comparisons, histories, reason):
+    last = loops[-1] if loops else baseline
+    latest_comparison = comparisons[-1] if comparisons else None
+    inherited = info['decision']['checks']
+    same_mesh_histories = len(histories) == 2 and all(h['local_refinement_factor'] == last['local_refinement_factor'] for h in histories)
+    checks = {
+        'inherited_global_mesh_converged': inherited['main_mesh_converged'],
+        'inherited_nested_loops_qualified': inherited['nested_loops_qualified'],
+        'inherited_nested_mesh_converged': inherited['nested_mesh_converged'],
+        'supplemental_finest_loop_qualified': last['qualified'],
+        'adjacent_refinement_levels_stable': bool(latest_comparison and latest_comparison['pass']),
+        'C_consistent_with_original_n16': close_metric(last, baseline, 'C')['pass'],
+        'D_mu_consistent_with_original_n16': close_metric(last, baseline, 'D_mu')['pass'],
+        'opposed_histories_qualified_on_final_mesh': bool(same_mesh_histories and all(h['history_pass'] for h in histories)),
+    }
+    decision = {
+        'status': 'QUALIFIED' if all(checks.values()) else 'REVIEW_REQUIRED',
+        'reason': reason, 'basis': e.BASIS, 'checks': checks,
+        'local_refinement_factor': last['local_refinement_factor'],
+        'number_of_edges': last['number_of_edges'],
+        'C': last['C'], 'D_mu': last['D_mu'], 'delta_mu_au': last['delta_mu_au'],
+        'eta': last['eta'], 'leakage': last['leakage'],
+        'assignment_margin': last['assignment_margin'],
+        'same_composed_assignment': last['same_assignment'],
+        'route1_permutation': last['route1_permutation'],
+        'route2_permutation': last['route2_permutation'],
+        'comparison_to_original_n16': {k: close_metric(last, baseline, k) for k in ('C', 'D_mu')},
+        'parent_status_preserved': info['decision']['status'],
+        'parent_fingerprint': EXPECTED_PARENT, 'supplement_fingerprint': e.RUN_FINGERPRINT,
+        'thresholds': e.THRESHOLDS,
+        'scope': 'Finite-mesh singlet A1 SA4-CASSCF(2e,5o) transport. Dipole quantities compare transported matrix representations, not different physical endpoint dipoles. Fifth-root isolation is within singlet A1 only.',
+    }
+    e.write_json(root/'LiH_local_refine_decision.json', decision)
+    lines = [f'LiH / aug-cc-pVTZ local refinement: {decision["status"]}',
+             f'Reason: {reason}', f'Local factor={last["local_refinement_factor"]}; edges={last["number_of_edges"]}',
+             f'C={last["C"]:.12e}; D_mu={last["D_mu"]:.12e}',
+             f'eta={last["eta"]:.10f}; leakage={last["leakage"]:.6e}; margin={last["assignment_margin"]:.8f}',
+             'Checks: '+json.dumps(checks),
+             'Original result files and original REVIEW_REQUIRED decision are preserved.']
+    (root/'SUMMARY.txt').write_text('\n'.join(lines)+'\n')
+    return decision
+
+
+def run(args, info):
+    source, root = args.source.resolve(), args.root.resolve()
+    if root == source or source in root.parents or root in source.parents:
+        raise RuntimeError('--root and --source must be separate, non-nested directories')
+    # Continuation and reanalysis use the registered runtime. An offline audit
+    # can be performed separately without changing these checkpoint identities.
+    if not info['runtime_matches_original']:
+        raise RuntimeError('Use the original osmo4-mokit runtime for this supplement. Expected '+
+                           json.dumps(info['plan']['plan']['runtime_versions'])+'; got '+json.dumps(runtime()))
+    if args.command == 'analyze' and not (root/'plan.json').is_file():
+        raise FileNotFoundError('No supplemental plan exists; run all first')
+    root.mkdir(parents=True, exist_ok=True)
+    import fcntl
+    lock = (root/'run.lock').open('a')
+    try:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        lock.close()
+        raise RuntimeError('Another supplemental calculation is using '+str(root))
+    registered = False
+    try:
+        register_plan(root, make_plan(info))
+        registered = True
+        e.MAX_MEMORY_MB = args.memory_mb
+        e.lib.num_threads(args.threads)
+        e.write_json(root/'run_status.json', {'status':'RUNNING', 'pid':os.getpid(), 'command':args.command})
+        sols = freeze_baseline(source, root, info)
+        # Include exact source files in the result archive for future independent analysis.
+        for p in (Path(__file__), Path(e.__file__)):
+            copy_verified(p, root/'code'/p.name, e.sha256(p))
+        e.write_json(root/'selftest.json', e.selftest())
+        baseline = analyze(refined_path(1), sols, 1)
+        old16 = next(r for r in read_json(source/'loop_results.json') if r['scale'] == 1 and r['segments_per_side'] == 16)
+        if max(abs(baseline[k]-old16[k]) for k in ('C','D_mu')) > 1e-11:
+            raise RuntimeError('Recomputed baseline does not match the original report')
+        e.write_json(root/'analysis'/'baseline_n16.json', baseline)
+        previous = baseline
+        loops, comparisons, histories = [], [], []
+        reason = 'Maximum local refinement reached without all qualification checks passing.'
+        for factor in FACTORS:
+            ps = refined_path(factor)
+            missing_keys = [k for k in ps[:-1] if k not in sols]
+            for i, key in enumerate(missing_keys, 1):
+                sols[key] = e.get_solution(e.outpath(root/'solutions', key), key, 'direct',
+                                           analyze_only=args.command == 'analyze')
+                print(f'PROGRESS direct factor={factor} {i}/{len(missing_keys)}', flush=True)
+            current = analyze(ps, sols, factor)
+            comparison = mesh_comparison(previous, current)
+            loops.append(current)
+            comparisons.append(comparison)
+            e.write_json(root/'analysis'/f'loop_factor_{factor:03d}.json', current)
+            e.write_json(root/'mesh_comparisons.json', comparisons)
+            print(f'LOOP factor={factor} edges={len(ps)-1} C={current["C"]:.12e} margin={current["assignment_margin"]:.8f} qualified={current["qualified"]} stable={comparison["pass"]}', flush=True)
+            previous = current
+            # At least two NEW refinement levels are required. Original n=16
+            # cannot be used as the coarse member of the acceptance pair.
+            if factor < 4 or not comparison['pass']:
+                continue
+            histories = run_histories(root, ps, sols, current, factor, args.command == 'analyze')
+            if all(h['history_pass'] for h in histories):
+                reason = 'Two successive local refinements and complete opposed histories passed; inspect inherited and original-n16 comparisons in checks.'
+                break
+            other_failure = any(not all(v for k, v in h['checks'].items() if k != 'assignment_margin')
+                                or not all(h['history_checks'].values()) for h in histories)
+            if other_failure:
+                reason = 'Supplemental history controls failed beyond an assignment-margin-only issue; manual review required.'
+                break
+            print('History failure is assignment-margin-only; continuing the predeclared refinement ladder.', flush=True)
+        decision = write_summary(root, info, baseline, loops, comparisons, histories, reason)
+        files = {str(p.relative_to(root)): e.sha256(p) for p in sorted(root.rglob('*.npz'))}
+        e.write_json(root/'wavefunction_sha256.json', files)
+        e.write_json(root/'run_status.json', {'status':'COMPLETED', 'scientific_status':decision['status'], 'wavefunctions':len(files)})
+        print((root/'SUMMARY.txt').read_text(), flush=True)
+        return 0 if decision['status'] == 'QUALIFIED' else 2
+    except BaseException as exc:
+        # Do not replace a valid status merely because registration itself failed.
+        if registered:
+            e.write_json(root/'run_status.json', {'status':'FAILED_OR_INTERRUPTED', 'error':repr(exc), 'traceback':traceback.format_exc()})
+        raise
+    finally:
+        lock.close()
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('command', nargs='?', choices=('all','check','analyze'), default='all')
+    parser.add_argument('--source', type=Path, required=True, help='Original unpacked 022058 result directory')
+    parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parent/'LiH_augccpVTZ_local_refine_work')
+    parser.add_argument('--threads', type=int, default=8)
+    parser.add_argument('--memory-mb', type=int, default=8000)
+    args = parser.parse_args()
+    if args.threads < 1 or args.memory_mb < 500:
+        parser.error('threads must be >=1 and memory-mb >=500')
+    e.lib.num_threads(args.threads)
+    info = inspect_source(args.source.resolve())
+    if args.command == 'check':
+        print(json.dumps({'source_integrity':'PASS', 'runtime_matches_original':info['runtime_matches_original'],
+                          'required_runtime':info['plan']['plan']['runtime_versions'], 'actual_runtime':runtime(),
+                          'refined_edges':LOCAL_EDGES,
+                          'meshes':[{'factor':n, 'edges':len(refined_path(n))-1,
+                                     'new_independent_points_cumulative':6*(n-1),
+                                     'history_points_if_selected':2*len(refined_path(n))} for n in FACTORS]}, indent=2))
+        return 0 if info['runtime_matches_original'] else 2
+    return run(args, info)
+
+
+if __name__ == '__main__':
+    try:
+        sys.exit(main())
+    except KeyboardInterrupt:
+        print('Interrupted. Re-run the identical command to resume.', file=sys.stderr)
+        sys.exit(130)
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='cu02', release='4.18.0-193.el8.x86_64', version='#1 SMP Fri May 8 10:59:10 UTC 2020', machine='x86_64')  Threads 48
+Python 3.11.15 | packaged by conda-forge | (main, Aug 11 2026, 10:26:29) [GCC 14.4.0]
+numpy 2.3.5  scipy 1.17.1  h5py 3.16.0
+Date: Tue Oct 13 05:22:38 2026
+PySCF version 2.13.1
+PySCF path  /home/zdb/miniconda3/envs/osmo4-mokit/lib/python3.11/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 4
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 4
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry C2v subgroup None
+[INPUT] Mole.unit = Angstrom
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 Li     0.000000000000   0.000000000000  -2.975000000000 AA    0.000000000000   0.000000000000  -5.621935220581 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   2.975000000000 AA    0.000000000000   0.000000000000   5.621935220581 Bohr   0.0
+
+nuclear repulsion = 0.266812039119328
+point group symmetry = Coov, use subgroup C2v
+symmetry origin: [ 0.          0.         -2.81096761]
+symmetry axis x: [1. 0. 0.]
+symmetry axis y: [0. 1. 0.]
+symmetry axis z: [0. 0. 1.]
+num. orbitals of irrep A1 = 30
+num. orbitals of irrep A2 = 7
+num. orbitals of irrep B1 = 16
+num. orbitals of irrep B2 = 16
+number of shells = 22
+number of NR pGTOs = 84
+number of NR cGTOs = 69
+basis = aug-cc-pvtz
+ecp = {}
+CPU time:     53623.34
+
+
+******** <class 'pyscf.scf.hf_symm.SymAdaptedRHF'> ********
+method = SymAdaptedRHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-13
+SCF conv_tol_grad = None
+SCF max_cycles = 100
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /scr/zdb/molpro/tmp2e6edhtl
+max_memory 8000 MB (current use 527 MB)
+Freeze 0 electrons in irreps []
+    4 free electrons in irreps A1 A2 B1 B2
+Set gradient conv threshold to 3.16228e-07
+Initial guess from minao.
+init E= -7.69644943855838
+HOMO (A1) = -0.156334769587625  LUMO (A1) = -0.12867258433048
+cycle= 1 E= -7.65449301435145  delta_E= 0.042  |g|= 0.06  |ddm|= 1.16
+HOMO (A1) = -0.377524621308786  LUMO (A1) = -0.171110748771782
+cycle= 2 E= -7.57671730985842  delta_E= 0.0778  |g|= 0.376  |ddm|= 1.52
+HOMO (A1) = -0.36198514456813  LUMO (A1) = -0.171465428345364
+cycle= 3 E= -7.58398518917662  delta_E= -0.00727  |g|= 0.361  |ddm|= 0.0301
+HOMO (A1) = -0.313937594482902  LUMO (A1) = -0.173000610359209
+cycle= 4 E= -7.61521044416538  delta_E= -0.0312  |g|= 0.295  |ddm|= 0.141
+HOMO (A1) = -0.283710638917088  LUMO (A1) = -0.173914652512305
+cycle= 5 E= -7.6377955588494  delta_E= -0.0226  |g|= 0.253  |ddm|= 0.117
+HOMO (A1) = -0.297114884851319  LUMO (A1) = -0.173217508768657
+cycle= 6 E= -7.63111669577305  delta_E= 0.00668  |g|= 0.27  |ddm|= 0.0377
+HOMO (A1) = -0.237774772423861  LUMO (A1) = -0.175247694066234
+cycle= 7 E= -7.66588828968985  delta_E= -0.0348  |g|= 0.209  |ddm|= 0.195
+HOMO (A1) = -0.237305308380407  LUMO (A1) = -0.175257198542378
+cycle= 8 E= -7.66632485362693  delta_E= -0.000437  |g|= 0.209  |ddm|= 0.00272
+HOMO (A1) = -0.238409897548112  LUMO (A1) = -0.174480024840889
+cycle= 9 E= -7.66981706848811  delta_E= -0.00349  |g|= 0.212  |ddm|= 0.0364
+HOMO (A1) = -0.194121012889592  LUMO (A1) = -0.15933214214223
+cycle= 10 E= -7.624402136054  delta_E= 0.0454  |g|= 0.113  |ddm|= 1.31
+HOMO (A1) = -0.18262877470686  LUMO (A1) = -0.138700195193758
+cycle= 11 E= -7.66382108554184  delta_E= -0.0394  |g|= 0.126  |ddm|= 0.484
+HOMO (A1) = -0.225984805419938  LUMO (A1) = -0.168191134203293
+cycle= 12 E= -7.77645125289412  delta_E= -0.113  |g|= 0.101  |ddm|= 1.03
+HOMO (A1) = -0.218333871064598  LUMO (A1) = -0.152249388176283
+cycle= 13 E= -7.79205871231588  delta_E= -0.0156  |g|= 0.0233  |ddm|= 0.198
+HOMO (A1) = -0.217083131050638  LUMO (A1) = -0.144495870513328
+cycle= 14 E= -7.79286628492869  delta_E= -0.000808  |g|= 0.00555  |ddm|= 0.08
+HOMO (A1) = -0.216821506791897  LUMO (A1) = -0.14346329199526
+cycle= 15 E= -7.79290404235456  delta_E= -3.78e-05  |g|= 0.00566  |ddm|= 0.0469
+HOMO (A1) = -0.217026716718136  LUMO (A1) = -0.144328749879393
+cycle= 16 E= -7.79295224294845  delta_E= -4.82e-05  |g|= 0.000667  |ddm|= 0.0171
+HOMO (A1) = -0.217023604239971  LUMO (A1) = -0.144293033580952
+cycle= 17 E= -7.79295252310842  delta_E= -2.8e-07  |g|= 0.000517  |ddm|= 0.0023
+HOMO (A1) = -0.217058755617068  LUMO (A1) = -0.144333878752559
+cycle= 18 E= -7.7929529026836  delta_E= -3.8e-07  |g|= 6.87e-05  |ddm|= 0.00141
+HOMO (A1) = -0.217062728659274  LUMO (A1) = -0.144337282064098
+cycle= 19 E= -7.79295290994554  delta_E= -7.26e-09  |g|= 1.38e-06  |ddm|= 0.000328
+HOMO (A1) = -0.217062059956898  LUMO (A1) = -0.1443368677454
+cycle= 20 E= -7.79295290994975  delta_E= -4.22e-12  |g|= 3.89e-07  |ddm|= 1.18e-05
+HOMO (A1) = -0.217061939231322  LUMO (A1) = -0.144336730771577
+cycle= 21 E= -7.79295290995013  delta_E= -3.8e-13  |g|= 3.82e-08  |ddm|= 6.31e-06
+HOMO (A1) = -0.217061927997629  LUMO (A1) = -0.144336718953398
+cycle= 22 E= -7.79295290995017  delta_E= -4.09e-14  |g|= 1.88e-08  |ddm|= 8.54e-07
+HOMO (A1) = -0.217061928358838  LUMO (A1) = -0.144336719174765
+Extra cycle  E= -7.79295290995016  delta_E= 1.07e-14  |g|= 3.1e-08  |ddm|= 3.45e-07
+converged SCF energy = -7.79295290995016
+
+******** <class 'pyscf.mcscf.addons.StateAverageCASSCF'> ********
+CAS (1e+1e, 5o), ncore = 1, nvir = 63
+max_cycle_macro = 100
+max_cycle_micro = 20
+conv_tol = 1e-12
+conv_tol_grad = 1e-08
+orbital rotation max_stepsize = 0.03
+augmented hessian ah_max_cycle = 30
+augmented hessian ah_conv_tol = 1e-16
+augmented hessian ah_linear dependence = 1e-20
+augmented hessian ah_level shift = 1e-08
+augmented hessian ah_start_tol = 500
+augmented hessian ah_start_cycle = 3
+augmented hessian ah_grad_trust_region = 3
+kf_trust_region = 3
+kf_interval = 5
+natorb = False
+canonicalization = False
+chkfile = /scr/zdb/molpro/tmp2e6edhtl
+max_memory 8000 MB (current use 527 MB)
+internal_rotation = False
+******** <class 'pyscf.mcscf.addons.StateAverageFCISolver'> ********
+max. cycles = 200
+conv_tol = 1e-13
+davidson only = True
+linear dependence = 1e-14
+level shift = 0.001
+max iter space = 12
+max_memory 8000 MB
+nroots = 4
+pspace_size = 400
+spin = None
+Input CI wfn symmetry = A1
+State-average over 4 states with weights [0.25, 0.25, 0.25, 0.25]
+Symmetries of active orbitals: A1 A1 A1 B1 B2
+Active space CI wfn symmetry = A1
+
+WARN: SO-CASSCF (Second order CASSCF) is an experimental feature. Its performance is bad for large systems.
+
+CASCI E = -7.54397593747535  dE = -7.5439759  S^2 = 0.0000000
+macro 1 (30 JK  24 micro), CASSCF E = -7.59080287067838  dE = -0.04683  |grad|=0.091  S^2 = 0.0000000
+macro 2 (29 JK  23 micro), CASSCF E = -7.64206422694854  dE = -0.05126  |grad|=0.137  S^2 = 0.0000000
+macro 3 (30 JK  24 micro), CASSCF E = -7.68561319507482  dE = -0.04355  |grad|=0.129  S^2 = 0.0000000
+macro 4 (29 JK  23 micro), CASSCF E = -7.75769785027524  dE = -0.07208  |grad|=0.141  S^2 = 0.0000000
+macro 5 (30 JK  24 micro), CASSCF E = -7.75907214363644  dE = -0.001374  |grad|=0.106  S^2 = 0.0000000
+macro 6 (30 JK  24 micro), CASSCF E = -7.77673748606109  dE = -0.01767  |grad|=0.0822  S^2 = 0.0000000
+macro 7 (31 JK  25 micro), CASSCF E = -7.78254496153529  dE = -0.005807  |grad|=0.0535  S^2 = 0.0000000
+macro 8 (31 JK  25 micro), CASSCF E = -7.78390387686846  dE = -0.001359  |grad|=0.0708  S^2 = 0.0000000
+macro 9 (30 JK  24 micro), CASSCF E = -7.78373146351544  dE = 0.0001724  |grad|=0.0935  S^2 = 0.0000000
+macro 10 (34 JK  27 micro), CASSCF E = -7.78536833437293  dE = -0.001637  |grad|=0.0376  S^2 = 0.0000000
+macro 11 (31 JK  25 micro), CASSCF E = -7.78686345342292  dE = -0.001495  |grad|=0.0591  S^2 = 0.0000000
+macro 12 (35 JK  28 micro), CASSCF E = -7.78863143656519  dE = -0.001768  |grad|=0.00934  S^2 = 0.0000000
+macro 13 (35 JK  28 micro), CASSCF E = -7.78867299511504  dE = -4.156e-05  |grad|=0.0188  S^2 = 0.0000000
+macro 14 (16 JK  12 micro), CASSCF E = -7.78882661216896  dE = -0.0001536  |grad|=0.00856  S^2 = 0.0000000
+macro 15 (31 JK  25 micro), CASSCF E = -7.78573082472738  dE = 0.003096  |grad|=0.0821  S^2 = 0.0000000
+macro 16 (31 JK  25 micro), CASSCF E = -7.78742364429151  dE = -0.001693  |grad|=0.0594  S^2 = 0.0000000
+macro 17 (34 JK  27 micro), CASSCF E = -7.78796962835845  dE = -0.000546  |grad|=0.0285  S^2 = 0.0000000
+macro 18 (30 JK  24 micro), CASSCF E = -7.78677621423409  dE = 0.001193  |grad|=0.101  S^2 = 0.0000000
+macro 19 (31 JK  25 micro), CASSCF E = -7.78842732861569  dE = -0.001651  |grad|=0.0729  S^2 = 0.0000000
+macro 20 (16 JK  12 micro), CASSCF E = -7.78731488654588  dE = 0.001112  |grad|=0.0207  S^2 = 0.0000000
+macro 21 (35 JK  28 micro), CASSCF E = -7.78885831923174  dE = -0.001543  |grad|=0.0106  S^2 = 0.0000000
+macro 22 (8 JK  5 micro), CASSCF E = -7.78883642134964  dE = 2.19e-05  |grad|=0.0095  S^2 = 0.0000000
+macro 23 (36 JK  28 micro), CASSCF E = -7.78904510136268  dE = -0.0002087  |grad|=0.00013  S^2 = 0.0000000
+macro 24 (34 JK  28 micro), CASSCF E = -7.78904538635472  dE = -2.85e-07  |grad|=0.000398  S^2 = 0.0000000
+macro 25 (7 JK  4 micro), CASSCF E = -7.78904412934915  dE = 1.257e-06  |grad|=0.000219  S^2 = 0.0000000
+macro 26 (7 JK  4 micro), CASSCF E = -7.78904333550102  dE = 7.938e-07  |grad|=0.000624  S^2 = 0.0000000
+macro 27 (35 JK  28 micro), CASSCF E = -7.78862523894219  dE = 0.0004181  |grad|=0.0431  S^2 = 0.0000000
+macro 28 (22 JK  17 micro), CASSCF E = -7.78871815211512  dE = -9.291e-05  |grad|=0.0113  S^2 = 0.0000000
+macro 29 (36 JK  28 micro), CASSCF E = -7.7890447853223  dE = -0.0003266  |grad|=0.000198  S^2 = 0.0000000
+macro 30 (16 JK  12 micro), CASSCF E = -7.78904540498623  dE = -6.197e-07  |grad|=0.000177  S^2 = 0.0000000
+macro 31 (7 JK  4 micro), CASSCF E = -7.78904539454962  dE = 1.044e-08  |grad|=0.000115  S^2 = 0.0000000
+macro 32 (20 JK  16 micro), CASSCF E = -7.78904540365952  dE = -9.11e-09  |grad|=0.000103  S^2 = 0.0000000
+macro 33 (18 JK  14 micro), CASSCF E = -7.78904541444786  dE = -1.079e-08  |grad|=4.87e-05  S^2 = 0.0000000
+macro 34 (7 JK  4 micro), CASSCF E = -7.78904541423339  dE = 2.145e-10  |grad|=4.49e-05  S^2 = 0.0000000
+macro 35 (14 JK  11 micro), CASSCF E = -7.78904542114125  dE = -6.908e-09  |grad|=6.77e-05  S^2 = 0.0000000
+macro 36 (7 JK  4 micro), CASSCF E = -7.78904082026994  dE = 4.601e-06  |grad|=4.15e-05  S^2 = 0.0000000
+macro 37 (35 JK  28 micro), CASSCF E = -7.78904542482092  dE = -4.605e-06  |grad|=3.75e-05  S^2 = 0.0000000
+macro 38 (19 JK  15 micro), CASSCF E = -7.78904542505653  dE = -2.356e-10  |grad|=2.88e-06  S^2 = 0.0000000
+macro 39 (13 JK  10 micro), CASSCF E = -7.78904542506174  dE = -5.218e-12  |grad|=1.85e-06  S^2 = 0.0000000
+macro 40 (17 JK  14 micro), CASSCF E = -7.78904542506175  dE = -9.77e-15  |grad|=4.28e-07  S^2 = 0.0000000
+macro 41 (34 JK  28 micro), CASSCF E = -7.7890454250622  dE = -4.423e-13  |grad|=5.65e-09  S^2 = 0.0000000
+newton CASSCF converged in 41 macro (135 KF 886 Hx) steps
+CASSCF energy = -7.7890454250622
+CASCI E = -7.78904542506220  E(CI) = -0.641603578346107  S^2 = 0.0000000
+CASCI state-averaged energy = -7.7890454250622
+CASCI energy for each state
+  State 0 weight 0.25  E = -7.92528505260057 S^2 = 0.0000000
+  State 1 weight 0.25  E = -7.87522980400147 S^2 = 0.0000000
+  State 2 weight 0.25  E = -7.67913864581238 S^2 = 0.0000000
+  State 3 weight 0.25  E = -7.67652819783436 S^2 = 0.0000000
+Symmetries of active orbitals: A1 A1 A1 B1 B2
+Active space CI wfn symmetry = A1
+
+******** <class 'pyscf.mcscf.casci_symm.SymAdaptedCASCI'> ********
+CAS (1e+1e, 5o), ncore = 1, nvir = 63
+natorb = False
+canonicalization = True
+sorting_mo_energy = False
+max_memory 8000 MB (current use 527 MB)
+******** <class 'pyscf.fci.direct_spin1_symm.FCISolver'> ********
+max. cycles = 100
+conv_tol = 1e-10
+davidson only = False
+linear dependence = 1e-14
+level shift = 0.001
+max iter space = 12
+max_memory 8000 MB
+nroots = 10
+pspace_size = 400
+spin = None
+Input CI wfn symmetry = A1
+
+WARN: Mulitple states found in CASCI solver. First state is used to compute the Fock matrix and natural orbitals in active space.
+
+Density matrix diagonal elements [9.47621703e-01 3.57257189e-01 6.95121109e-01 7.45467771e-33
+ 1.22092608e-31]
+CASCI converged
+CASCI state   0  E = -7.92551419960753  E(CI) = -0.778072352891442  S^2 = 2.0000000
+CASCI state   1  E = -7.92528505260057  E(CI) = -0.777843205884483  S^2 = 0.0000000
+CASCI state   2  E = -7.87524736967259  E(CI) = -0.727805522956499  S^2 = 2.0000000
+CASCI state   3  E = -7.87522980400147  E(CI) = -0.727787957285381  S^2 = 0.0000000
+CASCI state   4  E = -7.67913864581238  E(CI) = -0.531696799096293  S^2 = 0.0000000
+CASCI state   5  E = -7.67652819783436  E(CI) = -0.529086351118272  S^2 = 0.0000000
+CASCI state   6  E = -7.67531157262972  E(CI) = -0.527869725913624  S^2 = 2.0000000
+CASCI state   7  E = -7.60083445367188  E(CI) = -0.453392606955787  S^2 = 0.0000000
+CASCI state   8  E = -7.58077990807761  E(CI) = -0.433338061361522  S^2 = 0.0000000
+CASCI state   9  E = -6.55730725390792  E(CI) = 0.590134592808174  S^2 = 0.0000000

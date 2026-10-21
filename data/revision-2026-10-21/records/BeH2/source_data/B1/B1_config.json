@@ -1,0 +1,77 @@
+{
+  "gate": "BeH2 B1 A1 stationary-branch support map",
+  "parent_b0_workdir": "/mnt/BeH2/BeH2_B0/BeH2_B0_work",
+  "coordinate": {
+    "unit": "Bohr",
+    "Be": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "H1": [
+      "lambda",
+      "+(2.540-0.46*lambda)",
+      0.0
+    ],
+    "H2": [
+      "lambda",
+      "-(2.540-0.46*lambda)",
+      0.0
+    ]
+  },
+  "basis": "cc-pVTZ",
+  "active_space": {
+    "electrons": 6,
+    "orbitals": 6
+  },
+  "freeze_core": true,
+  "irrep": "A1",
+  "protocols": [
+    "SA3",
+    "SA4"
+  ],
+  "branches": {
+    "upper": "B0 common_sa2 stationary solution",
+    "lower": "B0 right-continuation stationary solution"
+  },
+  "center_bohr": 2.62425,
+  "lambda_min_bohr": 2.4,
+  "lambda_max_bohr": 2.7,
+  "step_bohr": 0.01,
+  "grid_bohr": [
+    2.4,
+    2.41,
+    2.42,
+    2.43,
+    2.44,
+    2.45,
+    2.46,
+    2.47,
+    2.48,
+    2.49,
+    2.5,
+    2.51,
+    2.52,
+    2.53,
+    2.54,
+    2.55,
+    2.56,
+    2.57,
+    2.58,
+    2.59,
+    2.6,
+    2.61,
+    2.62,
+    2.62425,
+    2.63,
+    2.64,
+    2.65,
+    2.66,
+    2.67,
+    2.68,
+    2.69,
+    2.7
+  ],
+  "threads": 64,
+  "memory_mb": 100000
+}

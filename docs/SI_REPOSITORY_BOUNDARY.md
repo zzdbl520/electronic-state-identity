@@ -1,28 +1,11 @@
-# Boundary between the Supporting Information and this repository
+# Supporting Information and repository roles
 
-The Supporting Information should remain readable without functioning as a code
-archive. A practical division is:
+The SI contains derivations, electronic-structure settings, interpretation
+criteria and compact figures/tables. It points here for data and executable code.
 
-## Supporting Information
-
-- derivation of the discrete transport and gauge transformations;
-- smooth-limit/area-law statement and assumptions;
-- electronic-structure model, basis, active space, state averaging, and
-  convergence settings for each molecule;
-- the preregistered gates needed to interpret a result;
-- compact figures and tables containing the essential evidence;
-- a short data/code-availability statement pointing here.
-
-## Repository
-
-- executable calculation and analysis code;
-- complete protocol declarations and stopping rules;
-- machine-readable decisions and full diagnostics;
-- basis, mesh, gauge, opposed-history, and integrity checks;
-- provenance-only antecedent workflows, clearly marked when superseded;
-- continuous integration for algebraic and record-level verification.
-
-The SI may quote a small number of final metrics, but should link to
-`CLAIM_EVIDENCE_MATRIX.md` instead of reproducing long JSON tables or execution
-logs. Large restart wave functions belong in a DOI-bearing data archive or Git
-LFS, not in the SI PDF.
+The repository contains plans, available raw wave functions, logs, full numerical
+diagnostics, source tables, figure scripts, validators, failed intermediates and
+historical provenance. Use the [evidence map](CLAIM_EVIDENCE_MATRIX.md) for exact
+locations and cite the Git commit used for the revision. All deposited LiH
+restarts are in archive parts committed to Git. Other raw-data limits are listed in
+[Data availability](DATA_AVAILABILITY.md).
